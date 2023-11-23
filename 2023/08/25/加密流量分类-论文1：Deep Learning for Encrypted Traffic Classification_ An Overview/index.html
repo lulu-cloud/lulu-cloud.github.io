@@ -6,16 +6,17 @@
   <meta name="keywords" content=" 论文 ">
   <meta name="description" content="加密流量分类-论文1：Deep Learning for Encrypted Traffic Classification:An Overview | Hexo">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-<meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta name="description" content="狠狠滴看各自论文，编开题报告！！ 横向横向横向，每次会议的主题。无语辣。 听首歌，只想那种积极的，听得我爽就好，邓紫棋的《再见》">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
-<meta property="og:url" content="https://lulu-cloud.github.io/2023/08/26/hello-world/index.html">
+<meta property="og:title" content="疯狂的横向-开题期间">
+<meta property="og:url" content="https://lulu-cloud.github.io/2023/11/23/%E5%BC%80%E9%A2%98%E3%80%81%E7%A7%91%E7%A0%94%E4%B8%8E%E6%A8%AA%E5%90%91/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta property="og:description" content="狠狠滴看各自论文，编开题报告！！ 横向横向横向，每次会议的主题。无语辣。 听首歌，只想那种积极的，听得我爽就好，邓紫棋的《再见》">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2023-08-26T08:31:51.952Z">
-<meta property="article:modified_time" content="2023-08-25T13:14:25.530Z">
+<meta property="article:published_time" content="2023-11-23T13:42:14.000Z">
+<meta property="article:modified_time" content="2023-11-23T13:44:51.182Z">
 <meta property="article:author" content="lulu-cloud">
+<meta property="article:tag" content="吐槽">
 <meta name="twitter:card" content="summary">
 
 
@@ -153,7 +154,7 @@
     <li>
         <div class="all active" data-rel="全部文章">全部文章
             
-                <small>(3)</small>
+                <small>(5)</small>
             
         </div>
     </li>
@@ -165,7 +166,22 @@
         <div data-rel="加密流量分类">
             
             加密流量分类
-            <small>(2)</small>
+            <small>(3)</small>
+        </div>
+        
+    </li>
+
+            
+        
+    
+        
+            
+                
+    <li>
+        <div data-rel="硕士生活">
+            
+            硕士生活
+            <small>(1)</small>
         </div>
         
     </li>
@@ -186,8 +202,8 @@
         
     </div>
 </div>
-<input type="hidden" id="yelog_site_posts_number" value="3">
-<input type="hidden" id="yelog_site_word_count" value="5.5k">
+<input type="hidden" id="yelog_site_posts_number" value="5">
+<input type="hidden" id="yelog_site_word_count" value="7.6k">
 <div style="display: none">
     <span id="busuanzi_value_site_uv"></span>
     <span id="busuanzi_value_site_pv"></span>
@@ -234,12 +250,34 @@
                 <i class="iconfont icon-tag"></i><a>论文</a>
             </li>
         
+            <li class="article-tag-list-item">
+                <i class="iconfont icon-tag"></i><a>吐槽</a>
+            </li>
+        
     </div>
 
 </div>
 
     
     <nav id="title-list-nav">
+        
+        
+        <a  class="全部文章 硕士生活 "
+           href="/2023/11/23/%E5%BC%80%E9%A2%98%E3%80%81%E7%A7%91%E7%A0%94%E4%B8%8E%E6%A8%AA%E5%90%91/"
+           data-tag="吐槽"
+           data-author="" >
+            <span class="post-title" title="疯狂的横向-开题期间">疯狂的横向-开题期间</span>
+            <span class="post-date" title="2023-11-23 21:42:14">2023/11/23</span>
+        </a>
+        
+        
+        <a  class="全部文章 加密流量分类 "
+           href="/2023/08/26/%E5%8A%A0%E5%AF%86%E6%B5%81%E9%87%8F%E5%88%86%E7%B1%BB-%E8%AE%BA%E6%96%873%EF%BC%9AFS-Net_%20A%20Flow%20Sequence%20Network%20For%20Encrypted%20Traffic%20Classification/"
+           data-tag="论文"
+           data-author="" >
+            <span class="post-title" title="加密流量分类-论文3:FS-Net_ A Flow Sequence Network For Encrypted Traffic Classification">加密流量分类-论文3:FS-Net_ A Flow Sequence Network For Encrypted Traffic Classification</span>
+            <span class="post-date" title="2023-08-26 21:27:14">2023/08/26</span>
+        </a>
         
         
         <a  class="全部文章 "
@@ -372,12 +410,8 @@
 </ul>
 <p><strong>1.2 基于有效载荷或数据包检验（data packet inspection：DPI）</strong><br>$\qquad$原理是不同类型的网络流量之中有特定的字符流（也称之为指纹），只需要在数据包的任意位置匹配这些字符流，从而进行分类。</p>
 <ul>
-<li><pre><code>优点：简单快速，只需要检测网络流的前几个数据包。
-</code></pre>
-</li>
-<li><pre><code>缺点：方法仅适用于未加密的流量，且计算开销较大。
-</code></pre>
-</li>
+<li>优点：简单快速，只需要检测网络流的前几个数据包。</li>
+<li>缺点：方法仅适用于未加密的流量，且计算开销较大。</li>
 </ul>
 <p><strong>1.3 基于流量统计特征</strong><br>$\qquad$这些方法依赖于流量的统计或时间序列特性，能够处理加密和未加密的流量。通常采用经典的机器学习(ML)算法，如随机森林(RF)和k-最近邻(KNN)。</p>
 <ul>
@@ -456,7 +490,7 @@
 <h3 id="3-6-2-负载（playload）-报头（Header）"><a href="#3-6-2-负载（playload）-报头（Header）" class="headerlink" title="3.6.2 负载（playload）+报头（Header）"></a>3.6.2 负载（playload）+报头（Header）</h3><p>&emsp;在当前加密的通信中，前几个包含握手信息的包通常是未加密的，它们已经成功地用于分类。但是负载中包含大量字节，导致数据维度较高，传统的ML与MLP不能很好适用，一般使用<strong>CNN或者CNN与LSTM</strong>结合的模型进行流量分类。</p>
 <h3 id="3-6-3-统计特征（Statistical-Features）"><a href="#3-6-3-统计特征（Statistical-Features）" class="headerlink" title="3.6.3 统计特征（Statistical Features）"></a>3.6.3 统计特征（Statistical Features）</h3><p>&emsp;<strong>统计特征的数量是有限的，因此输入维度也是有限的</strong>。因此，大多数论文对这些特征使用了经典的ML方法，或在少数情况下使用MLP方法。<br>&emsp;虽然大多数研究通过观察整个流程来获得统计特征，但研究表明，根据数据集和统计特征的选择，<strong>从前10到180个数据包中获得统计特征可能足以进行分类</strong>。<br><strong>不适合在线快速分类</strong>，因为它需要捕获足够多的数据包来从一个流中获得可靠的统计特征。</p>
 <h2 id="3-7-训练与验证"><a href="#3-7-训练与验证" class="headerlink" title="3.7 训练与验证"></a>3.7 训练与验证</h2><p>&emsp;&emsp;通常，数据集被分为三个独立的集:训练集、验证集和测试集。该模型在训练集上进行训练，通过观察验证集的准确性来调整模型的超参数。最后利用测试集得到了无偏精度。<br>&emsp;&emsp;简言之，<strong>训练集上进行梯度下降更新模型参数，验证集上选择最优超参数组合，测试集上进心模型评估。</strong></p>
-<h2 id="3-8-定期评估-更新"><a href="#3-8-定期评估-更新" class="headerlink" title="3.8 定期评估&#x2F;更新"></a>3.8 定期评估&#x2F;更新</h2><p>&emsp;&emsp;在大多数与网络相关的应用程序中，流量在变化，依此<strong>流量特性总是在变化的</strong>。因此需要更新模型，增加模型分类普适性、健壮性。</p>
+<h2 id="3-8-定期评估-更新"><a href="#3-8-定期评估-更新" class="headerlink" title="3.8 定期评估/更新"></a>3.8 定期评估/更新</h2><p>&emsp;&emsp;在大多数与网络相关的应用程序中，流量在变化，依此<strong>流量特性总是在变化的</strong>。因此需要更新模型，增加模型分类普适性、健壮性。</p>
 <h1 id="4-开放机遇与挑战"><a href="#4-开放机遇与挑战" class="headerlink" title="4 开放机遇与挑战"></a>4 开放机遇与挑战</h1><h2 id="4-1-更强大的加密协议"><a href="#4-1-更强大的加密协议" class="headerlink" title="4.1 更强大的加密协议"></a>4.1 更强大的加密协议</h2><p>&emsp;&emsp;例如关于QUIC和TLS 1.3协议的流量分类，还没有得到很好的研究。以往对TLS 1.2的研究主要使用握手时的纯文本字段。但是，通过在TLS 1.3和QUIC中引入0-RTT连接，第一个包中只有少数字段保持未加密，不清楚它们是否足以用于分类。</p>
 <h2 id="4-2-多标签分类"><a href="#4-2-多标签分类" class="headerlink" title="4.2 多标签分类"></a>4.2 多标签分类</h2><p>&emsp;&emsp;单个流可以包含多个类标签，称为多路复用流。最困难的挑战是<strong>如何适当地收集和标记这些多标签流量</strong>。</p>
 <h2 id="4-3-中间流分类？（Middle-Flow-Classification）"><a href="#4-3-中间流分类？（Middle-Flow-Classification）" class="headerlink" title="4.3 中间流分类？（Middle Flow Classification）"></a>4.3 中间流分类？（Middle Flow Classification）</h2><p>&emsp;&emsp;目前大部分的流量分类就是基于流的前几个数据包，因此，ISP需要存储所有流的前几个数据包，空间负担重。如果可以基于流中间的几个数据包，那么ISP就可以等待并且检测<strong>大象流（elephant flow）</strong>，然后捕获流中间的几个数据包进行分类，<strong>能减少内存和计算开销</strong>。</p>
@@ -476,7 +510,7 @@
 <h2 id="4-6-多任务学习"><a href="#4-6-多任务学习" class="headerlink" title="4.6 多任务学习"></a>4.6 多任务学习</h2><p>&emsp;&emsp;一个模型中<strong>有一个以上的损失函数被优化</strong>。研究表明，即使对于单任务问题，增加一些辅助任务也可以提高泛化能力和性能。然而，对于网络流量分类任务还没有进行过研究。可能有很多方法可以定义辅助任务，而不需要额外的标记。多任务学习在网络流量分类中的有效性还没有得到研究。</p>
 <p>第一次写论文博客，很水，写给自己看顺便总结一下，如有理解错误的地方，谢谢指正。</p>
 <ul>
-<li>参考：<br>[1].S. Rezaei and X. Liu, “Deep Learning for Encrypted Traffic Classification: An Overview,” in IEEE Communications Magazine, vol. 57, no. 5, pp. 76-81, May 2019, doi: 10.1109&#x2F;MCOM.2019.1800819.<br>[2].大象流老鼠流的解释：<a target="_blank" rel="noopener" href="https://www.zhihu.com/question/50171430">https://www.zhihu.com/question/50171430</a><br>[3].王茂南. 基于深度学习的加密流量识别技术研究[D].北京邮电大学,2021.DOI:10.26969&#x2F;d.cnki.gbydu.2021.000480.</li>
+<li>参考：<br>[1].S. Rezaei and X. Liu, “Deep Learning for Encrypted Traffic Classification: An Overview,” in IEEE Communications Magazine, vol. 57, no. 5, pp. 76-81, May 2019, doi: 10.1109/MCOM.2019.1800819.<br>[2].大象流老鼠流的解释：<a target="_blank" rel="noopener" href="https://www.zhihu.com/question/50171430">https://www.zhihu.com/question/50171430</a><br>[3].王茂南. 基于深度学习的加密流量识别技术研究[D].北京邮电大学,2021.DOI:10.26969/d.cnki.gbydu.2021.000480.</li>
 </ul>
 
       
