@@ -211,15 +211,19 @@
 </ul>
 <h2 id="1-4-网络流量划分粒度"><a href="#1-4-网络流量划分粒度" class="headerlink" title="1.4 网络流量划分粒度"></a>1.4 网络流量划分粒度</h2><p>&emsp;&emsp;不同的拆分粒度会导致不同的流量单位。主流的研究分为包级（packet）、流级（flow）、会话级（session）</p>
 <ul>
-<li><p>原始流量（raw traffic）可以定义为|P|个包的集合<br>$$<br>P={p^1,…p^{|P|}}<br>$$<br>其中，<br>$$<br>p^i=(x^i,b^i,t^i),i=1,2,…,|P|<br>$$</p>
-<ul>
+<li><p>原始流量（raw traffic）可以定义为|P|个包的集合</p>
+<script type="math/tex; mode=display">
+P=\{p^1,...p^{|P|}\}</script><p>其中，</p>
+<script type="math/tex; mode=display">
+p^i=(x^i,b^i,t^i),i=1,2,...,|P|</script><ul>
 <li>第一个分量xi 表示五元组(源IP、源端口、目的IP、目的端口和传输级协议)</li>
 <li>第二个分量bi表示包的长度，单位是字节（byte）</li>
 <li>第三个分量ti表示当前包开始传输的时间</li>
 </ul>
 </li>
-<li><p>流级：一组原始流量P可以划分为多个子集，子集中的所有数据包按照时间排列，每一个子集就称为一个流（flow）<br>$$<br>f=(x,b,d,t)={p^1=(x^1,b^1,t^1),p^2=(x^2,b^2,t^2),…,p^n=(x^n,b^n,t^n)},  t^1&lt;…&lt;t^n<br>$$</p>
-<ul>
+<li><p>流级：一组原始流量P可以划分为多个子集，子集中的所有数据包按照时间排列，每一个子集就称为一个流（flow）</p>
+<script type="math/tex; mode=display">
+f=(x,b,d,t)=\{p^1=(x^1,b^1,t^1),p^2=(x^2,b^2,t^2),...,p^n=(x^n,b^n,t^n)\},  t^1<...<t^n</script><ul>
 <li>x表示流中所有包的五元组（都是相同的）</li>
 <li>b表示流中所有包的字节总和</li>
 <li>d表示流持续时间，可以表示为d=tn-t1</li>
@@ -324,7 +328,6 @@
         x=self.fc1(x)
         # print(&quot;x.shape:&quot;,x.shape)
         return x
-
 </code></pre><ul>
 <li><strong>对比分析</strong>：<ol>
 <li><strong>与2D-CNN的对比</strong></li>

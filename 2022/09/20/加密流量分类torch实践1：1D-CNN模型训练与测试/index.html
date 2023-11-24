@@ -189,7 +189,7 @@ class OneCNN..." />
     
     <div class="post-body post-content">
         <p>模型：model.py<br>论文参数：<br><img src="https://raw.githubusercontent.com/lulu-cloud/lili_images/main/image/202311242110890.png" alt="论文参数"></p>
-<pre><code class="python">import torch.nn as nn
+<pre><code class="lang-python">import torch.nn as nn
 import torch
 import torch.nn.functional as F
 
@@ -280,7 +280,6 @@ def load_data(data_folder, data_name, label_name):
         x_train = np.frombuffer(
             imgpath.read(), np.uint8, offset=16).reshape(len(y_train), 28, 28)
     return (x_train, y_train)
-
 </code></pre><p>模型训练主模块：</p>
 <pre><code>from random import shuffle
 import time
@@ -392,8 +391,6 @@ def main():
 
 if __name__ == &#39;__main__&#39;:
     main()
-
-
 </code></pre><p>运行结果：<br><img src="https://raw.githubusercontent.com/lulu-cloud/lili_images/main/image/202311242109685.jpeg" alt="实验结果"></p>
 <p>项目地址：<a target="_blank" rel="noopener" href="https://github.com/lulu-cloud/Pytorch-Encrypted-Traffic-Classification-with-1D_CNN">https://github.com/lulu-cloud/Pytorch-Encrypted-Traffic-Classification-with-1D_CNN</a></p>
 

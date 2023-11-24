@@ -223,7 +223,9 @@
 </ul>
 </li>
 </ul>
-<h1 id="2、图构造"><a href="#2、图构造" class="headerlink" title="2、图构造"></a>2、图构造</h1><h2 id="2-1-问题定义"><a href="#2-1-问题定义" class="headerlink" title="2.1 问题定义"></a>2.1 问题定义</h2><p>&emsp;&emsp;对于流序列的表示，有许多中序列表示方法表示一个流，如包长序列、消息类型序列等。这里取其中一个，假定N个样本，M个应用，对于数据集中的第i个样本x<sub>i</sub><br>$$<br>x_i=[p_1^i,p_2^i,…,p_{li}^i]<br>$$<br>li代表样本x<sub>i</sub>的长度，x<sub>i</sub>的每一个分值x<sub>i</sub><sup>j</sup>代表时间序列为j的值</p>
+<h1 id="2、图构造"><a href="#2、图构造" class="headerlink" title="2、图构造"></a>2、图构造</h1><h2 id="2-1-问题定义"><a href="#2-1-问题定义" class="headerlink" title="2.1 问题定义"></a>2.1 问题定义</h2><p>&emsp;&emsp;对于流序列的表示，有许多中序列表示方法表示一个流，如包长序列、消息类型序列等。这里取其中一个，假定N个样本，M个应用，对于数据集中的第i个样本x<sub>i</sub></p>
+<script type="math/tex; mode=display">
+x_i=[p_1^i,p_2^i,...,p_{li}^i]</script><p>li代表样本x<sub>i</sub>的长度，x<sub>i</sub>的每一个分值x<sub>i</sub><sup>j</sup>代表时间序列为j的值</p>
 <blockquote>
 <p>这里并没有明说这个值到底是啥，是包长？负载？</p>
 </blockquote>
@@ -276,7 +278,9 @@
 <li>提取每一个节点状态的顺序信息：使用MLP，得到F<sub>2</sub></li>
 </ul>
 </li>
-<li><p>特征池化：减少参数，获得更鲁棒的泛化，缓解过拟合<br>$$<br>F_{fusion}=Activate(MLP([F_1;F_2]))<br>$$<br>[;]表示拼接，根据对应的分数对节点进行排序，取前k个节点的特征，论文中k取5</p>
+<li><p>特征池化：减少参数，获得更鲁棒的泛化，缓解过拟合</p>
+<script type="math/tex; mode=display">
+F_{fusion}=Activate(MLP([F_1;F_2]))</script><p>[;]表示拼接，根据对应的分数对节点进行排序，取前k个节点的特征，论文中k取5</p>
 </li>
 </ul>
 <blockquote>

@@ -186,7 +186,7 @@
 </ol>
 <h2 id="1-1-路径签名定义与科普"><a href="#1-1-路径签名定义与科普" class="headerlink" title="1.1 路径签名定义与科普"></a>1.1 路径签名定义与科普</h2></li>
 </ul>
-<h3 id="1-1-1科普"><a href="#1-1-1科普" class="headerlink" title="1.1.1科普"></a>1.1.1科普</h3><p>参考<a href="[Path Signature笔记 - 知乎 (zhihu.com"><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/335494125">Path Signature笔记 - 知乎 (zhihu.com)</a></a>](<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/335494125)">https://zhuanlan.zhihu.com/p/335494125)</a>)</p>
+<h3 id="1-1-1科普"><a href="#1-1-1科普" class="headerlink" title="1.1.1科普"></a>1.1.1科普</h3><p>参考<a href="[Path Signature笔记 - 知乎 (zhihu.com"><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/335494125">Path Signature笔记 - 知乎 (zhihu.com)</a></a>](<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/335494125">https://zhuanlan.zhihu.com/p/335494125</a>))</p>
 <h3 id="1-1-2-路径签名的一些性质"><a href="#1-1-2-路径签名的一些性质" class="headerlink" title="1.1.2 路径签名的一些性质"></a>1.1.2 路径签名的一些性质</h3><ul>
 <li><strong>唯一性</strong>：<strong>由路径签名可以完全确定一个路径，</strong>具有单调维度的路径(如时间)没有支路部分。因此，对于一个加密的流量报文长度序列(一维路径)，通常需要添加一个单调递增的维度(例如时间)，以保证路径签名可以等价地确定它</li>
 <li><strong>重新参数化不变性：</strong> <strong>对于一个路径，采用不同的采样频率得到的路径表示会不同，但是路径签名不会变。</strong>对于特定类型应用程序生成的流量，分类结果应该不受不同重参数化的影响。有了这个特性，签名可以过滤掉同种流量的不同重参数化引起的变化，不会分为不同应用。</li>
@@ -222,7 +222,6 @@ for i , key in enumerate(result):
     value = result[key]
     print(&#39;ip lengths :&#39;,value.ip_lengths)
     print(&#39;\n&#39;)
-
 </code></pre><h2 id="1-4-路径转换"><a href="#1-4-路径转换" class="headerlink" title="1.4 路径转换"></a>1.4 路径转换</h2><p>&emsp;&emsp;在大多数情况下，一维流量路径的路径特征往往不够有效，无法达到较高的分类精度。</p>
 <h3 id="1-4-1-路径分解变换"><a href="#1-4-1-路径分解变换" class="headerlink" title="1.4.1 路径分解变换"></a>1.4.1 路径分解变换</h3><ul>
 <li><p>路径分解变换将一条路径转化为相同维数的子路径集合</p>
@@ -238,15 +237,18 @@ for i , key in enumerate(result):
 <p>变换理由：为了提高路径签名特征的效率，将流量路径转换为两条一维流量路径，这也符合客户端-服务器交互的特点。</p>
 </blockquote>
 <h3 id="1-4-2-累积和变换"><a href="#1-4-2-累积和变换" class="headerlink" title="1.4.2 累积和变换"></a>1.4.2 累积和变换</h3><p>&emsp;&emsp;一般来讲，报文要传输的有效载荷通常是固定的，用于相同的网站或服务，这导致非常相似的累积和特征。</p>
-<p>对于U0序列，累积和可如下表示：<br>$$<br>U’=(u_1’,u_2’,…,u_n’),u_n’=\sum_{i=1}^ku_i<br>$$<br>D0序列类似</p>
+<p>对于U0序列，累积和可如下表示：</p>
+<script type="math/tex; mode=display">
+U'=(u_1',u_2',...,u_n'),u_n'=\sum_{i=1}^ku_i</script><p>D0序列类似</p>
 <ul>
 <li>于是变换为<strong>四维</strong>，X<sub>t</sub><sup>0,d,c</sup>={U,D,U’,D’}</li>
 </ul>
 <blockquote>
 <p>变换理由：要传输的有效载荷对于同一网站或服务往往是固定的,使用累积和变换来暴露流量路径的一些内部特征。</p>
 </blockquote>
-<h3 id="1-4-3-基准点变换"><a href="#1-4-3-基准点变换" class="headerlink" title="1.4.3 基准点变换"></a>1.4.3 基准点变换</h3><p>使用函数f<br>$$<br>f(X_t)=(0,x_1,…,x_n)<br>$$</p>
-<p>只是在路径的开头添加了一个0,这种转换使签名对路径的转换敏感，即消除了转换不变性，这对加密流量分类有利，因为不同的数据包大小代表不同的网站布局或服务内容</p>
+<h3 id="1-4-3-基准点变换"><a href="#1-4-3-基准点变换" class="headerlink" title="1.4.3 基准点变换"></a>1.4.3 基准点变换</h3><p>使用函数f</p>
+<script type="math/tex; mode=display">
+f(X_t)=(0,x_1,...,x_n)</script><p>只是在路径的开头添加了一个0,这种转换使签名对路径的转换敏感，即消除了转换不变性，这对加密流量分类有利，因为不同的数据包大小代表不同的网站布局或服务内容</p>
 <p>得到X<sub>t</sub><sup>0,d,c,b</sup>={f(U),f(D),f(U’),f(D’)}</p>
 <blockquote>
 <p>变换理由：原路径签名特征具有平移不变性，但加密流分类问题不需要这一属性，因此使用基点变换对流量路径进行变换。</p>
@@ -266,7 +268,8 @@ for i , key in enumerate(result):
 <li>对于第二层，窗口与步长都是n/2, 产生2^1=1个子路径</li>
 <li>对于第三层，窗口与步长都是n/4，产生2^2=4个子路径</li>
 <li>……</li>
-<li>对于第q层，产生2^q-1个子路径<br>故总的路径数目为<br>$$<br>2^0 +2^1 + ···+2^{q-1}=2^q-1<br>$$<br>&emsp;&emsp;然后对于这2^q-1个子路径进行计算路径签名，作为分类器输入特征</li>
+<li>对于第q层，产生2^q-1个子路径<br>故总的路径数目为<script type="math/tex; mode=display">
+2^0 +2^1 + ···+2^{q-1}=2^q-1</script>&emsp;&emsp;然后对于这2^q-1个子路径进行计算路径签名，作为分类器输入特征</li>
 </ul>
 </li>
 <li><p>整体流程如下所示：</p>
@@ -300,10 +303,9 @@ for i , key in enumerate(result):
 <ul>
 <li>关于序列长度增长，acc降低的分析：序列长度越长，路径包含的信息就越丰富，这就对模型提取特征的能力提出了更高的要求，而固定深度的路径签名和窗口窗口深度代表了固定的模型能力，随着序列长度增加，acc降低正常</li>
 <li>路径签名的深度：在窗口深度为2的情况下，随着序列长度从40增加到200，精度之间的差距将逐渐明显，其中深度大的情况总是优于深度小的情况。因为路径签名深度大代表高阶psf，其中包含更多的路径细节。</li>
-<li>窗口深度：当分层窗口深度从2增加到4时，准确率会逐渐提高。然而，大深度的分层窗口会导致PSF维度爆炸，并导致较高的计算成本。<br>……</li>
+<li>窗口深度：当分层窗口深度从2增加到4时，准确率会逐渐提高。然而，大深度的分层窗口会导致PSF维度爆炸，并导致较高的计算成本。<br>……<h2 id="2-4-在开放世界数据的效果"><a href="#2-4-在开放世界数据的效果" class="headerlink" title="2.4 在开放世界数据的效果"></a>2.4 在开放世界数据的效果</h2><img src="https://raw.githubusercontent.com/lulu-cloud/lili_images/main/image/202311242129899.png" alt="在这里插入图片描述"></li>
 </ul>
 </blockquote>
-<h2 id="2-4-在开放世界数据的效果"><a href="#2-4-在开放世界数据的效果" class="headerlink" title="2.4 在开放世界数据的效果"></a>2.4 在开放世界数据的效果</h2><p><img src="https://raw.githubusercontent.com/lulu-cloud/lili_images/main/image/202311242129899.png" alt="在这里插入图片描述"></p>
 <h1 id="3、总结与思考"><a href="#3、总结与思考" class="headerlink" title="3、总结与思考"></a>3、总结与思考</h1><p>缺陷：数据包填充技术会使得基于序列特征的方法失效。</p>
 <p>&emsp;将深度学习应用于带路径签名的加密流分类是一个很有前景的研究方向，尤其是RNN。路径签名特征在移动加密流分类问题中的应用也很值得探索。</p>
 
@@ -324,10 +326,10 @@ for i , key in enumerate(result):
 </article>
 <div class="article-nav prev-next-wrap clearfix">
     
-    <a href="/2023/11/23/%E5%BC%80%E9%A2%98%E3%80%81%E7%A7%91%E7%A0%94%E4%B8%8E%E6%A8%AA%E5%90%91/" class="pre-post btn btn-default" title='疯狂的横向：开题期间'>
+    <a href="/2023/03/09/%E5%8A%A0%E5%AF%86%E6%B5%81%E9%87%8F%E5%88%86%E7%B1%BBtorch%E5%AE%9E%E8%B7%B52%EF%BC%9ACNN+LSTM%E6%A8%A1%E5%9E%8B%E8%AE%AD%E7%BB%83%E4%B8%8E%E6%B5%8B%E8%AF%95/" class="pre-post btn btn-default" title='加密流量分类-实践2: CNN+LSTM模型训练与测试'>
         <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
         <span class="hidden-xs">
-            疯狂的横向：开题期间</span>
+            加密流量分类-实践2: CNN+LSTM模型训练与测试</span>
     </a>
     
     
@@ -368,7 +370,7 @@ for i , key in enumerate(result):
             文章目录
         </h3>
         
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#0%E3%80%81%E6%91%98%E8%A6%81"><span class="toc-text">0、摘要</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#1%E3%80%81%E6%A8%A1%E5%9E%8B%E6%96%B9%E6%B3%95"><span class="toc-text">1、模型方法</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-1-%E8%B7%AF%E5%BE%84%E7%AD%BE%E5%90%8D%E5%AE%9A%E4%B9%89%E4%B8%8E%E7%A7%91%E6%99%AE"><span class="toc-text">1.1 路径签名定义与科普</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-1%E7%A7%91%E6%99%AE"><span class="toc-text">1.1.1科普</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-2-%E8%B7%AF%E5%BE%84%E7%AD%BE%E5%90%8D%E7%9A%84%E4%B8%80%E4%BA%9B%E6%80%A7%E8%B4%A8"><span class="toc-text">1.1.2 路径签名的一些性质</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-2-ETC-PS%E6%95%B4%E4%BD%93%E9%A2%84%E8%A7%88"><span class="toc-text">1.2 ETC-PS整体预览</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-3-%E6%B5%81%E9%87%8F%E8%B7%AF%E5%BE%84%E6%9E%84%E9%80%A0"><span class="toc-text">1.3 流量路径构造</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-1-%E5%AE%A2%E6%88%B7%E7%AB%AF%E4%B8%8E%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E5%8F%8C%E5%90%91%E4%BA%A4%E4%BA%92"><span class="toc-text">1.3.1 客户端与服务器的双向交互</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-2-%E7%BD%91%E7%BB%9C%E6%B5%81%E9%87%8F%E8%B7%AF%E5%BE%84%E6%9E%84%E5%BB%BA"><span class="toc-text">1.3.2 网络流量路径构建</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-4-%E8%B7%AF%E5%BE%84%E8%BD%AC%E6%8D%A2"><span class="toc-text">1.4 路径转换</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-4-1-%E8%B7%AF%E5%BE%84%E5%88%86%E8%A7%A3%E5%8F%98%E6%8D%A2"><span class="toc-text">1.4.1 路径分解变换</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-4-2-%E7%B4%AF%E7%A7%AF%E5%92%8C%E5%8F%98%E6%8D%A2"><span class="toc-text">1.4.2 累积和变换</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-4-3-%E5%9F%BA%E5%87%86%E7%82%B9%E5%8F%98%E6%8D%A2"><span class="toc-text">1.4.3 基准点变换</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-4-4-%E7%BB%93%E5%90%88%E6%97%B6%E9%97%B4%E5%8F%98%E6%8D%A2"><span class="toc-text">1.4.4 结合时间变换</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-5-%E8%B7%AF%E5%BE%84%E7%89%B9%E5%BE%81%E6%8A%BD%E5%8F%96"><span class="toc-text">1.5 路径特征抽取</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2%E3%80%81%E5%AE%9E%E9%AA%8C"><span class="toc-text">2、实验</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2-1-%E6%95%B0%E6%8D%AE%E9%9B%86"><span class="toc-text">2.1 数据集</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2-%E9%A2%84%E5%A4%84%E7%90%86"><span class="toc-text">2.2 预处理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-3-%E8%B0%83%E5%8F%82"><span class="toc-text">2.3 调参</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-1-%E5%BA%8F%E5%88%97%E9%80%89%E6%8B%A9%E7%9A%84%E8%B0%83%E6%95%B4"><span class="toc-text">2.3.1 序列选择的调整</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-2-%E5%88%86%E7%B1%BB%E5%99%A8%E9%80%89%E6%8B%A9"><span class="toc-text">2.3.2 分类器选择</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-3-%E5%8F%82%E6%95%B0%E9%80%89%E6%8B%A9"><span class="toc-text">2.3.3 参数选择</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-4-%E5%9C%A8%E5%BC%80%E6%94%BE%E4%B8%96%E7%95%8C%E6%95%B0%E6%8D%AE%E7%9A%84%E6%95%88%E6%9E%9C"><span class="toc-text">2.4 在开放世界数据的效果</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3%E3%80%81%E6%80%BB%E7%BB%93%E4%B8%8E%E6%80%9D%E8%80%83"><span class="toc-text">3、总结与思考</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#0%E3%80%81%E6%91%98%E8%A6%81"><span class="toc-text">0、摘要</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#1%E3%80%81%E6%A8%A1%E5%9E%8B%E6%96%B9%E6%B3%95"><span class="toc-text">1、模型方法</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-1-%E8%B7%AF%E5%BE%84%E7%AD%BE%E5%90%8D%E5%AE%9A%E4%B9%89%E4%B8%8E%E7%A7%91%E6%99%AE"><span class="toc-text">1.1 路径签名定义与科普</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-1%E7%A7%91%E6%99%AE"><span class="toc-text">1.1.1科普</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1-2-%E8%B7%AF%E5%BE%84%E7%AD%BE%E5%90%8D%E7%9A%84%E4%B8%80%E4%BA%9B%E6%80%A7%E8%B4%A8"><span class="toc-text">1.1.2 路径签名的一些性质</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-2-ETC-PS%E6%95%B4%E4%BD%93%E9%A2%84%E8%A7%88"><span class="toc-text">1.2 ETC-PS整体预览</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-3-%E6%B5%81%E9%87%8F%E8%B7%AF%E5%BE%84%E6%9E%84%E9%80%A0"><span class="toc-text">1.3 流量路径构造</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-1-%E5%AE%A2%E6%88%B7%E7%AB%AF%E4%B8%8E%E6%9C%8D%E5%8A%A1%E5%99%A8%E7%9A%84%E5%8F%8C%E5%90%91%E4%BA%A4%E4%BA%92"><span class="toc-text">1.3.1 客户端与服务器的双向交互</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3-2-%E7%BD%91%E7%BB%9C%E6%B5%81%E9%87%8F%E8%B7%AF%E5%BE%84%E6%9E%84%E5%BB%BA"><span class="toc-text">1.3.2 网络流量路径构建</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-4-%E8%B7%AF%E5%BE%84%E8%BD%AC%E6%8D%A2"><span class="toc-text">1.4 路径转换</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-4-1-%E8%B7%AF%E5%BE%84%E5%88%86%E8%A7%A3%E5%8F%98%E6%8D%A2"><span class="toc-text">1.4.1 路径分解变换</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-4-2-%E7%B4%AF%E7%A7%AF%E5%92%8C%E5%8F%98%E6%8D%A2"><span class="toc-text">1.4.2 累积和变换</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-4-3-%E5%9F%BA%E5%87%86%E7%82%B9%E5%8F%98%E6%8D%A2"><span class="toc-text">1.4.3 基准点变换</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-4-4-%E7%BB%93%E5%90%88%E6%97%B6%E9%97%B4%E5%8F%98%E6%8D%A2"><span class="toc-text">1.4.4 结合时间变换</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-5-%E8%B7%AF%E5%BE%84%E7%89%B9%E5%BE%81%E6%8A%BD%E5%8F%96"><span class="toc-text">1.5 路径特征抽取</span></a></li></ol></li></ol>
         
     </div>
 </aside>

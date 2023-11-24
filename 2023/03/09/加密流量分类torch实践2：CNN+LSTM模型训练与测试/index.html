@@ -1,0 +1,519 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+<head>
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="Hexo">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <meta name="theme-version" content="1.3.0">
+    <meta name="root" content="/">
+    <link rel="dns-prefetch" href="https://lulu-cloud.github.io">
+    <!--SEO-->
+
+<meta name="keywords" content="实验" />
+
+
+<meta name="description" content="加密流量分类torch实践2：CNN+LSTM模型训练与测试
+代码模板参考：CENTIME:A Direct Comprehensive Traffic Features Extraction ..." />
+
+
+<meta name="robots" content="all" />
+<meta name="google" content="all" />
+<meta name="googlebot" content="all" />
+<meta name="verify" content="all" />
+    <!--Title-->
+
+<title>
+    
+    加密流量分类-实践2: CNN+LSTM模型训练与测试 |
+    
+    Hexo
+</title>
+
+<link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+
+
+<link rel="icon" href="/favicon.ico">
+
+    
+
+
+<link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7.css">
+<link rel="stylesheet" href="/css/font-awesome.min.css?rev=4.7.0.css">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash.css">
+
+    
+<div class="hide">
+    <script type="text/javascript">
+    var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+    document.write(unescape("%3Cspan class='cnzz_stat_icon_1263868967 hide' %3E%3Cscript%20src%3D%22https%3A%2F%2Fs95.cnzz.com%2Fz_stat.php%3Fweb_id%3D1272564536%22%3E%3C%2Fscript%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1263868967%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+</div>
+
+
+
+
+    
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+<body>
+    <header class="main-header"  style="background-image:url(
+    /./img/duolaAAA.git)"
+     >
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title='lulu-cloud'>
+            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+            <!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+            <img src="/img/branding.png" alt="Snippet 博客主题" class="img-responsive center-block">
+            
+        </div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                        <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="https://lulu-cloud.github.io">
+                        Hexo</a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/"><i class="fa "></i>
+                                首页</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/科研/"><i class="fa "></i>
+                                科研</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/硕士生活/"><i class="fa "></i>
+                                硕士生活</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/archives/"><i class="fa "></i>
+                                时间轴</a>
+                        </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="加密流量分类-实践2: CNN+LSTM模型训练与测试">
+            
+            加密流量分类-实践2: CNN+LSTM模型训练与测试
+            
+        </h1>
+        <div class="post-meta">
+    
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        <a class="category-link" href="/categories/%E7%A7%91%E7%A0%94/">科研</a> <a class="category-link" href="/categories/%E7%A7%91%E7%A0%94/%E5%8A%A0%E5%AF%86%E6%B5%81%E9%87%8F%E5%88%86%E7%B1%BB/">加密流量分类</a>
+    </span>
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+            <a class="tag-none-link" href="/tags/%E5%AE%9E%E9%AA%8C/" rel="tag">实验</a>
+            
+        </span>
+    </span>
+    
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-clock-o"></i>
+        <span class="date-meta">
+            2023/03/09</span>
+    </span>
+    
+    <span class="fa-wrap">
+        <i class="fa fa-eye"></i>
+        <span id="busuanzi_value_page_pv"></span>
+    </span>
+    
+    
+</div>
+        
+        
+    </div>
+    
+    <div class="post-body post-content">
+        <h1 id="加密流量分类torch实践2：CNN-LSTM模型训练与测试"><a href="#加密流量分类torch实践2：CNN-LSTM模型训练与测试" class="headerlink" title="加密流量分类torch实践2：CNN+LSTM模型训练与测试"></a>加密流量分类torch实践2：CNN+LSTM模型训练与测试</h1><ul>
+<li>代码模板参考：<a target="_blank" rel="noopener" href="https://github.com/lulu-cloud/Traffic-Classification">CENTIME:A Direct Comprehensive Traffic Features Extraction for Encrypted Traffic Classification</a></li>
+</ul>
+<h2 id="1、原理"><a href="#1、原理" class="headerlink" title="1、原理"></a>1、原理</h2><ul>
+<li>一维卷积处理负载数据，处理流前n个包的前m个字节</li>
+<li>Bi-LSTM处理包长序列，取流前seq_length的长度序列</li>
+<li>模型结构类似于APP-Net<br><img src="https://raw.githubusercontent.com/lulu-cloud/lili_images/main/image/202311242142143.png" alt=""></li>
+<li>模型代码：<br>~~~<br>“””<br>cnn处理负载<br>lstm处理包长序列<br>“””</li>
+</ul>
+<p>import torch<br>import torch.nn as nn</p>
+<p>class Cnn<em>Lstm(nn.Module):<br>    def <strong>init</strong>(self,input<em>size, hidden_size, num_layers,bidirectional,num_classes=12):<br>        super(Cnn_Lstm, self).__init</em></em>()</p>
+<pre><code>    # rnn配置
+    self.bidirectional = bidirectional
+    self.hidden_size = hidden_size
+    self.num_layers = num_layers
+    self.lstm = nn.LSTM(input_size, hidden_size, num_layers,bidirectional=bidirectional,batch_first=True)
+    self.fc0 = nn.Linear(hidden_size, num_classes)
+    self.fc1= nn.Linear(hidden_size*2,num_classes)
+
+    self.cnn_feature = nn.Sequential(
+        # 卷积层1
+        nn.Conv1d(kernel_size=25, in_channels=1, out_channels=32, stride=1, padding=12),  # (1,1024)-&gt;(32,1024)
+        nn.BatchNorm1d(32),  # 加上BN的结果
+        nn.ReLU(),
+        nn.MaxPool1d(kernel_size=3, stride=3, padding=1),  # (32,1024)-&gt;(32,342)
+
+        # 卷积层2
+        nn.Conv1d(kernel_size=25, in_channels=32, out_channels=64, stride=1, padding=12),  # (32,342)-&gt;(64,342)
+        nn.BatchNorm1d(64),
+        nn.ReLU(),
+        nn.MaxPool1d(kernel_size=3, stride=3, padding=1),  # (64,342)-&gt;(64,114)
+    )
+    # 全连接层
+    self.cnn_classifier = nn.Sequential(
+        # 64*114
+        nn.Flatten(),
+        nn.Linear(in_features=64*114, out_features=1024), # 784:88*64, 1024:114*64, 4096:456*64
+    )
+
+    self.cnn=nn.Sequential(
+        self.cnn_feature,
+        self.cnn_classifier,
+    )
+
+
+    self.rnn = nn.Sequential(
+        nn.LSTM(input_size, hidden_size, num_layers, bidirectional=bidirectional, batch_first=True),
+    )
+    self.classifier=nn.Sequential(
+        nn.Linear(in_features=2048,out_features=num_classes),
+        # nn.Dropout(p=0.7),
+        # nn.Linear(in_features=1024,out_features=num_classes)
+    )
+
+
+def forward(self, x_payload,x_sequence):
+    x_payload=self.cnn(x_payload)
+    x_sequence=self.rnn(x_sequence)
+    x_sequence=x_sequence[0][:, -1, :]
+    x=torch.cat((x_payload,x_sequence),1)
+    x=self.classifier(x)
+    return x
+</code></pre><p>def cnn_rnn(model_path, pretrained=False, <strong>kwargs):<br>    model = Cnn_Lstm(</strong>kwargs)<br>    if pretrained:<br>        checkpoint = torch.load(model_path)<br>        model.load_state_dict(checkpoint[‘state_dict’])<br>    return model</p>
+<h1 id="仅仅是CNN"><a href="#仅仅是CNN" class="headerlink" title="仅仅是CNN"></a>仅仅是CNN</h1><p>class Cnn(nn.Module):<br>    def <strong>init</strong>(self,input<em>size, hidden<em>size, num_layers,bidirectional,num_classes=12):<br>        super(Cnn, self).__init</em></em>()</p>
+<pre><code>    # rnn配置
+    self.bidirectional = bidirectional
+    self.hidden_size = hidden_size
+    self.num_layers = num_layers
+    self.lstm = nn.LSTM(input_size, hidden_size, num_layers,bidirectional=bidirectional,batch_first=True)
+    self.fc0 = nn.Linear(hidden_size, num_classes)
+    self.fc1= nn.Linear(hidden_size*2,num_classes)
+
+    self.cnn_feature = nn.Sequential(
+        # 卷积层1
+        nn.Conv1d(kernel_size=25, in_channels=1, out_channels=32, stride=1, padding=12),  # (1,1024)-&gt;(32,1024)
+        nn.BatchNorm1d(32),  # 加上BN的结果
+        nn.ReLU(),
+        nn.MaxPool1d(kernel_size=3, stride=3, padding=1),  # (32,1024)-&gt;(32,342)
+
+        # 卷积层2
+        nn.Conv1d(kernel_size=25, in_channels=32, out_channels=64, stride=1, padding=12),  # (32,342)-&gt;(64,342)
+        nn.BatchNorm1d(64),
+        nn.ReLU(),
+        nn.MaxPool1d(kernel_size=3, stride=3, padding=1),  # (64,342)-&gt;(64,114)
+    )
+    # 全连接层
+    self.cnn_classifier = nn.Sequential(
+        # 64*114
+        nn.Flatten(),
+        nn.Linear(in_features=64*114, out_features=1024), # 784:88*64, 1024:114*64, 4096:456*64
+    )
+
+    self.cnn=nn.Sequential(
+        self.cnn_feature,
+        self.cnn_classifier,
+    )
+    self.classifier=nn.Sequential(
+        nn.Linear(in_features=1024,out_features=num_classes),
+        # nn.Dropout(p=0.7),
+        # nn.Linear(in_features=1024,out_features=num_classes)
+    )
+
+
+def forward(self, x_payload,x_sequence):
+    x_payload=self.cnn(x_payload)
+    x=self.classifier(x_payload)
+    return x_payload
+</code></pre><p>def cnn(model_path, pretrained=False, <strong>kwargs):<br>    model = Cnn(</strong>kwargs)<br>    if pretrained:<br>        checkpoint = torch.load(model_path)<br>        model.load_state_dict(checkpoint[‘state_dict’])<br>    return model</p>
+<p>class Lstm(nn.Module):<br>    def <strong>init</strong>(self,input<em>size, hidden<em>size, num_layers,bidirectional,num_classes=12):<br>        super(Lstm, self).__init</em></em>()</p>
+<pre><code>    # rnn配置
+    self.bidirectional = bidirectional
+    self.hidden_size = hidden_size
+    self.num_layers = num_layers
+    self.lstm = nn.LSTM(input_size, hidden_size, num_layers,bidirectional=bidirectional,batch_first=True)
+    self.fc0 = nn.Linear(hidden_size, num_classes)
+    self.fc1= nn.Linear(hidden_size*2,num_classes)
+
+    self.rnn = nn.Sequential(
+        nn.LSTM(input_size, hidden_size, num_layers, bidirectional=bidirectional, batch_first=True),
+    )
+    self.classifier=nn.Sequential(
+        nn.Linear(in_features=1024,out_features=num_classes),
+        # nn.Dropout(p=0.7),
+        # nn.Linear(in_features=1024,out_features=num_classes)
+    )
+
+
+def forward(self, x_payload,x_sequence):
+    x_sequence=self.rnn(x_sequence)
+    x_sequence=x_sequence[0][:, -1, :]
+    x=self.classifier(x_sequence)
+    return x
+</code></pre><p>def rnn(model_path, pretrained=False, <strong>kwargs):<br>    model = Lstm(</strong>kwargs)<br>    if pretrained:<br>        checkpoint = torch.load(model_path)<br>        model.load_state_dict(checkpoint[‘state_dict’])<br>    return model</p>
+<pre><code>
+## 2、运行
+- 在自己的环境下修改路径，包括删除``from sequence_payload.xx import xx``下面的``sequence_payload.``
+- 修改配置文件``entry``下面的``traffic_classification.yaml``的路径，与模型参数，名字
+  -  训练流程代码
+</code></pre><p>from utils.helper import AverageMeter, accuracy<br>from TrafficLog.setLog import logger</p>
+<p>def train_process(train_loader, model, criterion, optimizer, epoch, device, print_freq):<br>    “””训练一个 epoch 的流程</p>
+<pre><code>Args:
+    train_loader (dataloader): [description]
+    model ([type]): [description]
+    criterion ([type]): [description]
+    optimizer ([type]): [description]
+    epoch (int): 当前所在的 epoch
+    device (torch.device): 是否使用 gpu
+    print_freq ([type]): [description]
+&quot;&quot;&quot;
+losses = AverageMeter()  # 在一个 train loader 中的 loss 变化
+top1 = AverageMeter()  # 记录在一个 train loader 中的 accuracy 变化
+
+model.train()  # 切换为训练模型
+
+for i, (pcap, seq,target) in enumerate(train_loader):
+    pcap = pcap.reshape(-1,1,1024)
+    seq = seq.reshape(-1,64,1)
+    pcap = pcap.to(device)
+    seq = seq.to(device)
+    target = target.to(device)
+
+    output = model(pcap,seq)  # 得到模型预测结果
+    loss = criterion(output, target)  # 计算 loss
+
+    # 计算准确率, 记录 loss 和 accuracy
+    # print(pcap.size(0))
+    prec1 = accuracy(output.data, target)
+    losses.update(loss.item(), pcap.size(0))
+    top1.update(prec1[0].item(), pcap.size(0))
+
+    # 反向传播
+    optimizer.zero_grad()
+    loss.backward()
+    optimizer.step()
+
+    if (i+1) % print_freq == 0:
+        logger.info(&#39;Epoch: [&#123;0&#125;][&#123;1&#125;/&#123;2&#125;], Loss &#123;loss.val:.4f&#125; (&#123;loss.avg:.4f&#125;), Prec@1 &#123;top1.val:.3f&#125; (&#123;top1.avg:.3f&#125;)&#39;.format(
+            epoch, i, len(train_loader), loss=losses, top1=top1))
+return losses.val,top1.val
+</code></pre><pre><code>
+  - 验证流程代码：
+ - 
+## 2.1 数据预处理
+原理：
+- 使用flowcontainer包提取含有tcp或者udp负载的包，提取负载与ip数据包序列长度&lt;br/&gt;
+使用：
+- 将原始pcap文件放在``traffic_data``下
+  - 格式:
+</code></pre><pre><code>|---traffic_data
+  |---bilibili
+    |--- xx.pcap
+    |--- xxx.pcap
+  |---qq
+    |--- xx.pcap
+    |--- xxx.pcap
+  |--- 今日头条
+    |--- xx.pcap
+    |--- xxx.pcap
+</code></pre><p>  ~~~</p>
+<ul>
+<li>运行<code>entry/preprocess.py</code>,完成后复制控制台输出的<strong>label2index</strong>,粘贴到<code>traffic_classification.yaml/test/traffic_classification.yaml</code></li>
+<li>得到处理好的  <code>npy_data</code><h2 id="2-2-训练"><a href="#2-2-训练" class="headerlink" title="2.2 训练"></a>2.2 训练</h2></li>
+<li><p>打开<code>entry/train.py</code>，注释或者取消注释40、41、42行，选择cnn、lstm、cnn+lstm进行训练，记得改配置文件的<code>model_name</code></p>
+</li>
+<li><p>可以打开tensorboard查看loss与acc曲线</p>
+<ul>
+<li>loss:<br><img src="https://raw.githubusercontent.com/lulu-cloud/lili_images/main/image/202311242142078.png" alt="在这里插入图片描述"></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>acc:<br><img src="https://raw.githubusercontent.com/lulu-cloud/lili_images/main/image/202311242142864.png" alt="在这里插入图片描述"></li>
+</ul>
+<pre><code>&gt; 两图为lstm处理序列数据的tensorboard示例
+</code></pre><h2 id="2-3-测试"><a href="#2-3-测试" class="headerlink" title="2.3 测试"></a>2.3 测试</h2><ul>
+<li>修改<code>traffic_classification.yaml/test/evaluate</code>为True，打开<code>entry/train.py</code>运行，得到评估结果<br>/evaluate<code>为True，打开</code>entry/train.py``运行，得到评估结果<br><img src="https://raw.githubusercontent.com/lulu-cloud/lili_images/main/image/202311242142556.png" alt="在这里插入图片描述"><br>项目地址：私信</li>
+</ul>
+
+    </div>
+    
+    <div class="post-footer">
+        <div>
+            
+            转载声明：
+            商业转载请联系作者获得授权,非商业转载请注明出处 © <a href="" target="_blank">Snippet</a>
+            
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+<div class="article-nav prev-next-wrap clearfix">
+    
+    <a href="/2023/11/23/%E5%BC%80%E9%A2%98%E3%80%81%E7%A7%91%E7%A0%94%E4%B8%8E%E6%A8%AA%E5%90%91/" class="pre-post btn btn-default" title='疯狂的横向：开题期间'>
+        <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
+        <span class="hidden-xs">
+            疯狂的横向：开题期间</span>
+    </a>
+    
+    
+    <a href="/2023/01/19/%E5%8A%A0%E5%AF%86%E6%B5%81%E9%87%8F%E5%88%86%E7%B1%BB-%E8%AE%BA%E6%96%8712%EF%BC%9ASeeing%20Traffic%20Paths_%20Encrypted%20Traffic%20Classification%20With%20Path%20Signature%20Features/" class="next-post btn btn-default" title='加密流量分类-论文12: Seeing Traffic Paths_ Encrypted Traffic Classification With Path Signature Features'>
+        <span class="hidden-lg">下一篇</span>
+        <span class="hidden-xs">
+            加密流量分类-论文12: Seeing Traffic Paths_ Encrypted Traffic Classification With Path Signature Features</span><i class="fa fa-angle-right fa-fw"></i>
+    </a>
+    
+</div>
+
+<div id="comments">
+    
+    
+<div class="utteranc">
+  
+  <script
+    src='https://utteranc.es/client.js'
+    repo='lulu-cloud/lulu-blog-issue'
+    issue-term='pathname'
+    issue-number=''
+    theme='github-light'
+    label=''
+    crossorigin='anonymous'
+    async
+  ></script>
+</div>
+
+
+
+</div>
+
+                </main>
+                
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">
+            文章目录
+        </h3>
+        
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8A%A0%E5%AF%86%E6%B5%81%E9%87%8F%E5%88%86%E7%B1%BBtorch%E5%AE%9E%E8%B7%B52%EF%BC%9ACNN-LSTM%E6%A8%A1%E5%9E%8B%E8%AE%AD%E7%BB%83%E4%B8%8E%E6%B5%8B%E8%AF%95"><span class="toc-text">加密流量分类torch实践2：CNN+LSTM模型训练与测试</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1%E3%80%81%E5%8E%9F%E7%90%86"><span class="toc-text">1、原理</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BB%85%E4%BB%85%E6%98%AFCNN"><span class="toc-text">仅仅是CNN</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2-%E8%AE%AD%E7%BB%83"><span class="toc-text">2.2 训练</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-3-%E6%B5%8B%E8%AF%95"><span class="toc-text">2.3 测试</span></a></li></ol></li></ol>
+        
+    </div>
+</aside>
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+<a id="back-to-top" class="icon-btn hide">
+    <i class="fa fa-chevron-up"></i>
+</a>
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="busuanzi">
+    
+    访问量:
+    <strong id="busuanzi_value_site_pv">
+        <i class="fa fa-spinner fa-spin"></i>
+    </strong>
+    &nbsp; | &nbsp;
+    访客数:
+    <strong id="busuanzi_value_site_uv">
+        <i class="fa fa-spinner fa-spin"></i>
+    </strong>
+    
+</div>
+            </div>
+            <div class="col-sm-12">
+                <span>Copyright &copy;
+                    2017
+                    
+                </span> |
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Hexo</a>
+                </span> |
+                <span>
+                    Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+<script src="/js/app.js?rev=@@hash.js"></script>
+
+</body>
+</html>
