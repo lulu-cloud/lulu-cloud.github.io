@@ -351,7 +351,7 @@
     </div>
     <div class="article-meta">
         
-            发布时间 : <time class="date" title='最后更新: 2023-11-04 18:05:48'>2023-08-26 21:27</time>
+            发布时间 : <time class="date" title='最后更新: 2023-11-24 10:39:51'>2023-08-26 21:27</time>
         
     </div>
     <div class="article-meta">
@@ -415,7 +415,7 @@ X_p=[L_1^p,L_2^p,...,L_n^p)]</script><p>其中n是Xp的长度，L~i~^p^是时间
 <li>编码层</li>
 <li>解码层</li>
 <li>重构层</li>
-<li>分类器<br><img src="https://img-blog.csdnimg.cn/5aeb40b1a5904ee9a08a2627c7317db9.png" alt="模型整体结构"></li>
+<li>分类器<br><img src="https://raw.githubusercontent.com/lulu-cloud/lili_images/main/image/202311241039729.png" alt="模型整体结构"></li>
 </ul>
 <h2 id="3-2-嵌入层"><a href="#3-2-嵌入层" class="headerlink" title="3.2 嵌入层"></a>3.2 嵌入层</h2><p>&emsp;&emsp;</p>
 <ul>
@@ -435,7 +435,7 @@ X_p=[L_1^p,L_2^p,...,L_n^p)]</script><p>其中n是Xp的长度，L~i~^p^是时间
 <h2 id="3-5-分类器"><a href="#3-5-分类器" class="headerlink" title="3.5 分类器"></a>3.5 分类器</h2></li>
 </ul>
 </li>
-<li>分类器之前，设置了<strong>Dense层</strong>对分类器的输入（即Z~e~与Z~d~向量的拼接）进行压缩，得到新的特征向量z.<br><img src="https://img-blog.csdnimg.cn/f0e3f798d122462baeb71f85ceea6685.png#pic_center" alt="压缩公式"><br>然而，z的维度还是太高，使用两层带Selu的激活函数的MLP对z进行降维得到Z~c~,降维过后能有效避免过拟合问题。<br><img src="https://img-blog.csdnimg.cn/cc076bc3cafd4058841e22b706cb7c9f.png#pic_center" alt="降维"><br>公式中的W1，b1,b2都是可以学习的参数。</li>
+<li>分类器之前，设置了<strong>Dense层</strong>对分类器的输入（即Z~e~与Z~d~向量的拼接）进行压缩，得到新的特征向量z.<br><img src="https://raw.githubusercontent.com/lulu-cloud/lili_images/main/image/202311241039676.png" alt="压缩公式"><br>然而，z的维度还是太高，使用两层带Selu的激活函数的MLP对z进行降维得到Z~c~,降维过后能有效避免过拟合问题。<br><img src="https://raw.githubusercontent.com/lulu-cloud/lili_images/main/image/202311241039822.png" alt="降维"><br>公式中的W1，b1,b2都是可以学习的参数。</li>
 <li>输入为Z~c~，经过softmax分类器，得到预测标签A^-^，与真实标签A之间构造一个交叉熵损失L~C~</li>
 <li>在重构器后面，解码器中的Bi-GRU经过重构，输出的L~i^~与原始的输入特征L~i~之间可以构造另外一个交叉熵损失L~R~</li>
 <li><p>因此，最终的损失函数</p>
