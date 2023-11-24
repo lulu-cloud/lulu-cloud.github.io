@@ -108,18 +108,23 @@
                         </li>
                         
                         <li role="presentation" class="text-center">
-                            <a href="/categories/前端/"><i class="fa "></i>
-                                前端</a>
+                            <a href="/categories/科研/"><i class="fa "></i>
+                                科研</a>
                         </li>
                         
                         <li role="presentation" class="text-center">
-                            <a href="/categories/后端/"><i class="fa "></i>
-                                后端</a>
+                            <a href="/categories/Java开发学习/"><i class="fa "></i>
+                                Java开发学习</a>
                         </li>
                         
                         <li role="presentation" class="text-center">
-                            <a href="/categories/工具/"><i class="fa "></i>
-                                工具</a>
+                            <a href="/categories/硕士生活/"><i class="fa "></i>
+                                硕士生活</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/读书/"><i class="fa "></i>
+                                读书</a>
                         </li>
                         
                         <li role="presentation" class="text-center">
@@ -223,22 +228,24 @@
 
 <div id="comments">
     
-    
-<div class="utteranc">
-  
-  <script
-    src='https://utteranc.es/client.js'
-    repo='shenliyang/snippet-comment'
-    issue-term='pathname'
-    issue-number=''
-    theme='github-light'
-    label=''
-    crossorigin='anonymous'
-    async
-  ></script>
-</div>
-
-
+    <link rel="stylesheet" href="https://cdn.bootcss.com/gitalk/1.4.1/gitalk.min.css">
+<script src="//cdn.bootcss.com/gitalk/1.4.1/gitalk.min.js"></script>
+<script src="//cdn.bootcss.com/blueimp-md5/2.9.0/js/md5.min.js"></script>
+<div id="gitalk-container"></div>
+<script type="text/javascript">
+var gitalk = new Gitalk({
+    // Gitalk配置
+    language: "zh-CN",
+    clientID: "c7336bcd855b4a66cd94",
+    clientSecret: "805578c8e153c3f9db22eb4570b12d1991774147",
+    repo: "lulu-cloud.github.io",
+    owner: "lulu-cloud",
+    admin: ["lulu-cloud"],
+    id: md5(location.pathname),
+    distractionFreeMode: true
+});
+gitalk.render('gitalk-container');
+</script>
 
 </div>
 
