@@ -48,10 +48,10 @@
   
   <entry>
     <title>加密流量分类-实践4: 流量过滤</title>
-    <link href="https://lulu-cloud.github.io/2023/03/11/%E6%B5%81%E9%87%8F%E9%A2%84%E5%A4%84%E7%90%86-2%EF%BC%9A%E8%BF%87%E6%BB%A4/"/>
-    <id>https://lulu-cloud.github.io/2023/03/11/流量预处理-2：过滤/</id>
-    <published>2023-03-11T13:27:14.000Z</published>
-    <updated>2023-11-24T13:48:49.640Z</updated>
+    <link href="https://lulu-cloud.github.io/2023/04/01/%E6%B5%81%E9%87%8F%E9%A2%84%E5%A4%84%E7%90%86-2%EF%BC%9A%E8%BF%87%E6%BB%A4/"/>
+    <id>https://lulu-cloud.github.io/2023/04/01/流量预处理-2：过滤/</id>
+    <published>2023-04-01T13:27:14.000Z</published>
+    <updated>2023-11-24T13:53:07.042Z</updated>
     
     <content type="html"><![CDATA[<h1 id="加密流量分类-实践4：流量过滤"><a href="#加密流量分类-实践4：流量过滤" class="headerlink" title="加密流量分类-实践4：流量过滤"></a>加密流量分类-实践4：流量过滤</h1><ul><li>炼丹的时候，经常需要过滤无关流量</li><li>论文的通常做法是将dns、icmp、arp、tcp握手报文删除</li><li>以下是给出我的代码，用wirshark前后对比pcap有效<br>~~~<br>from scapy.all import *<br>from scapy.layers.dns import DNS<br>from scapy.layers.inet import ICMP, TCP<br>from scapy.layers.l2 import ARP</li></ul><p>def remove_pcap_errors(file_path,new_path):<br>    “””过滤的pcap与新的pcap不冲突”””<br>    packets = rdpcap(file_path)<br>    dns_cnt = 0<br>    icmp_cnt = 0<br>    arp_cnt = 0<br>    tcp_flags = 0<br>    new_packets = []<br>    for packet in packets:<br>        if packet.haslayer(DNS):<br>            dns_cnt+=1<br>        elif packet.haslayer(ICMP):<br>            icmp_cnt += 1<br>        elif packet.haslayer(TCP) and (packet[TCP].flags.value==0x12 or packet[TCP].flags.value==0x02 or packet[TCP].flags.value==0x11):<br>            tcp_flags+=1<br>        elif packet.haslayer(ARP):<br>            arp_cnt += 1<br>        else:<br>            new_packets.append(packet)<br>    wrpcap(new_path, new_packets)<br>    print(“dns:{}个”.format(dns_cnt))<br>    print(“icmp:{}个”.format(icmp_cnt))<br>    print(“tcp握手:{}个”.format(tcp_flags))<br>    print(“arp包:{}个”.format(arp_cnt))<br>~~~</p><ul><li>处理前：<br>-<img src="https://raw.githubusercontent.com/lulu-cloud/lili_images/main/image/202311242148352.png" alt="在这里插入图片描述"></li><li>处理后：<br>-<img src="https://raw.githubusercontent.com/lulu-cloud/lili_images/main/image/202311242148932.png" alt="在这里插入图片描述"></li></ul>]]></content>
     
