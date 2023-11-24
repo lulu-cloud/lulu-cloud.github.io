@@ -1,0 +1,520 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+<head>
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="Hexo">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <meta name="theme-version" content="1.3.0">
+    <meta name="root" content="/">
+    <link rel="dns-prefetch" href="https://lulu-cloud.github.io">
+    <!--SEO-->
+
+<meta name="keywords" content="实验" />
+
+
+<meta name="description" content="模型：model.py论文参数：
+import torch.nn as nn
+import torch
+import torch.nn.functional as F
+
+class OneCNN..." />
+
+
+<meta name="robots" content="all" />
+<meta name="google" content="all" />
+<meta name="googlebot" content="all" />
+<meta name="verify" content="all" />
+    <!--Title-->
+
+<title>
+    
+    加密流量分类-实践1: 1D-CNN模型训练与测试 |
+    
+    Hexo
+</title>
+
+<link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+
+
+<link rel="icon" href="/favicon.ico">
+
+    
+
+
+<link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7.css">
+<link rel="stylesheet" href="/css/font-awesome.min.css?rev=4.7.0.css">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash.css">
+
+    
+<div class="hide">
+    <script type="text/javascript">
+    var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+    document.write(unescape("%3Cspan class='cnzz_stat_icon_1263868967 hide' %3E%3Cscript%20src%3D%22https%3A%2F%2Fs95.cnzz.com%2Fz_stat.php%3Fweb_id%3D1272564536%22%3E%3C%2Fscript%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1263868967%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+</div>
+
+
+
+
+    
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+<body>
+    <header class="main-header"  style="background-image:url(
+    /./img/duolaAAA.git)"
+     >
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title='lulu-cloud'>
+            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+            <!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+            <img src="/img/branding.png" alt="Snippet 博客主题" class="img-responsive center-block">
+            
+        </div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                        <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="https://lulu-cloud.github.io">
+                        Hexo</a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/"><i class="fa "></i>
+                                首页</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/科研/"><i class="fa "></i>
+                                科研</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/硕士生活/"><i class="fa "></i>
+                                硕士生活</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/archives/"><i class="fa "></i>
+                                时间轴</a>
+                        </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="加密流量分类-实践1: 1D-CNN模型训练与测试">
+            
+            加密流量分类-实践1: 1D-CNN模型训练与测试
+            
+        </h1>
+        <div class="post-meta">
+    
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        <a class="category-link" href="/categories/%E7%A7%91%E7%A0%94/">科研</a> <a class="category-link" href="/categories/%E7%A7%91%E7%A0%94/%E5%8A%A0%E5%AF%86%E6%B5%81%E9%87%8F%E5%88%86%E7%B1%BB/">加密流量分类</a>
+    </span>
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+            <a class="tag-none-link" href="/tags/%E5%AE%9E%E9%AA%8C/" rel="tag">实验</a>
+            
+        </span>
+    </span>
+    
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-clock-o"></i>
+        <span class="date-meta">
+            2022/09/20</span>
+    </span>
+    
+    <span class="fa-wrap">
+        <i class="fa fa-eye"></i>
+        <span id="busuanzi_value_page_pv"></span>
+    </span>
+    
+    
+</div>
+        
+        
+        <p class="fa fa-exclamation-triangle warning">
+            本文于<strong>
+                430</strong>
+            天之前发表，文中内容可能已经过时。
+        </p>
+        
+    </div>
+    
+    <div class="post-body post-content">
+        <p>模型：model.py<br>论文参数：<br><img src="https://raw.githubusercontent.com/lulu-cloud/lili_images/main/image/202311242110890.png" alt="论文参数"></p>
+<pre><code class="python">import torch.nn as nn
+import torch
+import torch.nn.functional as F
+
+class OneCNNC(nn.Module):
+    def __init__(self,label_num):
+        super(OneCNNC,self).__init__()
+        self.layer_1 = nn.Sequential(
+            # 输入784*1
+            nn.Conv2d(1,32,(1,25),1,padding=&#39;same&#39;),
+            nn.ReLU(),
+            # 输出262*32
+            nn.MaxPool2d((1, 3), 3, padding=(0,1)),
+        )
+        self.layer_2 = nn.Sequential(
+            # 输入262*32
+            nn.Conv2d(32,64,(1,25),1,padding=&#39;same&#39;),
+            nn.ReLU(),
+            # 输入262*64
+            nn.MaxPool2d((1, 3), 3, padding=(0,1))
+        )
+        self.fc1=nn.Sequential(
+            # 输入88*64
+            nn.Flatten(),
+            nn.Linear(88*64,1024),
+            # 自主加了两个dropout层
+            nn.Dropout(p=0.5),
+            nn.Linear(1024,label_num),
+            nn.Dropout(p=0.3)
+        )
+    def forward(self,x):
+        # print(&quot;x.shape:&quot;,x.shape)
+        x=self.layer_1(x)
+        # print(&quot;x.shape:&quot;,x.shape)
+        x=self.layer_2(x)
+        # print(&quot;x.shape:&quot;,x.shape)
+        x=self.fc1(x)
+        # print(&quot;x.shape:&quot;,x.shape)
+        return x
+
+
+
+# x=torch.tensor([[1, 1,  0,  1,  2,  3],
+#                 [1, 1,  4,  5,  6,  7],
+#                 [1, 10, 8,  9, 10, 11]],dtype=torch.float32)
+# x=x.reshape(1,3,-1)
+
+
+# out_tensor=F.max_pool2d(x,(3,1),stride=3,padding=0)
+
+# print(out_tensor)
+</code></pre>
+<p>数据部分：<br><img src="https://raw.githubusercontent.com/lulu-cloud/lili_images/main/image/202311242110021.png" alt="在这里插入图片描述"><br><img src="https://raw.githubusercontent.com/lulu-cloud/lili_images/main/image/202311242110530.png" alt="在这里插入图片描述"><br>数据读取：data.py</p>
+<pre><code>import os
+from torch.utils.data import Dataset
+import gzip
+import numpy as np
+class DealDataset(Dataset):
+    &quot;&quot;&quot;
+        读取数据、初始化数据
+    &quot;&quot;&quot;
+
+    def __init__(self, folder, data_name, label_name, transform=None):
+        (train_set, train_labels) = load_data(folder, data_name,label_name)  
+        self.train_set = train_set
+        self.train_labels = train_labels
+        self.transform = transform
+
+    def __getitem__(self, index):
+        img, target = self.train_set[index], int(self.train_labels[index])
+        # 这里要copy一下不然会报错
+        img=img.copy()
+        # 28*28 -&gt; 764
+        img=img.reshape(1,1,-1)
+        # target=target.copy()
+        if self.transform is not None:
+            img = self.transform(img)
+        return img, target
+
+    def __len__(self):
+        return len(self.train_set)
+
+
+def load_data(data_folder, data_name, label_name):
+    with gzip.open(os.path.join(data_folder, label_name), &#39;rb&#39;) as lbpath:  
+        y_train = np.frombuffer(lbpath.read(), np.uint8, offset=8)
+
+    with gzip.open(os.path.join(data_folder, data_name), &#39;rb&#39;) as imgpath:
+        x_train = np.frombuffer(
+            imgpath.read(), np.uint8, offset=16).reshape(len(y_train), 28, 28)
+    return (x_train, y_train)
+
+</code></pre><p>模型训练主模块：</p>
+<pre><code>from random import shuffle
+import time
+import sys
+import torch.nn as nn
+import numpy as np
+import os
+
+import torchvision
+
+from model import OneCNN,CNNImage,OneCNNC
+from torchvision import datasets,transforms
+import gzip
+import torch
+from data import DealDataset
+
+
+def main():
+    # Device configuration
+    device = torch.device(&#39;cuda&#39; if torch.cuda.is_available() else &#39;cpu&#39;)
+
+    # 设置超参数
+    batch_size = 50
+    lr = 1.0e-4
+    num_epochs = 40
+    label_num = 12
+
+
+
+    # 导入数据
+    folder_path_list=[
+        r&quot;2.encrypted_traffic_classification/3.PerprocessResults/12class/FlowAllLayers&quot;,
+        r&quot;2.encrypted_traffic_classification/3.PerprocessResults/12class/FlowL7&quot;,
+        r&quot;2.encrypted_traffic_classification/3.PerprocessResults/12class/SessionAllLayers&quot;,
+        r&quot;2.encrypted_traffic_classification/3.PerprocessResults/12class/SessionL7&quot;
+                      ]
+
+    # 选择哪个数据集
+    task_index = 0
+
+    folder_path = folder_path_list[task_index]
+    train_data_path = &quot;train-images-idx3-ubyte.gz&quot;
+    train_label_path = &quot;train-labels-idx1-ubyte.gz&quot;
+    test_data_path = &quot;t10k-images-idx3-ubyte.gz&quot;
+    test_label_path = &quot;t10k-labels-idx1-ubyte.gz&quot;
+    trainDataset = DealDataset(folder_path,train_data_path,train_label_path)
+    testDataset = DealDataset(folder_path,test_data_path,test_label_path
+
+    train_loader = torch.utils.data.DataLoader(
+        dataset=trainDataset,
+        batch_size=batch_size,
+        shuffle=True
+    )
+
+    test_loader = torch.utils.data.DataLoader(
+        dataset=testDataset,
+        batch_size=batch_size,
+        shuffle=False
+    )
+
+
+    # 定义模型
+    model = OneCNNC(label_num)
+    model = model.to(device)
+    # model = CNNImage()
+
+    # Loss and optimizer
+    criterion = nn.CrossEntropyLoss()
+    optimizer = torch.optim.SGD(model.parameters(), lr=lr)
+
+    # Train the model
+    total_step = len(train_loader)
+    for epoch in range(num_epochs):
+        for i, (images, labels) in enumerate(train_loader):
+            # images=images.reshape(-1,1,28,28)
+            images = images.to(device)
+            labels = labels.to(device)
+
+            # Forward pass
+            outputs = model(images.to(torch.float32))
+            loss = criterion(outputs, labels)
+
+            # Backward and optimize
+            optimizer.zero_grad()
+            loss.backward()
+            optimizer.step()
+
+            if (i+1) % 100 == 0:
+                print (&#39;Epoch [&#123;&#125;/&#123;&#125;], Step [&#123;&#125;/&#123;&#125;], Loss: &#123;:.4f&#125;&#39; 
+                    .format(epoch+1, num_epochs, i+1, total_step, loss.item()))
+    # Test the model
+    model.eval()
+    with torch.no_grad():
+        correct = 0
+        total = 0
+        test_length = len(testDataset)
+        for images, labels in test_loader:
+            images = images.to(device)
+            labels = labels.to(device)
+            outputs = model(images.to(torch.float32))
+            _, predicted = torch.max(outputs.data, 1)
+            total += labels.size(0)
+            correct += (predicted == labels).sum().item()
+
+        print(&#39;Test Accuracy of the model on the &#123;&#125; test images: &#123;&#125; %&#39;.format(test_length,100 * correct / total)) 
+
+    # Save the model checkpoint
+    torch.save(model.state_dict(), &#39;model.ckpt&#39;)
+
+if __name__ == &#39;__main__&#39;:
+    main()
+
+
+</code></pre><p>运行结果：<br><img src="https://raw.githubusercontent.com/lulu-cloud/lili_images/main/image/202311242109685.jpeg" alt="实验结果"></p>
+<p>项目地址：<a target="_blank" rel="noopener" href="https://github.com/lulu-cloud/Pytorch-Encrypted-Traffic-Classification-with-1D_CNN">https://github.com/lulu-cloud/Pytorch-Encrypted-Traffic-Classification-with-1D_CNN</a></p>
+
+    </div>
+    
+    <div class="post-footer">
+        <div>
+            
+            转载声明：
+            商业转载请联系作者获得授权,非商业转载请注明出处 © <a href="" target="_blank">Snippet</a>
+            
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+<div class="article-nav prev-next-wrap clearfix">
+    
+    <a href="/2022/09/27/%E5%8A%A0%E5%AF%86%E6%B5%81%E9%87%8F%E5%88%86%E7%B1%BB-%E8%AE%BA%E6%96%875%EF%BC%9AMATEC_A_lightweight_neural_network_for_online_encrypted_traffic/" class="pre-post btn btn-default" title='加密流量分类-论文5:MATEC_A_lightweight_neural_network_for_online_encrypted_traffic'>
+        <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
+        <span class="hidden-xs">
+            加密流量分类-论文5:MATEC_A_lightweight_neural_network_for_online_encrypted_traffic</span>
+    </a>
+    
+    
+    <a href="/2022/09/18/%E5%8A%A0%E5%AF%86%E6%B5%81%E9%87%8F%E5%88%86%E7%B1%BB-%E8%AE%BA%E6%96%874%EF%BC%9AEndtoend%20Encrypted%20Traffic%20Classification%20with%20One-dimensional%20Convolution%20Neural%20Networks/" class="next-post btn btn-default" title='加密流量分类-论文4: Endtoend Encrypted Traffic Classification with One-dimensional Convolution Neural Networks'>
+        <span class="hidden-lg">下一篇</span>
+        <span class="hidden-xs">
+            加密流量分类-论文4: Endtoend Encrypted Traffic Classification with One-dimensional Convolution Neural Networks</span><i class="fa fa-angle-right fa-fw"></i>
+    </a>
+    
+</div>
+
+<div id="comments">
+    
+    
+<div class="utteranc">
+  
+  <script
+    src='https://utteranc.es/client.js'
+    repo='lulu-cloud/lulu-blog-issue'
+    issue-term='pathname'
+    issue-number=''
+    theme='github-light'
+    label=''
+    crossorigin='anonymous'
+    async
+  ></script>
+</div>
+
+
+
+</div>
+
+                </main>
+                
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">
+            文章目录
+        </h3>
+        
+        <p>暂无目录</p>
+        
+    </div>
+</aside>
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+<a id="back-to-top" class="icon-btn hide">
+    <i class="fa fa-chevron-up"></i>
+</a>
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="busuanzi">
+    
+    访问量:
+    <strong id="busuanzi_value_site_pv">
+        <i class="fa fa-spinner fa-spin"></i>
+    </strong>
+    &nbsp; | &nbsp;
+    访客数:
+    <strong id="busuanzi_value_site_uv">
+        <i class="fa fa-spinner fa-spin"></i>
+    </strong>
+    
+</div>
+            </div>
+            <div class="col-sm-12">
+                <span>Copyright &copy;
+                    2017
+                    
+                </span> |
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Hexo</a>
+                </span> |
+                <span>
+                    Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+<script src="/js/app.js?rev=@@hash.js"></script>
+
+</body>
+</html>

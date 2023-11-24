@@ -1,0 +1,433 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+<head>
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="Hexo">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <meta name="theme-version" content="1.3.0">
+    <meta name="root" content="/">
+    <link rel="dns-prefetch" href="https://lulu-cloud.github.io">
+    <!--SEO-->
+
+<meta name="keywords" content="论文" />
+
+
+<meta name="description" content="0、摘要加密流量分类的挑战性问题:
+
+网络数据的不平衡性
+模型对真实数据的泛化能力
+模型对数据大小的过度依赖。
+
+1、概念介绍1.1 流量加密背景&emsp;&emsp;加密技术虽然保护了互联网..." />
+
+
+<meta name="robots" content="all" />
+<meta name="google" content="all" />
+<meta name="googlebot" content="all" />
+<meta name="verify" content="all" />
+    <!--Title-->
+
+<title>
+    
+    加密流量分类-论文6:Learning to Classify A Flow-Based Relation Network for Encrypted Traffic Classification |
+    
+    Hexo
+</title>
+
+<link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+
+
+<link rel="icon" href="/favicon.ico">
+
+    
+
+
+<link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7.css">
+<link rel="stylesheet" href="/css/font-awesome.min.css?rev=4.7.0.css">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash.css">
+
+    
+<div class="hide">
+    <script type="text/javascript">
+    var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+    document.write(unescape("%3Cspan class='cnzz_stat_icon_1263868967 hide' %3E%3Cscript%20src%3D%22https%3A%2F%2Fs95.cnzz.com%2Fz_stat.php%3Fweb_id%3D1272564536%22%3E%3C%2Fscript%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1263868967%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+</div>
+
+
+
+
+    
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+<body>
+    <header class="main-header"  style="background-image:url(
+    /./img/duolaAAA.git)"
+     >
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title='lulu-cloud'>
+            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+            <!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+            <img src="/img/branding.png" alt="Snippet 博客主题" class="img-responsive center-block">
+            
+        </div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                        <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="https://lulu-cloud.github.io">
+                        Hexo</a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/"><i class="fa "></i>
+                                首页</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/科研/"><i class="fa "></i>
+                                科研</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/硕士生活/"><i class="fa "></i>
+                                硕士生活</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/archives/"><i class="fa "></i>
+                                时间轴</a>
+                        </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="加密流量分类-论文6:Learning to Classify A Flow-Based Relation Network for Encrypted Traffic Classification">
+            
+            加密流量分类-论文6:Learning to Classify A Flow-Based Relation Network for Encrypted Traffic Classification
+            
+        </h1>
+        <div class="post-meta">
+    
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        <a class="category-link" href="/categories/%E7%A7%91%E7%A0%94/">科研</a> <a class="category-link" href="/categories/%E7%A7%91%E7%A0%94/%E5%8A%A0%E5%AF%86%E6%B5%81%E9%87%8F%E5%88%86%E7%B1%BB/">加密流量分类</a>
+    </span>
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+            <a class="tag-none-link" href="/tags/%E8%AE%BA%E6%96%87/" rel="tag">论文</a>
+            
+        </span>
+    </span>
+    
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-clock-o"></i>
+        <span class="date-meta">
+            2022/10/02</span>
+    </span>
+    
+    <span class="fa-wrap">
+        <i class="fa fa-eye"></i>
+        <span id="busuanzi_value_page_pv"></span>
+    </span>
+    
+    
+</div>
+        
+        
+        <p class="fa fa-exclamation-triangle warning">
+            本文于<strong>
+                418</strong>
+            天之前发表，文中内容可能已经过时。
+        </p>
+        
+    </div>
+    
+    <div class="post-body post-content">
+        <h1 id="0、摘要"><a href="#0、摘要" class="headerlink" title="0、摘要"></a>0、摘要</h1><p>加密流量分类的挑战性问题:</p>
+<ul>
+<li>网络数据的不平衡性</li>
+<li>模型对真实数据的泛化能力</li>
+<li>模型对数据大小的过度依赖。</li>
+</ul>
+<h1 id="1、概念介绍"><a href="#1、概念介绍" class="headerlink" title="1、概念介绍"></a>1、概念介绍</h1><h2 id="1-1-流量加密背景"><a href="#1-1-流量加密背景" class="headerlink" title="1.1 流量加密背景"></a>1.1 流量加密背景</h2><p>&emsp;&emsp;加密技术虽然保护了互联网用户的自由、隐私和匿名性，但也<strong>用户避开了防火墙的检测，绕过了监控系统</strong>。</p>
+<p>&emsp;&emsp;由此导致的问题：</p>
+<ul>
+<li>攻击者通过<strong>加密恶意软件流量</strong>来匿名入侵和攻击系统。</li>
+<li>犯罪分子使用隐私增强工具(例如Tor)穿透黑暗网络，在那里他们可以购买毒品、武器和伪造的文件(如护照、驾照、提供合同杀手的媒体)来吸引客户.</li>
+</ul>
+<h2 id="1-2-流量分类技术的发展（综述部分）"><a href="#1-2-流量分类技术的发展（综述部分）" class="headerlink" title="1.2 流量分类技术的发展（综述部分）"></a>1.2 流量分类技术的发展（综述部分）</h2><ol>
+<li>基于端口号</li>
+<li>基于有效载荷,也就是DPI方法。<strong>1,2只能针对非加密流量</strong></li>
+<li>基于流统计特征的方法，<strong>分类性能取决于人类的特征工程</strong></li>
+<li>基于深度学习的方法：<ul>
+<li>优点：端到端、具有相当高的学习能力</li>
+<li>缺点：<ul>
+<li>不能解决数据中类的不均衡问题</li>
+<li>训练好的模型不能很好适用于真是流量环境，泛化能力差</li>
+<li>过分依赖数据集的大小与数据分布的好坏</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="1-4-文章核心观点引入"><a href="#1-4-文章核心观点引入" class="headerlink" title="1.4 文章核心观点引入"></a>1.4 文章核心观点引入</h2><p>&emsp;&emsp;对于一个新奇概念的样本，人类可以轻易根据对事物共同变化模式的了解，想象该样本在其他环境的样子。如果机器从辨别出在不同环境（<strong>原文这里称作幻觉（hallucination）</strong>）下的同一样本，那么通过一个<strong>致幻器（hallucinator）</strong>产生额外的训练样本，理论上就可以在少量数据样本的情况下学习到不错的泛化能力。</p>
+<p>&emsp;&emsp;将从有限的数据中提取先验知识并将其转移到不可见的任务或者环境中，<strong>元学习</strong>是一种解决方案。（不是半监督模型预训练那一套）</p>
+<ul>
+<li><p>关于<strong>元学习</strong>（学习如何去学习）：</p>
+<ol>
+<li><p>元级（meta-level）学习器：在不同的训练任务以及对应的训练数据上进行学习，以此作为网络结构的先验知识，下图的F。</p>
+</li>
+<li><p>基础级（base-level）学习器：为特定任务设计的学习器。由F针对测试任务学习出来的f<br><img src="https://raw.githubusercontent.com/lulu-cloud/lili_images/main/image/202311242114732.png" alt="在这里插入图片描述"><br><img src="https://raw.githubusercontent.com/lulu-cloud/lili_images/main/image/202311242114211.png" alt="在这里插入图片描述"></p>
+</li>
+</ol>
+</li>
+</ul>
+<p>&emsp;&emsp;在元学习阶段，进行多任务学习，称作Training Task，每个任务都有自己的训练集与测试集，也称为支持集（support set）与查询集（query set），学习到一个F。在基础级学习阶段，进行特定任务的学习，称作Testing Task，将Testing task的给入F，得出学习到的f，然后在f上进行传统的训练测试，用f的表现去反映F的泛化能力好坏。</p>
+<ul>
+<li>分类粒度：基于流的分类（这里是原文：流序列作为唯一的原始流量信息。原始流可以表示为几个具有相同流长度和不同类型的序列(例如，消息类型序列和包长度序列)。一般我们把一种序列看作流序列，其他的序列也可以用同样的方法。）类似于FS-Net的输入，所以此模型输入应该是类似与FS-Net的输入，比如是取<strong>原始流的包长序列</strong>或者<strong>消息类型序列</strong>作为流序列信息，输入到模型</li>
+<li><p>分类目标：应用分类</p>
+</li>
+<li><p>本文的分为训练集、支持集、测试集（支持集和测试集共享相同的标签空间，但训练集有自己的标签空间），原则上只需要支持集与测试集就可以了，但是<strong>支持集中缺乏标记样本，使用训练集上的元学习将提取的知识转移到支持集</strong></p>
+</li>
+<li><p>训练集合切割成为支持集与查询集？？？</p>
+<h1 id="2、模型结构"><a href="#2、模型结构" class="headerlink" title="2、模型结构"></a>2、模型结构</h1><h2 id="2-1总览"><a href="#2-1总览" class="headerlink" title="2.1总览"></a>2.1总览</h2></li>
+</ul>
+<p>&emsp;&emsp;本文提出基于流的关系网络分类模型（FlowBased Ralation Network，RBRN），从原始流序列学习特征，是端到端的分类模型。</p>
+<ul>
+<li>致幻器：产生额外样本（相当于一个数据增强器？）</li>
+<li>编码器：生成样本特征</li>
+<li>解码器：恢复输入序列，也进行特征的学习。编码器解码器都是多层CNN结构</li>
+<li><p><strong>基于元学习</strong>的分类器：分类粒度，对应用程序的分类</p>
+<h2 id="2-2-集合分割"><a href="#2-2-集合分割" class="headerlink" title="2.2 集合分割"></a>2.2 集合分割</h2><p><img src="https://raw.githubusercontent.com/lulu-cloud/lili_images/main/image/202311242114008.png" alt=""></p>
+</li>
+</ul>
+<p>从训练集中选择跟支持集一样规模的作为集合S：假定支持集n个类，每个类m个样本，从训练集也随机选n个类，每个类选m个样本，剩余的作为查询集。</p>
+<h2 id="2-3-致幻器（Hallucinator）"><a href="#2-3-致幻器（Hallucinator）" class="headerlink" title="2.3 致幻器（Hallucinator）"></a>2.3 致幻器（Hallucinator）</h2><p> <img src="https://raw.githubusercontent.com/lulu-cloud/lili_images/main/image/202311242114432.png" alt=" "></p>
+<ul>
+<li><p>Hallucinator的测试流程：</p>
+<ol>
+<li><p>从原始数据集S中对每一个类别进行采样。</p>
+</li>
+<li><p>将采用后的样本添加噪声z，送入流产生器Flow（图中红色部分），输出数据增强后的样本Sg</p>
+</li>
+<li><p>将S<sub>g</sub>与原始数据S合并为S<sub>aug</sub>，并作为最终的训练数据，送入h（分类算法）中进行<strong>预测</strong>。</p>
+</li>
+</ol>
+</li>
+<li><p>Hallucinator的训练流程：</p>
+<ul>
+<li><p>采用元学习的方法来训练Hallucinator与后面的分类器h，要求h对于S<sub>aug</sub>的元素可微，以便进行梯度下降，Hallucinator与后面的网络结构是同步进行训练学习的。</p>
+</li>
+<li><p>这里目前还没有提及到关于元学习的多任务。</p>
+</li>
+</ul>
+</li>
+</ul>
+<p> <img src="https://raw.githubusercontent.com/lulu-cloud/lili_images/main/image/202311242114179.png" alt="致幻器细节"></p>
+<h2 id="2-4-编码器（Encoder）与解码器（Decoder）"><a href="#2-4-编码器（Encoder）与解码器（Decoder）" class="headerlink" title="2.4 编码器（Encoder）与解码器（Decoder）"></a>2.4 编码器（Encoder）与解码器（Decoder）</h2><ul>
+<li>编码器输入：S<sub>aug</sub>，输出压缩特征。</li>
+<li>体系结构：VGG16网络中的前13个卷积层，舍弃全连接层，理由：以便在最深的编码器输出处保留更高分辨率的特征映射（论文讲的理由）。<ul>
+<li>这里说卷积后的特征应该存储起来，但是由于内存限制，采用存储池化层的索引</li>
+<li>即池化窗口的最大特征值的位置被存储起来</li>
+</ul>
+</li>
+<li>解码器输入：编码器输出的压缩特征，输出提供给基于元学习的分类器。<ul>
+<li>从相应解码器存储的最大池化层索引来进行采样</li>
+<li>卷积层的滤波器仍旧是可训练的</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/lulu-cloud/lili_images/main/image/202311242117222.png" alt="img"></p>
+<h2 id="2-5-基于元学习的分类器"><a href="#2-5-基于元学习的分类器" class="headerlink" title="2.5 基于元学习的分类器"></a>2.5 基于元学习的分类器</h2><p><img src="https://raw.githubusercontent.com/lulu-cloud/lili_images/main/image/202311242117850.png" alt="img"></p>
+<ol>
+<li>假设样本<strong>x<sub>j</sub></strong>来自查询集<strong>Q</strong>，样本<strong>x<sub>i</sub></strong>来自增强后的数据集**S<sub>aug</sub></li>
+<li>通过编码器-解码器输出后为<strong>z<sub>j</sub>=f<sub>encoder-decoder</sub>(x<sub>j</sub>)</strong>为<strong>z<sub>i</sub>=f<sub>encoder-decoder</sub>(x<sub>i</sub>)</strong></li>
+<li>定义样本通过特征抽取模块的输出为<strong>m<sub>j</sub>=f<sub>meta-network</sub>(z<sub>j</sub>)</strong>和<strong>m<sub>i</sub></strong>=f<sub>meta-network</sub>(z<sub>i</sub>)**</li>
+<li>将<strong>m<sub>j</sub></strong>与<strong>m<sub>i</sub></strong>联结起来，通过关系模型 <strong>J<sub>relation</sub></strong>计算两个样本之间的相关度</li>
+<li>采用与最后查询集的实际类形成的独热向量之间的均方差作为损失，构建损失函数</li>
+</ol>
+<p><img src="https://raw.githubusercontent.com/lulu-cloud/lili_images/main/image/202311242117008.png" alt="img"></p>
+<h1 id="4、实验"><a href="#4、实验" class="headerlink" title="4、实验"></a>4、实验</h1><ul>
+<li><p>在小样本学习有不错的表现：在Full ISCX vpn -非vpn流量数据集中，为每个应用程序选择1000条流量记录作为训练集，其他的作为测试集，仍旧有不错的效果。</p>
+</li>
+<li><p>在数据不均衡样本集有不错的表现</p>
+</li>
+<li><p>在复杂环境时能保证不错的泛化能力：<strong>在均衡样本集中训练，在非均衡上测试，对比其他模型，表现出不错的效果</strong></p>
+<blockquote>
+<p>不太理解在均匀数据集上训练的模型在非均衡数据集上进行测试，如何能体现出泛化能力。</p>
+</blockquote>
+</li>
+</ul>
+<h1 id="5、总结与思考"><a href="#5、总结与思考" class="headerlink" title="5、总结与思考"></a>5、总结与思考</h1><ul>
+<li>从李宏毅老师学习到元学习的有关概念，感觉这里元学习作者没有太突出出来，我的理解是训练集很大，每次选一个子集合作为支持集，就相当于一个元学习任务了，这样多次选训练集子集，相当于对元分类器进行多任务训练。……不知道理解对不对。。。</li>
+<li>网络模型挺深，模块多，实验部分做了消融实验以此证明每部分都是有必要的。</li>
+<li>不太理解在编码器解码器中对于池化索引的记录的点，以及解码器的存在的意义，只需编码部分可不可以?</li>
+</ul>
+
+    </div>
+    
+    <div class="post-footer">
+        <div>
+            
+            转载声明：
+            商业转载请联系作者获得授权,非商业转载请注明出处 © <a href="" target="_blank">Snippet</a>
+            
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+<div class="article-nav prev-next-wrap clearfix">
+    
+    <a href="/2022/10/06/%E5%8A%A0%E5%AF%86%E6%B5%81%E9%87%8F%E5%88%86%E7%B1%BB-%E8%AE%BA%E6%96%877%EF%BC%9AMEMG_%20Mobile%20Encrypted%20Traffic%20Classification%20With%20Markov%20Chains%20and%20Graph%20Neural%20Network/" class="pre-post btn btn-default" title='加密流量分类-论文7: MEMG_Mobile Encrypted Traffic Classification With Markov Chains and Graph Neural Network'>
+        <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
+        <span class="hidden-xs">
+            加密流量分类-论文7: MEMG_Mobile Encrypted Traffic Classification With Markov Chains and Graph Neural Network</span>
+    </a>
+    
+    
+    <a href="/2022/09/27/%E5%8A%A0%E5%AF%86%E6%B5%81%E9%87%8F%E5%88%86%E7%B1%BB-%E8%AE%BA%E6%96%875%EF%BC%9AMATEC_A_lightweight_neural_network_for_online_encrypted_traffic/" class="next-post btn btn-default" title='加密流量分类-论文5:MATEC_A_lightweight_neural_network_for_online_encrypted_traffic'>
+        <span class="hidden-lg">下一篇</span>
+        <span class="hidden-xs">
+            加密流量分类-论文5:MATEC_A_lightweight_neural_network_for_online_encrypted_traffic</span><i class="fa fa-angle-right fa-fw"></i>
+    </a>
+    
+</div>
+
+<div id="comments">
+    
+    
+<div class="utteranc">
+  
+  <script
+    src='https://utteranc.es/client.js'
+    repo='lulu-cloud/lulu-blog-issue'
+    issue-term='pathname'
+    issue-number=''
+    theme='github-light'
+    label=''
+    crossorigin='anonymous'
+    async
+  ></script>
+</div>
+
+
+
+</div>
+
+                </main>
+                
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">
+            文章目录
+        </h3>
+        
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#0%E3%80%81%E6%91%98%E8%A6%81"><span class="toc-text">0、摘要</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#1%E3%80%81%E6%A6%82%E5%BF%B5%E4%BB%8B%E7%BB%8D"><span class="toc-text">1、概念介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-1-%E6%B5%81%E9%87%8F%E5%8A%A0%E5%AF%86%E8%83%8C%E6%99%AF"><span class="toc-text">1.1 流量加密背景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-2-%E6%B5%81%E9%87%8F%E5%88%86%E7%B1%BB%E6%8A%80%E6%9C%AF%E7%9A%84%E5%8F%91%E5%B1%95%EF%BC%88%E7%BB%BC%E8%BF%B0%E9%83%A8%E5%88%86%EF%BC%89"><span class="toc-text">1.2 流量分类技术的发展（综述部分）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-4-%E6%96%87%E7%AB%A0%E6%A0%B8%E5%BF%83%E8%A7%82%E7%82%B9%E5%BC%95%E5%85%A5"><span class="toc-text">1.4 文章核心观点引入</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2%E3%80%81%E6%A8%A1%E5%9E%8B%E7%BB%93%E6%9E%84"><span class="toc-text">2、模型结构</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2-1%E6%80%BB%E8%A7%88"><span class="toc-text">2.1总览</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2-%E9%9B%86%E5%90%88%E5%88%86%E5%89%B2"><span class="toc-text">2.2 集合分割</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-3-%E8%87%B4%E5%B9%BB%E5%99%A8%EF%BC%88Hallucinator%EF%BC%89"><span class="toc-text">2.3 致幻器（Hallucinator）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-4-%E7%BC%96%E7%A0%81%E5%99%A8%EF%BC%88Encoder%EF%BC%89%E4%B8%8E%E8%A7%A3%E7%A0%81%E5%99%A8%EF%BC%88Decoder%EF%BC%89"><span class="toc-text">2.4 编码器（Encoder）与解码器（Decoder）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-5-%E5%9F%BA%E4%BA%8E%E5%85%83%E5%AD%A6%E4%B9%A0%E7%9A%84%E5%88%86%E7%B1%BB%E5%99%A8"><span class="toc-text">2.5 基于元学习的分类器</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4%E3%80%81%E5%AE%9E%E9%AA%8C"><span class="toc-text">4、实验</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#5%E3%80%81%E6%80%BB%E7%BB%93%E4%B8%8E%E6%80%9D%E8%80%83"><span class="toc-text">5、总结与思考</span></a></li></ol>
+        
+    </div>
+</aside>
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+<a id="back-to-top" class="icon-btn hide">
+    <i class="fa fa-chevron-up"></i>
+</a>
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="busuanzi">
+    
+    访问量:
+    <strong id="busuanzi_value_site_pv">
+        <i class="fa fa-spinner fa-spin"></i>
+    </strong>
+    &nbsp; | &nbsp;
+    访客数:
+    <strong id="busuanzi_value_site_uv">
+        <i class="fa fa-spinner fa-spin"></i>
+    </strong>
+    
+</div>
+            </div>
+            <div class="col-sm-12">
+                <span>Copyright &copy;
+                    2017
+                    
+                </span> |
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Hexo</a>
+                </span> |
+                <span>
+                    Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+<script src="/js/app.js?rev=@@hash.js"></script>
+
+</body>
+</html>

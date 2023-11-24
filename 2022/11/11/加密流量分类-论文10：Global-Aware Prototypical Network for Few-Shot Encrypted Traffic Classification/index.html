@@ -1,0 +1,424 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+<head>
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="Hexo">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <meta name="theme-version" content="1.3.0">
+    <meta name="root" content="/">
+    <link rel="dns-prefetch" href="https://lulu-cloud.github.io">
+    <!--SEO-->
+
+<meta name="keywords" content="论文" />
+
+
+<meta name="description" content="0、摘要
+现在大部分对于小样本学习的方法都是基于度量(metric learning)解决，但是这些方法只考虑到了流量的局部信息，故对最终的分类性能有一定影响
+
+本文提出的GP-Net，考虑负载..." />
+
+
+<meta name="robots" content="all" />
+<meta name="google" content="all" />
+<meta name="googlebot" content="all" />
+<meta name="verify" content="all" />
+    <!--Title-->
+
+<title>
+    
+    加密流量分类-论文10: Global-Aware Prototypical Network for Few-Shot Encrypted Traffic Classification |
+    
+    Hexo
+</title>
+
+<link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+
+
+<link rel="icon" href="/favicon.ico">
+
+    
+
+
+<link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7.css">
+<link rel="stylesheet" href="/css/font-awesome.min.css?rev=4.7.0.css">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash.css">
+
+    
+<div class="hide">
+    <script type="text/javascript">
+    var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+    document.write(unescape("%3Cspan class='cnzz_stat_icon_1263868967 hide' %3E%3Cscript%20src%3D%22https%3A%2F%2Fs95.cnzz.com%2Fz_stat.php%3Fweb_id%3D1272564536%22%3E%3C%2Fscript%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1263868967%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+</div>
+
+
+
+
+    
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+<body>
+    <header class="main-header"  style="background-image:url(
+    /./img/duolaAAA.git)"
+     >
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title='lulu-cloud'>
+            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+            <!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+            <img src="/img/branding.png" alt="Snippet 博客主题" class="img-responsive center-block">
+            
+        </div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                        <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="https://lulu-cloud.github.io">
+                        Hexo</a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/"><i class="fa "></i>
+                                首页</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/科研/"><i class="fa "></i>
+                                科研</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/硕士生活/"><i class="fa "></i>
+                                硕士生活</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/archives/"><i class="fa "></i>
+                                时间轴</a>
+                        </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="加密流量分类-论文10: Global-Aware Prototypical Network for Few-Shot Encrypted Traffic Classification">
+            
+            加密流量分类-论文10: Global-Aware Prototypical Network for Few-Shot Encrypted Traffic Classification
+            
+        </h1>
+        <div class="post-meta">
+    
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        <a class="category-link" href="/categories/%E7%A7%91%E7%A0%94/">科研</a> <a class="category-link" href="/categories/%E7%A7%91%E7%A0%94/%E5%8A%A0%E5%AF%86%E6%B5%81%E9%87%8F%E5%88%86%E7%B1%BB/">加密流量分类</a>
+    </span>
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+            <a class="tag-none-link" href="/tags/%E8%AE%BA%E6%96%87/" rel="tag">论文</a>
+            
+        </span>
+    </span>
+    
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-clock-o"></i>
+        <span class="date-meta">
+            2022/11/11</span>
+    </span>
+    
+    <span class="fa-wrap">
+        <i class="fa fa-eye"></i>
+        <span id="busuanzi_value_page_pv"></span>
+    </span>
+    
+    
+</div>
+        
+        
+        <p class="fa fa-exclamation-triangle warning">
+            本文于<strong>
+                378</strong>
+            天之前发表，文中内容可能已经过时。
+        </p>
+        
+    </div>
+    
+    <div class="post-body post-content">
+        <h1 id="0、摘要"><a href="#0、摘要" class="headerlink" title="0、摘要"></a>0、摘要</h1><ul>
+<li><p>现在大部分对于小样本学习的方法都是基于度量(metric learning)解决，但是这些方法只考虑到了流量的局部信息，故对最终的分类性能有一定影响</p>
+</li>
+<li><p>本文提出的GP-Net，<strong>考虑负载序列的两个字节之间的关系，利用字节之中的关系聚合流量输入的全局信息</strong></p>
+</li>
+</ul>
+<blockquote>
+<p>少样本学习是元学习的在监督学习领域的应用，可以参考<a href="[Few-shot learning（少样本学习）入门 - 知乎 (zhihu.com">link</a>](<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/156830039">https://zhuanlan.zhihu.com/p/156830039</a>))</p>
+</blockquote>
+<h1 id="1、概念介绍"><a href="#1、概念介绍" class="headerlink" title="1、概念介绍"></a>1、概念介绍</h1><h2 id="1-1-基于metric的少样本学习的方法"><a href="#1-1-基于metric的少样本学习的方法" class="headerlink" title="1.1 基于metric的少样本学习的方法"></a>1.1 基于metric的少样本学习的方法</h2><p><img src="https://raw.githubusercontent.com/lulu-cloud/lili_images/main/image/202311242125077.png" alt="img"></p>
+<ul>
+<li>过去使用一维卷积神经网络作为编码器解码器提取流量特征的方法，如<a href="[加密流量分类-论文6：Learning to Classify A Flow-Based Relation Network for Encrypted Traffic Classification_烟玉蓝田的博客-CSDN博客](https://blog.csdn.net/qq_45125356/article/details/127142284?spm=1001.2014.3001.5502">RBRN</a>)因为卷积核大小的限制，难以提取整个流量的<strong>全局信息</strong>，因此导致后续计算相似度时，不够精确。</li>
+</ul>
+<h2 id="1-4-文章核心观点引入"><a href="#1-4-文章核心观点引入" class="headerlink" title="1.4 文章核心观点引入"></a>1.4 文章核心观点引入</h2><ul>
+<li><p>论文模型优势：在新流量类型样本不足的情况下学习更好的表示方法</p>
+</li>
+<li><p>四大模块：</p>
+<ul>
+<li><p>流量归一化：将原始流量（输入是流量的有效载荷信息）转为图片</p>
+</li>
+<li><p>全局感知表示：基于自注意力的思想，<strong>并且对负载序列中字节位置信息进行建模</strong>，克服自注意力机制中的位置不可知的缺陷，这样就能聚合流量的全局信息. </p>
+<blockquote>
+<p>所谓全局感知，其实就是引入了自注意力机制而已</p>
+</blockquote>
+</li>
+<li><p>嵌入生成器：卷积操作，因为前面的全局感知，使得这里的卷积不同于以前论文方法的卷积，<font color="red">全局而不局限</font></p>
+</li>
+<li><p>计算相似度模块：与以前方法类似。</p>
+<blockquote>
+<p>通篇下来就是<font color="red">全局</font>两个字</p>
+</blockquote>
+</li>
+</ul>
+<h1 id="2、初步知识"><a href="#2、初步知识" class="headerlink" title="2、初步知识"></a>2、初步知识</h1><h2 id="2-1-元学习概念"><a href="#2-1-元学习概念" class="headerlink" title="2.1 元学习概念"></a>2.1 元学习概念</h2></li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/lulu-cloud/lili_images/main/image/202311242125678.png" alt="img"></p>
+<p>&emsp;&emsp;元学习概念：与传统的机器学习不同，元学习的基本单元是一个任务而不是一个训练示例。元学习的主要目标是从元训练任务中获取通用的元知识，并将其用于只需少量样本的元测试任务的快速学习。如上图：训练任务与测试任务是不相关的，用不同颜色与形状表示出来，元学习期待从完成元任务中学习到的知识能很好地迁移到待试验数据上。</p>
+<h2 id="2-2-问题定义"><a href="#2-2-问题定义" class="headerlink" title="2.2 问题定义"></a>2.2 问题定义</h2><p>&emsp;&emsp;假定两个流量数据集，都是有标签的，定义为：</p>
+<script type="math/tex; mode=display">
+D^{tr}=\{(x_1^{tr},y_1^{tr}),(x_1^{tr},y_1^{tr}),···，(x_K^{tr},y_K^{tr}),\}</script><script type="math/tex; mode=display">
+其中，x_i^{tr}∈R^d，y_i^{tr}∈\{1,2,···，C\}</script><script type="math/tex; mode=display">
+D^{test}=\{(x_1^{test},y_1^{tr}),(x_1^{test},y_1^{test}),···，(x_K^{test},y_K^{test}),\}</script><script type="math/tex; mode=display">
+其中，x_i^{test}∈R^d，y_i^{tr}∈\{C+1,···,C+N\}</script><p>&emsp;&emsp;意味着D<sup>tr</sup>中有C个类别的流量，并且每一种类的流量都有一定的样本，但是，在D<sup>test</sup>中，样本数量非常少，并且类别都是D<sup>tr</sup>中没有的。</p>
+<p>&emsp;&emsp;将训练集与测试集中的任务定义为：</p>
+<script type="math/tex; mode=display">
+\tau=\{\tau_A^{tr},\tau_B^{tr},\tau_C^{tr},···\}</script><p>每一个元素代表一个任务，是二元分类，如上图，都由支持集(support set)与查询集(query set)组成，叫法这么叫而已，其实就是训练集与验证集。</p>
+<p>&emsp;&emsp;支持集与查询集的形成遵循N-way、K-shot原则，即N个流量类型，每个类型抽k个样本。这样在测试任务中，即使测试任务的支持集很小，但是在元学习的表现下，仍然有不错的泛化性。</p>
+<h1 id="3-GP-Net"><a href="#3-GP-Net" class="headerlink" title="3 GP-Net"></a>3 GP-Net</h1><h2 id="3-1-概览"><a href="#3-1-概览" class="headerlink" title="3.1 概览"></a>3.1 概览</h2><p><img src="https://raw.githubusercontent.com/lulu-cloud/lili_images/main/image/202311242125616.png" alt="img"></p>
+<h2 id="3-2-流量归一化模块"><a href="#3-2-流量归一化模块" class="headerlink" title="3.2 流量归一化模块"></a>3.2 流量归一化模块</h2><p>&emsp;&emsp;经典三大步：分流、地址匿名、转为图片形式</p>
+<ul>
+<li><p>分流：这里没说是单向流还是双向会话流，使用工具SplitCap</p>
+</li>
+<li><p>地址匿名：MAC、与IP地址匿名化</p>
+</li>
+<li><p>转图片：取载荷前784（28*28）字节，超则截，短则填</p>
+</li>
+</ul>
+<h2 id="3-3-全局感知模块（Global-aware-representation）"><a href="#3-3-全局感知模块（Global-aware-representation）" class="headerlink" title="3.3 全局感知模块（Global-aware representation）"></a>3.3 全局感知模块（Global-aware representation）</h2><p>&emsp;&emsp;对整个流量输入信息进行聚合,并且引入相对位置机制对字节的位置信息进行建模。</p>
+<h3 id="3-3-1-全局信息增强"><a href="#3-3-1-全局信息增强" class="headerlink" title="3.3.1 全局信息增强"></a>3.3.1 全局信息增强</h3><p>&emsp;&emsp;基于CNN的方法由于卷积核的大小关系，无法捕获有效载荷字节之间远程关系，堆叠CNN后，会造成参数多、存在过拟合的问题，这在少样本的情况下尤为明显。</p>
+<p>&emsp;&emsp;而注意力机制不会，无视空间距离，考虑每一个载荷之间的相互关系。</p>
+<p><img src="https://raw.githubusercontent.com/lulu-cloud/lili_images/main/image/202311242125835.png" alt="img"></p>
+<p>对于一个流量图片X，将其拉直，经过运算得到特征向量A：</p>
+<p><img src="https://raw.githubusercontent.com/lulu-cloud/lili_images/main/image/202311242135669.png" alt="image-20231124213554439"></p>
+<h3 id="3-3-2-相对位置机制"><a href="#3-3-2-相对位置机制" class="headerlink" title="3.3.2 相对位置机制"></a>3.3.2 相对位置机制</h3><p>&emsp;&emsp;但是，上式子中，自注意机制是位置不可知的。此属性丢失了字节的位置信息，导致流量表示不全面。于是改进，加入相对位置，A表示如下：</p>
+<p><img src="https://raw.githubusercontent.com/lulu-cloud/lili_images/main/image/202311242137104.png" alt="image-20231124213721617"></p>
+<p>P<sup>rel</sup>是相对位置矩阵，比如第i与第j个字节的相对位置可以表示如下：</p>
+<script type="math/tex; mode=display">
+P^{rel}[i,j]=q_ir_{j-i}</script><p>其中q<sub>i</sub>是字节i 的查询向量，r<sub>j-i</sub>是字节i和字节j之间的相对位置嵌入。</p>
+<h3 id="3-3-3-全局增强的特征提取器（Global-enhanced-feature-extractor）"><a href="#3-3-3-全局增强的特征提取器（Global-enhanced-feature-extractor）" class="headerlink" title="3.3.3 全局增强的特征提取器（Global-enhanced feature extractor）"></a>3.3.3 全局增强的特征提取器（Global-enhanced feature extractor）</h3><p>&emsp;&emsp;通过多头注意力机制后，将不同子空间的特征向量进行拼接,得到MA：</p>
+<script type="math/tex; mode=display">
+MA=Concat[A_1,A_2,···,A_N]W_O</script><p>然后这里还和原始图片X做卷积的结果进行再次拼接，得到输出O:</p>
+<script type="math/tex; mode=display">
+O=Concat[MA,Conv(X)]</script><blockquote>
+<p>自注意力机制+卷积结果拼接作为输出，考虑了载荷之间的距离信息。</p>
+</blockquote>
+<h2 id="3-4-嵌入生成器"><a href="#3-4-嵌入生成器" class="headerlink" title="3.4 嵌入生成器"></a>3.4 嵌入生成器</h2><p>&emsp;&emsp;这里是四个相同的卷积块进行堆叠，每个都是3*3的卷积核大小，64通道+BN+ReLu+MaxPooling，得到嵌入向量e：</p>
+<script type="math/tex; mode=display">
+e=f_{\phi}(O)</script><h2 id="3-5-相似度核（Similarity-Kernel）"><a href="#3-5-相似度核（Similarity-Kernel）" class="headerlink" title="3.5 相似度核（Similarity Kernel）"></a>3.5 相似度核（Similarity Kernel）</h2><p>&emsp;&emsp;每一个查询样本x<sup>q</sup>转为嵌入向量e<sup>q</sup>后，与支持集中的每个类型c<sup>i</sup>进行比较，得出相似度进行分类。c<sup>i</sup>是每个i类型的样本嵌入向量评价</p>
+<h1 id="4、实验"><a href="#4、实验" class="headerlink" title="4、实验"></a>4、实验</h1><p>这里抛出三个问题：</p>
+<ul>
+<li><p>小样本学习是否生效</p>
+</li>
+<li><p>注意力机制与相对位置信息是否必要</p>
+</li>
+<li><p>GP-Net调参</p>
+</li>
+</ul>
+<p>  数据集：<strong>USTC-TFC2016</strong></p>
+<blockquote>
+<p>只有一个数据集,个人感觉不够</p>
+</blockquote>
+<ol>
+<li><strong>回答问题1：</strong></li>
+</ol>
+<p><img src="https://raw.githubusercontent.com/lulu-cloud/lili_images/main/image/202311242126075.png" alt="img"></p>
+<p>表里的base是在训练查询集的结果，FewShot是在测试查询集的结果。</p>
+<ol>
+<li><strong>回答问题2：</strong></li>
+</ol>
+<p><img src="https://raw.githubusercontent.com/lulu-cloud/lili_images/main/image/202311242126972.png" alt=""></p>
+<p>消融实验表明：</p>
+<p>第一行表示没有全局感知模块与相对位置机制的模型</p>
+<p>第二行表示没有相对位置机制的模型</p>
+<blockquote>
+<p>但是，我这里感觉在3.3.3 全局感知模块中，加了直接的卷积，没有对那里的卷积进行剔除，感觉这里不好，说不定模型的表现都是基于那个由X直接卷积得到的特征图，而非所谓基于全局感知模块的信息。</p>
+</blockquote>
+<ol>
+<li><strong>回答问题3：</strong></li>
+</ol>
+<p>调参，不看了</p>
+<h1 id="5、总结与思考"><a href="#5、总结与思考" class="headerlink" title="5、总结与思考"></a>5、总结与思考</h1><ul>
+<li>亮点：少样本学习、元学习</li>
+<li>模型总体结构： 输入为有效载荷，结构为自注意力（加上相对位置信息）+卷积，而且注意力中并行着卷积，没有做这个的消融实验。</li>
+</ul>
+
+    </div>
+    
+    <div class="post-footer">
+        <div>
+            
+            转载声明：
+            商业转载请联系作者获得授权,非商业转载请注明出处 © <a href="" target="_blank">Snippet</a>
+            
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+<div class="article-nav prev-next-wrap clearfix">
+    
+    <a href="/2022/11/18/%E5%8A%A0%E5%AF%86%E6%B5%81%E9%87%8F%E5%88%86%E7%B1%BB-%E8%AE%BA%E6%96%8711%20FlowPic_%20A%20Generic%20Representation%20for%20Encrypted%20Traffic%20Classification%20and%20Applications/" class="pre-post btn btn-default" title='加密流量分类-论文11: FlowPic_ A Generic Representation for Encrypted Traffic Classification and Applications'>
+        <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
+        <span class="hidden-xs">
+            加密流量分类-论文11: FlowPic_ A Generic Representation for Encrypted Traffic Classification and Applications</span>
+    </a>
+    
+    
+    <a href="/2022/10/15/%E5%8A%A0%E5%AF%86%E6%B5%81%E9%87%8F%E5%88%86%E7%B1%BB-%E8%AE%BA%E6%96%879%EF%BC%9ADarknetSec_%20A%20novel%20self-attentive%20deep%20learning%20method%20for%20darknet%20traffic...../" class="next-post btn btn-default" title='加密流量分类-论文9: DarknetSec_ A novel self-attentive deep learning method for darknet traffic'>
+        <span class="hidden-lg">下一篇</span>
+        <span class="hidden-xs">
+            加密流量分类-论文9: DarknetSec_ A novel self-attentive deep learning method for darknet traffic</span><i class="fa fa-angle-right fa-fw"></i>
+    </a>
+    
+</div>
+
+<div id="comments">
+    
+    
+<div class="utteranc">
+  
+  <script
+    src='https://utteranc.es/client.js'
+    repo='lulu-cloud/lulu-blog-issue'
+    issue-term='pathname'
+    issue-number=''
+    theme='github-light'
+    label=''
+    crossorigin='anonymous'
+    async
+  ></script>
+</div>
+
+
+
+</div>
+
+                </main>
+                
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">
+            文章目录
+        </h3>
+        
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#0%E3%80%81%E6%91%98%E8%A6%81"><span class="toc-text">0、摘要</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#1%E3%80%81%E6%A6%82%E5%BF%B5%E4%BB%8B%E7%BB%8D"><span class="toc-text">1、概念介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-1-%E5%9F%BA%E4%BA%8Emetric%E7%9A%84%E5%B0%91%E6%A0%B7%E6%9C%AC%E5%AD%A6%E4%B9%A0%E7%9A%84%E6%96%B9%E6%B3%95"><span class="toc-text">1.1 基于metric的少样本学习的方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-4-%E6%96%87%E7%AB%A0%E6%A0%B8%E5%BF%83%E8%A7%82%E7%82%B9%E5%BC%95%E5%85%A5"><span class="toc-text">1.4 文章核心观点引入</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2%E3%80%81%E5%88%9D%E6%AD%A5%E7%9F%A5%E8%AF%86"><span class="toc-text">2、初步知识</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2-1-%E5%85%83%E5%AD%A6%E4%B9%A0%E6%A6%82%E5%BF%B5"><span class="toc-text">2.1 元学习概念</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2-%E9%97%AE%E9%A2%98%E5%AE%9A%E4%B9%89"><span class="toc-text">2.2 问题定义</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-GP-Net"><span class="toc-text">3 GP-Net</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#3-1-%E6%A6%82%E8%A7%88"><span class="toc-text">3.1 概览</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-2-%E6%B5%81%E9%87%8F%E5%BD%92%E4%B8%80%E5%8C%96%E6%A8%A1%E5%9D%97"><span class="toc-text">3.2 流量归一化模块</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-3-%E5%85%A8%E5%B1%80%E6%84%9F%E7%9F%A5%E6%A8%A1%E5%9D%97%EF%BC%88Global-aware-representation%EF%BC%89"><span class="toc-text">3.3 全局感知模块（Global-aware representation）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-1-%E5%85%A8%E5%B1%80%E4%BF%A1%E6%81%AF%E5%A2%9E%E5%BC%BA"><span class="toc-text">3.3.1 全局信息增强</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-2-%E7%9B%B8%E5%AF%B9%E4%BD%8D%E7%BD%AE%E6%9C%BA%E5%88%B6"><span class="toc-text">3.3.2 相对位置机制</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-3-3-%E5%85%A8%E5%B1%80%E5%A2%9E%E5%BC%BA%E7%9A%84%E7%89%B9%E5%BE%81%E6%8F%90%E5%8F%96%E5%99%A8%EF%BC%88Global-enhanced-feature-extractor%EF%BC%89"><span class="toc-text">3.3.3 全局增强的特征提取器（Global-enhanced feature extractor）</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-4-%E5%B5%8C%E5%85%A5%E7%94%9F%E6%88%90%E5%99%A8"><span class="toc-text">3.4 嵌入生成器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-5-%E7%9B%B8%E4%BC%BC%E5%BA%A6%E6%A0%B8%EF%BC%88Similarity-Kernel%EF%BC%89"><span class="toc-text">3.5 相似度核（Similarity Kernel）</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4%E3%80%81%E5%AE%9E%E9%AA%8C"><span class="toc-text">4、实验</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#5%E3%80%81%E6%80%BB%E7%BB%93%E4%B8%8E%E6%80%9D%E8%80%83"><span class="toc-text">5、总结与思考</span></a></li></ol>
+        
+    </div>
+</aside>
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+<a id="back-to-top" class="icon-btn hide">
+    <i class="fa fa-chevron-up"></i>
+</a>
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="busuanzi">
+    
+    访问量:
+    <strong id="busuanzi_value_site_pv">
+        <i class="fa fa-spinner fa-spin"></i>
+    </strong>
+    &nbsp; | &nbsp;
+    访客数:
+    <strong id="busuanzi_value_site_uv">
+        <i class="fa fa-spinner fa-spin"></i>
+    </strong>
+    
+</div>
+            </div>
+            <div class="col-sm-12">
+                <span>Copyright &copy;
+                    2017
+                    
+                </span> |
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Hexo</a>
+                </span> |
+                <span>
+                    Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+<script src="/js/app.js?rev=@@hash.js"></script>
+
+</body>
+</html>

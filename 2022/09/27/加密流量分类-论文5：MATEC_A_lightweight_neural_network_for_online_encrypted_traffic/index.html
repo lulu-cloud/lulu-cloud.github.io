@@ -1,0 +1,382 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+<head>
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="Hexo">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <meta name="theme-version" content="1.3.0">
+    <meta name="root" content="/">
+    <link rel="dns-prefetch" href="https://lulu-cloud.github.io">
+    <!--SEO-->
+
+<meta name="keywords" content="论文" />
+
+
+<meta name="description" content="0、摘要 &emsp;&emsp;现有的深度学习方法为了获得高精度的分类结果而牺牲了效率，已经不适合大量加密流量的场景，本文提出了一种实现为MATEC的轻量级在线方法，遵循“精简模块重用最大化”..." />
+
+
+<meta name="robots" content="all" />
+<meta name="google" content="all" />
+<meta name="googlebot" content="all" />
+<meta name="verify" content="all" />
+    <!--Title-->
+
+<title>
+    
+    加密流量分类-论文5:MATEC_A_lightweight_neural_network_for_online_encrypted_traffic |
+    
+    Hexo
+</title>
+
+<link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+
+
+<link rel="icon" href="/favicon.ico">
+
+    
+
+
+<link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7.css">
+<link rel="stylesheet" href="/css/font-awesome.min.css?rev=4.7.0.css">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash.css">
+
+    
+<div class="hide">
+    <script type="text/javascript">
+    var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+    document.write(unescape("%3Cspan class='cnzz_stat_icon_1263868967 hide' %3E%3Cscript%20src%3D%22https%3A%2F%2Fs95.cnzz.com%2Fz_stat.php%3Fweb_id%3D1272564536%22%3E%3C%2Fscript%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1263868967%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+</div>
+
+
+
+
+    
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+<body>
+    <header class="main-header"  style="background-image:url(
+    /./img/duolaAAA.git)"
+     >
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title='lulu-cloud'>
+            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+            <!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+            <img src="/img/branding.png" alt="Snippet 博客主题" class="img-responsive center-block">
+            
+        </div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                        <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="https://lulu-cloud.github.io">
+                        Hexo</a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/"><i class="fa "></i>
+                                首页</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/科研/"><i class="fa "></i>
+                                科研</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/硕士生活/"><i class="fa "></i>
+                                硕士生活</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/archives/"><i class="fa "></i>
+                                时间轴</a>
+                        </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="加密流量分类-论文5:MATEC_A_lightweight_neural_network_for_online_encrypted_traffic">
+            
+            加密流量分类-论文5:MATEC_A_lightweight_neural_network_for_online_encrypted_traffic
+            
+        </h1>
+        <div class="post-meta">
+    
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        <a class="category-link" href="/categories/%E7%A7%91%E7%A0%94/">科研</a> <a class="category-link" href="/categories/%E7%A7%91%E7%A0%94/%E5%8A%A0%E5%AF%86%E6%B5%81%E9%87%8F%E5%88%86%E7%B1%BB/">加密流量分类</a>
+    </span>
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+            <a class="tag-none-link" href="/tags/%E8%AE%BA%E6%96%87/" rel="tag">论文</a>
+            
+        </span>
+    </span>
+    
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-clock-o"></i>
+        <span class="date-meta">
+            2022/09/27</span>
+    </span>
+    
+    <span class="fa-wrap">
+        <i class="fa fa-eye"></i>
+        <span id="busuanzi_value_page_pv"></span>
+    </span>
+    
+    
+</div>
+        
+        
+        <p class="fa fa-exclamation-triangle warning">
+            本文于<strong>
+                423</strong>
+            天之前发表，文中内容可能已经过时。
+        </p>
+        
+    </div>
+    
+    <div class="post-body post-content">
+        <h1 id="0、摘要"><a href="#0、摘要" class="headerlink" title="0、摘要"></a>0、摘要</h1><p> &emsp;&emsp;现有的深度学习方法为了获得高精度的分类结果而牺牲了效率，已经不适合大量加密流量的场景，本文提出了一种实现为MATEC的轻量级<strong>在线</strong>方法，<strong>遵循“精简模块重用最大化”的设计原则（Maximizing the reuse of thin modules）</strong>。</p>
+<h1 id="1、问题引入"><a href="#1、问题引入" class="headerlink" title="1、问题引入"></a>1、问题引入</h1><p> &emsp;&emsp;老规矩，先说其他方案的缺点：</p>
+<ul>
+<li><p>统计特征+基于机器学习的方法：要获得流量的统计特征，需要观察流的全部或者大部分，内存开销大，只能适用于离线分类。</p>
+</li>
+<li><p>基于深度学习的方法：为了追求精度，目前提出的神经网络运行时空开销大，效率不够高。</p>
+<blockquote>
+<p> 所以本文提出了MATEC的轻量级的神经网络，可以用于在线流分类，输入是<strong>流中的随机位置的三个数据包</strong>；基本结构：<strong>多头注意力机制+一维CNN</strong>；期望能提取全局（流级）与局部（包级）的特征，<strong>全局特征来自流中信息包之间的交互，而局部特征则包含在一些原始信息包的字节中。</strong></p>
+<p>此外，这篇文章的方法通过迁移学习，也对零日应用的流量探测有一定效用。</p>
+</blockquote>
+</li>
+</ul>
+<h1 id="2、流分类的相关工作（综述部分）"><a href="#2、流分类的相关工作（综述部分）" class="headerlink" title="2、流分类的相关工作（综述部分）"></a>2、流分类的相关工作（综述部分）</h1><h2 id="2-1-加密流量分类"><a href="#2-1-加密流量分类" class="headerlink" title="2.1 加密流量分类"></a>2.1 加密流量分类</h2><p><img src="https://raw.githubusercontent.com/lulu-cloud/lili_images/main/image/202311242112540.png" alt="分类流程"></p>
+<p>&emsp;分类目标：</p>
+<ul>
+<li><p>基于协议(如HTTP、SSL、SMTP、DNS或QUIC)</p>
+</li>
+<li><p>基于流量类型(如视频、聊天或浏览)</p>
+</li>
+<li><p>基于应用程序(如Amazon、Apple、Microsoft或谷歌)</p>
+</li>
+<li><p>基于网站</p>
+</li>
+</ul>
+<p>&emsp;  分类方法是否在线，可以分为：</p>
+<ul>
+<li><p>在线流量分类（本文提出的是在线方法）</p>
+</li>
+<li><p>离线流量分类</p>
+</li>
+</ul>
+<p>常见流量分类方法，包级（Packet-Based）与流级(Flow-Based),然后介绍了什么是包、什么是流。</p>
+<blockquote>
+<p>流是指所有具有五元组(即传输层协议、源IP、源端口、目的IP、目的端口)相同值的报文，源和目的可以交换。有的论文觉得不能交换，能交换的称作为<strong>会话（session）</strong></p>
+</blockquote>
+<ul>
+<li><p>基于包级（报文级）的分类方法：直接将数据包的字节作为输入，包括报头信息与有效载荷。<strong>基于包的方法只关注少数包的详细信息，缺乏对全局特征的关注。</strong>（Deep Packet）</p>
+</li>
+<li><p>基于流级的分类方法：流级特征包括了全局信息。</p>
+<ul>
+<li>基于机器学习的方法：需要手动设计并且提取统计特征，大部分必须观察整个流或流中的大部分数据包才能获得这些特征，更适合于离线分类。</li>
+<li>基于深度学习的方法：有使用Bi-GRU对流的字节序列或者流中的包长序列进行特征提取用于分类（FS-Net），有将流中连续的几个报文作为1D-CNN的输入进行分类，有同时使用CNN与RNN分别提取流量的空间特征与时间特征。<strong>但是RNN中单元之间的依赖关系使得等待上一个单元的输出非常耗时，本文提出的多头注意力（Multi-head attention）方法就没有这种劣势。</strong></li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p> 这篇文章的综述特别详尽</p>
+</blockquote>
+<h1 id="3、模型结构"><a href="#3、模型结构" class="headerlink" title="3、模型结构"></a>3、模型结构</h1><h2 id="3-1嵌入层（Embedding）"><a href="#3-1嵌入层（Embedding）" class="headerlink" title="3.1嵌入层（Embedding）"></a>3.1嵌入层（Embedding）</h2><ul>
+<li><p>输入：数据流中的随机位置的连续三个包，既利用了包的统计特征（如包的长度、相对位置）也利用了包的字节特征，对于一个包xi，它的浅层特征向量如下：<br>$$<br>x_i={x_{i_1},x_{i_2},..,x_{i_M}}<br>$$<br>每一个分量代表包的一个特征，例如第一个分量可以代表包的相对位置、第二个分量可以代表包长、第三个分量可以代表删除以太网头后的第一个784字节……</p>
+</li>
+<li><p>嵌入：对于xi中的每一个分量，若其是向量特征，做如下变换，<br>$$<br>e_{i_j}=U_jx_{i_j}<br>$$<br>这样将改向量映射到j维向量，若其是标量特征，则做如下变换<br>$$<br>e_{i_j}=u_jx_{i_j}<br>$$<br>这样，不论是向量特征还是标量特征都会被映射到相同的表示，转换后的向量ei如下：<br>$$<br>e_i=W_{map}[e_{i_1},e_{i_2},..,e_{i_n}]<br>$$</p>
+<p>$$<br>W_{map}∈R^{d*m}<br>$$</p>
+<p>因此，一个包就转为一个d维向量，一个流转为N*d维矩阵，这里研究N取3,即随机选取流中3个连续数据包的那个3。嵌入向量的位置编码采用绝对编码方式。</p>
+</li>
+</ul>
+<h2 id="3-2-注意力编码层"><a href="#3-2-注意力编码层" class="headerlink" title="3.2 注意力编码层"></a>3.2 注意力编码层</h2><p> &emsp;&emsp;这里期望注意力编码层能够捕获数据的高维特征，并且捕获到数据包之间的交互关系。这里的注意力层跟Transformer块很像，给出图</p>
+<p><img src="https://raw.githubusercontent.com/lulu-cloud/lili_images/main/image/202311242112113.png" alt="多头注意力编码器"></p>
+<p>使用注意力机制的好处：</p>
+<ul>
+<li>并行学习，运算快，参数量少</li>
+<li><p>将数据映射到多个高维度，更能发掘潜在信息</p>
+<h2 id="3-3-全连接层"><a href="#3-3-全连接层" class="headerlink" title="3.3 全连接层"></a>3.3 全连接层</h2><ul>
+<li><p>将编码后的特征作为输入，输出为预测标签的概率分布</p>
+</li>
+<li><p><strong>结构可变，针对不同任务灵活改变全连接层的输出神经元个数，输入的个数是固定的，</strong>利用迁移学习优化对新交通数据的<strong>微调</strong>训练，可以加快模型的收敛速度。</p>
+</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/lulu-cloud/lili_images/main/image/202311242112169.png" alt="模型结构"></p>
+<h1 id="4、总结与思考"><a href="#4、总结与思考" class="headerlink" title="4、总结与思考"></a>4、总结与思考</h1><ul>
+<li>模型结构声称是第一个将注意力机制引入流量分类任务。</li>
+<li>通过调整网络结构后端的FC层，可以在新任务上通过少量标签样本进行微调，迅速收敛达到不错的效果。</li>
+</ul>
+
+    </div>
+    
+    <div class="post-footer">
+        <div>
+            
+            转载声明：
+            商业转载请联系作者获得授权,非商业转载请注明出处 © <a href="" target="_blank">Snippet</a>
+            
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+<div class="article-nav prev-next-wrap clearfix">
+    
+    <a href="/2022/10/02/%E5%8A%A0%E5%AF%86%E6%B5%81%E9%87%8F%E5%88%86%E7%B1%BB-%E8%AE%BA%E6%96%876%EF%BC%9ALearning%20to%20Classify%20A%20Flow-Based%20Relation%20Network%20for%20Encrypted%20Traffic%20Classification/" class="pre-post btn btn-default" title='加密流量分类-论文6:Learning to Classify A Flow-Based Relation Network for Encrypted Traffic Classification'>
+        <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
+        <span class="hidden-xs">
+            加密流量分类-论文6:Learning to Classify A Flow-Based Relation Network for Encrypted Traffic Classification</span>
+    </a>
+    
+    
+    <a href="/2022/09/20/%E5%8A%A0%E5%AF%86%E6%B5%81%E9%87%8F%E5%88%86%E7%B1%BBtorch%E5%AE%9E%E8%B7%B51%EF%BC%9A1D-CNN%E6%A8%A1%E5%9E%8B%E8%AE%AD%E7%BB%83%E4%B8%8E%E6%B5%8B%E8%AF%95/" class="next-post btn btn-default" title='加密流量分类-实践1: 1D-CNN模型训练与测试'>
+        <span class="hidden-lg">下一篇</span>
+        <span class="hidden-xs">
+            加密流量分类-实践1: 1D-CNN模型训练与测试</span><i class="fa fa-angle-right fa-fw"></i>
+    </a>
+    
+</div>
+
+<div id="comments">
+    
+    
+<div class="utteranc">
+  
+  <script
+    src='https://utteranc.es/client.js'
+    repo='lulu-cloud/lulu-blog-issue'
+    issue-term='pathname'
+    issue-number=''
+    theme='github-light'
+    label=''
+    crossorigin='anonymous'
+    async
+  ></script>
+</div>
+
+
+
+</div>
+
+                </main>
+                
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">
+            文章目录
+        </h3>
+        
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#0%E3%80%81%E6%91%98%E8%A6%81"><span class="toc-text">0、摘要</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#1%E3%80%81%E9%97%AE%E9%A2%98%E5%BC%95%E5%85%A5"><span class="toc-text">1、问题引入</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2%E3%80%81%E6%B5%81%E5%88%86%E7%B1%BB%E7%9A%84%E7%9B%B8%E5%85%B3%E5%B7%A5%E4%BD%9C%EF%BC%88%E7%BB%BC%E8%BF%B0%E9%83%A8%E5%88%86%EF%BC%89"><span class="toc-text">2、流分类的相关工作（综述部分）</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2-1-%E5%8A%A0%E5%AF%86%E6%B5%81%E9%87%8F%E5%88%86%E7%B1%BB"><span class="toc-text">2.1 加密流量分类</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3%E3%80%81%E6%A8%A1%E5%9E%8B%E7%BB%93%E6%9E%84"><span class="toc-text">3、模型结构</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#3-1%E5%B5%8C%E5%85%A5%E5%B1%82%EF%BC%88Embedding%EF%BC%89"><span class="toc-text">3.1嵌入层（Embedding）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-2-%E6%B3%A8%E6%84%8F%E5%8A%9B%E7%BC%96%E7%A0%81%E5%B1%82"><span class="toc-text">3.2 注意力编码层</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-3-%E5%85%A8%E8%BF%9E%E6%8E%A5%E5%B1%82"><span class="toc-text">3.3 全连接层</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4%E3%80%81%E6%80%BB%E7%BB%93%E4%B8%8E%E6%80%9D%E8%80%83"><span class="toc-text">4、总结与思考</span></a></li></ol>
+        
+    </div>
+</aside>
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+<a id="back-to-top" class="icon-btn hide">
+    <i class="fa fa-chevron-up"></i>
+</a>
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="busuanzi">
+    
+    访问量:
+    <strong id="busuanzi_value_site_pv">
+        <i class="fa fa-spinner fa-spin"></i>
+    </strong>
+    &nbsp; | &nbsp;
+    访客数:
+    <strong id="busuanzi_value_site_uv">
+        <i class="fa fa-spinner fa-spin"></i>
+    </strong>
+    
+</div>
+            </div>
+            <div class="col-sm-12">
+                <span>Copyright &copy;
+                    2017
+                    
+                </span> |
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Hexo</a>
+                </span> |
+                <span>
+                    Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+<script src="/js/app.js?rev=@@hash.js"></script>
+
+</body>
+</html>

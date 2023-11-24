@@ -1,0 +1,442 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+<head>
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="Hexo">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <meta name="theme-version" content="1.3.0">
+    <meta name="root" content="/">
+    <link rel="dns-prefetch" href="https://lulu-cloud.github.io">
+    <!--SEO-->
+
+<meta name="keywords" content="论文" />
+
+
+<meta name="description" content="0、摘要&emsp;&emsp;利用了流中与时间相关和与大小相关的特性，将基本流量数据转换为直观的图片FlowPic，然后使用已知的图像分类深度学习技术cnn来识别流量类别(浏览、聊天、视频等)..." />
+
+
+<meta name="robots" content="all" />
+<meta name="google" content="all" />
+<meta name="googlebot" content="all" />
+<meta name="verify" content="all" />
+    <!--Title-->
+
+<title>
+    
+    加密流量分类-论文11: FlowPic_ A Generic Representation for Encrypted Traffic Classification and Applications |
+    
+    Hexo
+</title>
+
+<link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+
+
+<link rel="icon" href="/favicon.ico">
+
+    
+
+
+<link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7.css">
+<link rel="stylesheet" href="/css/font-awesome.min.css?rev=4.7.0.css">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash.css">
+
+    
+<div class="hide">
+    <script type="text/javascript">
+    var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+    document.write(unescape("%3Cspan class='cnzz_stat_icon_1263868967 hide' %3E%3Cscript%20src%3D%22https%3A%2F%2Fs95.cnzz.com%2Fz_stat.php%3Fweb_id%3D1272564536%22%3E%3C%2Fscript%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1263868967%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+</div>
+
+
+
+
+    
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+<body>
+    <header class="main-header"  style="background-image:url(
+    /./img/duolaAAA.git)"
+     >
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title='lulu-cloud'>
+            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+            <!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+            <img src="/img/branding.png" alt="Snippet 博客主题" class="img-responsive center-block">
+            
+        </div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                        <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="https://lulu-cloud.github.io">
+                        Hexo</a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/"><i class="fa "></i>
+                                首页</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/科研/"><i class="fa "></i>
+                                科研</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/硕士生活/"><i class="fa "></i>
+                                硕士生活</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/archives/"><i class="fa "></i>
+                                时间轴</a>
+                        </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="加密流量分类-论文11: FlowPic_ A Generic Representation for Encrypted Traffic Classification and Applications">
+            
+            加密流量分类-论文11: FlowPic_ A Generic Representation for Encrypted Traffic Classification and Applications
+            
+        </h1>
+        <div class="post-meta">
+    
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        <a class="category-link" href="/categories/%E7%A7%91%E7%A0%94/">科研</a> <a class="category-link" href="/categories/%E7%A7%91%E7%A0%94/%E5%8A%A0%E5%AF%86%E6%B5%81%E9%87%8F%E5%88%86%E7%B1%BB/">加密流量分类</a>
+    </span>
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+            <a class="tag-none-link" href="/tags/%E8%AE%BA%E6%96%87/" rel="tag">论文</a>
+            
+        </span>
+    </span>
+    
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-clock-o"></i>
+        <span class="date-meta">
+            2022/11/18</span>
+    </span>
+    
+    <span class="fa-wrap">
+        <i class="fa fa-eye"></i>
+        <span id="busuanzi_value_page_pv"></span>
+    </span>
+    
+    
+</div>
+        
+        
+        <p class="fa fa-exclamation-triangle warning">
+            本文于<strong>
+                371</strong>
+            天之前发表，文中内容可能已经过时。
+        </p>
+        
+    </div>
+    
+    <div class="post-body post-content">
+        <h1 id="0、摘要"><a href="#0、摘要" class="headerlink" title="0、摘要"></a>0、摘要</h1><p>&emsp;&emsp;利用了流中与<strong>时间</strong>相关和与大小相关的特性，将基本流量数据转换为直观的图片FlowPic，然后使用已知的图像分类深度学习技术cnn来识别流量类别(浏览、聊天、视频等)和正在使用的应用程序。<strong>但是不是使用负载数据形成的特征图。</strong></p>
+<h1 id="1、介绍"><a href="#1、介绍" class="headerlink" title="1、介绍"></a>1、介绍</h1><p>&emsp;&emsp;对于每个流，我们的方法根据数据包大小和数据包到达时间创建一个图像，我们称之为FlowPic。</p>
+<ul>
+<li>不依赖于数据包有效负载内容，因此不会侵犯隐私</li>
+<li>存储需求非常小，分类速度块，近乎实时，可以进行在线的流量分类</li>
+</ul>
+<h1 id="2、数据集介绍"><a href="#2、数据集介绍" class="headerlink" title="2、数据集介绍"></a>2、数据集介绍</h1><ul>
+<li><p>数据集：ISCX VPN-nonVPN、ISCX Tor-nonTor、作者团队自己捕获的数据集（命名为TAU）</p>
+</li>
+<li><p>分类标签类别：</p>
+<ol>
+<li><p>VoIP</p>
+</li>
+<li><p>Video</p>
+</li>
+<li><p>Chat</p>
+</li>
+<li><p>File Transfer</p>
+</li>
+<li><p>Browsing</p>
+</li>
+</ol>
+</li>
+</ul>
+<p>因此，对于五个类别，三种加密技术(非VPN、VPN、Tor)，相当于15种流量。</p>
+<blockquote>
+<p>显然这是关于流量类型识别</p>
+</blockquote>
+<h2 id="2-1-数据处理"><a href="#2-1-数据处理" class="headerlink" title="2.1 数据处理"></a>2.1 数据处理</h2><p>&emsp;&emsp;主要是写作者自己数据的收集的一些细节。</p>
+<h2 id="2-2-数据增强"><a href="#2-2-数据增强" class="headerlink" title="2.2 数据增强"></a>2.2 数据增强</h2><ul>
+<li><p>单向流分大小相等的块，实验中为每隔60s分为一个块</p>
+</li>
+<li><p>但是为了进行数据增强，就将两个块之间进行重叠，重叠时间设置为45秒，这样块与块之间的间隔为15秒</p>
+<blockquote>
+<p>数据扩充过程是在将所有会话分割为一个训练集和一个测试集之后进行的，确保训练块和测试块之间在单个会话中没有重叠</p>
+</blockquote>
+</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/lulu-cloud/lili_images/main/image/202311242127932.png" alt="image-20221118194010907"></p>
+<p>（数据增广后的每个类别的样本数目）</p>
+<h2 id="2-3-敏感性分析"><a href="#2-3-敏感性分析" class="headerlink" title="2.3 敏感性分析"></a>2.3 敏感性分析</h2><p>关于数据增强是否真的有效？块长大小为多少合适？</p>
+<p>结论：</p>
+<ol>
+<li>在个别的流量类型里，数据增强效果不明显</li>
+<li><p>60s的块大小最合适</p>
+<h1 id="3-构建图像"><a href="#3-构建图像" class="headerlink" title="3 构建图像"></a>3 构建图像</h1></li>
+</ol>
+<h2 id="3-1-构建FlowPic"><a href="#3-1-构建FlowPic" class="headerlink" title="3.1 构建FlowPic"></a>3.1 构建FlowPic</h2><ul>
+<li><p>提取每个单向流中的每个数据包的两个特征<strong>IP包大小</strong>、<strong>到达时间</strong></p>
+</li>
+<li><p>构建一个基于流的二维直方图的图像,该图像可以被视为负载大小分布(PSD)</p>
+<ul>
+<li><p>X轴为包的到达时间，Y轴为包的大小</p>
+<blockquote>
+<p>绝大多数包的大小都不超过1500字节(这是以太网MTU值)，将y轴限制在1到1500之间。</p>
+<p>对于x轴，将2d直方图设置为正方形图像。为此，我们将所有到达时间值标准化为0到1500之间(即60秒映射为1500)</p>
+<ul>
+<li>生成1500x1500的直方图，直方图命名为FlowPic，存储在矩阵当中，作为模型输入</li>
+</ul>
+</blockquote>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="3-2-FlowPic分析"><a href="#3-2-FlowPic分析" class="headerlink" title="3.2 FlowPic分析"></a>3.2 FlowPic分析</h2><p>&emsp;&emsp;这里说了作者在对生成FlowPic的一点分析，从而说明FlowPic能反映出网络流通特征复杂，使用深度神经网络模型进行特征提取并分类是很有必要的。</p>
+<ul>
+<li>分析1：在不同应用下，对视频流的分析：</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/lulu-cloud/lili_images/main/image/202311242127831.png" alt="image-20221118195503724"></p>
+<blockquote>
+<p> 不用应用下的流量类型表现不同特性，例如，Netflix传输的数据包大小几乎是固定的，而Skype、Facebook和谷歌Hangout等应用程序传输的大小分布广泛。并且，视频流不仅限于显示元素，还包括行为与VoIP相同的音频流，以及看起来像聊天传输的用于协调和控制的小数据包流。相比之下，例如在Skype上，视频流和音频流是分开的。</p>
+</blockquote>
+<ul>
+<li><p>分析2：加密技术对流量类别的流行为的影响：</p>
+<p><img src="https://raw.githubusercontent.com/lulu-cloud/lili_images/main/image/202311242127589.png" alt="image-20221118195738482"></p>
+<p><img src="https://raw.githubusercontent.com/lulu-cloud/lili_images/main/image/202311242127465.png" alt="image-20221118195756083"></p>
+<p><img src="https://raw.githubusercontent.com/lulu-cloud/lili_images/main/image/202311242127413.png" alt="image-20221118195807254"></p>
+</li>
+</ul>
+<blockquote>
+<p>在不同的加密技术之间，有些类别的flowpic行为完全不同</p>
+</blockquote>
+<ul>
+<li><p>分析3：Tor的加密技术下，Tor流量的包的大小分布比较离散，从图中可以看出来，与非vpn流量中的许多包大小不同。</p>
+<p><img src="https://raw.githubusercontent.com/lulu-cloud/lili_images/main/image/202311242127818.png" alt="image-20221118200339300"></p>
+</li>
+</ul>
+<h1 id="4-卷积神经网络结构设计"><a href="#4-卷积神经网络结构设计" class="headerlink" title="4 卷积神经网络结构设计"></a>4 卷积神经网络结构设计</h1><ul>
+<li><p>输入：二维1500x1500图像</p>
+</li>
+<li><p>输出：2或者流量类别（2是判定是否为NonVPN）</p>
+<p><img src="https://raw.githubusercontent.com/lulu-cloud/lili_images/main/image/202311242127129.png" alt="image-20221118200711631"></p>
+</li>
+</ul>
+<p><strong>延迟分析</strong>：TBS +TFC +TML</p>
+<ul>
+<li><p>TBS是自定义块大小(15、30或60秒)</p>
+</li>
+<li><p>TFC是FlowPic构建时间</p>
+</li>
+<li><p>TML是执行分类的CNN运行时间。</p>
+<p>&emsp;  &emsp;实验中，我们发现TFC和TML都是0.1 s，与块大小相比可以忽略不计，故可以满足在线分类要求。</p>
+<h1 id="5、实验"><a href="#5、实验" class="headerlink" title="5、实验"></a>5、实验</h1></li>
+</ul>
+<h2 id="5-1-处理样本不平衡问题"><a href="#5-1-处理样本不平衡问题" class="headerlink" title="5.1 处理样本不平衡问题"></a>5.1 处理样本不平衡问题</h2><p>方法：过采样、欠采样</p>
+<h3 id="5-1-1-多类分类情况"><a href="#5-1-1-多类分类情况" class="headerlink" title="5.1.1 多类分类情况"></a>5.1.1 多类分类情况</h3><ol>
+<li><p>流量类型分类（Traffic categorization）：对于三种数据集（非VPN、VPN和Tor）合并其中相同类型的，而不考虑加密技术，动机是研究加密技术如何影响流量行为。</p>
+</li>
+<li><p>加密技术分类：即3分类，识别出是否为非VPN、VPN和Tor三种的某一种流量。</p>
+</li>
+<li><p>应用识别：使用创建的数据集，在<strong>VoIP类型</strong>与<strong>视频类型</strong>下捕获10个应用程序的三种加密方式（非VPN、VPN、Tor）的流量。</p>
+</li>
+</ol>
+<h3 id="5-1-2-一对多的分类情况"><a href="#5-1-2-一对多的分类情况" class="headerlink" title="5.1.2 一对多的分类情况"></a>5.1.2 一对多的分类情况</h3><p>&emsp;&emsp;为3种加密技术构建类与所有数据集:非VPN、VPN(针对所有类，除了browse)和TOR，以及合并数据集。对于每种加密技术，每个流类别合并数据集包含相同数量的会话。</p>
+<blockquote>
+<p>训练测试集比例是 9:1</p>
+</blockquote>
+<ul>
+<li><p>Wang等人<a href="[加密流量分类-论文4Endtoend Encrypted Traffic Classification with One-dimensional Convolution Neural Networks_烟玉蓝田的博客-CSDN博客](https://blog.csdn.net/qq_45125356/article/details/126925196?spm=1001.2014.3001.5501">link</a>)使用每个流的前784字节对ISCX VPN-非VPN数据集上的流量进行分类，并使用不同的表示方法分别对非VPN和VPN流量实现了83.0%和98.6%的最佳准确性。但Wang的实验没有包括浏览类别，因为很难将其与其他类别区分开来。从上图的混淆矩阵可以看出，，难以区分浏览和聊天是导致准确度下降的主要原因。</p>
+<p><img src="https://raw.githubusercontent.com/lulu-cloud/lili_images/main/image/202311242127937.png" alt="image-20221118202550257"></p>
+</li>
+<li><p>与其他方法的对比</p>
+</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/lulu-cloud/lili_images/main/image/202311242127191.png" alt="image-20221118203401553"></p>
+<blockquote>
+<p>还有很多的实验结果：比如未知流量识别、加密技术分类、应用分类，不一一列举。</p>
+</blockquote>
+<h1 id="5、总结与思考"><a href="#5、总结与思考" class="headerlink" title="5、总结与思考"></a>5、总结与思考</h1><ul>
+<li><p>亮点：FlowPic的图生成很好，模型分类快，能进行在线分类，不依赖于双向流信息</p>
+<blockquote>
+<p>只考虑时间特征，可以结合空间特征，构造常规的有效载荷流量图，然后进行结合着进行分类？</p>
+</blockquote>
+</li>
+</ul>
+
+    </div>
+    
+    <div class="post-footer">
+        <div>
+            
+            转载声明：
+            商业转载请联系作者获得授权,非商业转载请注明出处 © <a href="" target="_blank">Snippet</a>
+            
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+<div class="article-nav prev-next-wrap clearfix">
+    
+    <a href="/2023/01/19/%E5%8A%A0%E5%AF%86%E6%B5%81%E9%87%8F%E5%88%86%E7%B1%BB-%E8%AE%BA%E6%96%8712%EF%BC%9ASeeing%20Traffic%20Paths_%20Encrypted%20Traffic%20Classification%20With%20Path%20Signature%20Features/" class="pre-post btn btn-default" title='加密流量分类-论文12: Seeing Traffic Paths_ Encrypted Traffic Classification With Path Signature Features'>
+        <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
+        <span class="hidden-xs">
+            加密流量分类-论文12: Seeing Traffic Paths_ Encrypted Traffic Classification With Path Signature Features</span>
+    </a>
+    
+    
+    <a href="/2022/11/11/%E5%8A%A0%E5%AF%86%E6%B5%81%E9%87%8F%E5%88%86%E7%B1%BB-%E8%AE%BA%E6%96%8710%EF%BC%9AGlobal-Aware%20Prototypical%20Network%20for%20Few-Shot%20Encrypted%20Traffic%20Classification/" class="next-post btn btn-default" title='加密流量分类-论文10: Global-Aware Prototypical Network for Few-Shot Encrypted Traffic Classification'>
+        <span class="hidden-lg">下一篇</span>
+        <span class="hidden-xs">
+            加密流量分类-论文10: Global-Aware Prototypical Network for Few-Shot Encrypted Traffic Classification</span><i class="fa fa-angle-right fa-fw"></i>
+    </a>
+    
+</div>
+
+<div id="comments">
+    
+    
+<div class="utteranc">
+  
+  <script
+    src='https://utteranc.es/client.js'
+    repo='lulu-cloud/lulu-blog-issue'
+    issue-term='pathname'
+    issue-number=''
+    theme='github-light'
+    label=''
+    crossorigin='anonymous'
+    async
+  ></script>
+</div>
+
+
+
+</div>
+
+                </main>
+                
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">
+            文章目录
+        </h3>
+        
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#0%E3%80%81%E6%91%98%E8%A6%81"><span class="toc-text">0、摘要</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#1%E3%80%81%E4%BB%8B%E7%BB%8D"><span class="toc-text">1、介绍</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2%E3%80%81%E6%95%B0%E6%8D%AE%E9%9B%86%E4%BB%8B%E7%BB%8D"><span class="toc-text">2、数据集介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2-1-%E6%95%B0%E6%8D%AE%E5%A4%84%E7%90%86"><span class="toc-text">2.1 数据处理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2-%E6%95%B0%E6%8D%AE%E5%A2%9E%E5%BC%BA"><span class="toc-text">2.2 数据增强</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-3-%E6%95%8F%E6%84%9F%E6%80%A7%E5%88%86%E6%9E%90"><span class="toc-text">2.3 敏感性分析</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-%E6%9E%84%E5%BB%BA%E5%9B%BE%E5%83%8F"><span class="toc-text">3 构建图像</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#3-1-%E6%9E%84%E5%BB%BAFlowPic"><span class="toc-text">3.1 构建FlowPic</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-2-FlowPic%E5%88%86%E6%9E%90"><span class="toc-text">3.2 FlowPic分析</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4-%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E7%BB%93%E6%9E%84%E8%AE%BE%E8%AE%A1"><span class="toc-text">4 卷积神经网络结构设计</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#5%E3%80%81%E5%AE%9E%E9%AA%8C"><span class="toc-text">5、实验</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#5-1-%E5%A4%84%E7%90%86%E6%A0%B7%E6%9C%AC%E4%B8%8D%E5%B9%B3%E8%A1%A1%E9%97%AE%E9%A2%98"><span class="toc-text">5.1 处理样本不平衡问题</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#5-1-1-%E5%A4%9A%E7%B1%BB%E5%88%86%E7%B1%BB%E6%83%85%E5%86%B5"><span class="toc-text">5.1.1 多类分类情况</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#5-1-2-%E4%B8%80%E5%AF%B9%E5%A4%9A%E7%9A%84%E5%88%86%E7%B1%BB%E6%83%85%E5%86%B5"><span class="toc-text">5.1.2 一对多的分类情况</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#5%E3%80%81%E6%80%BB%E7%BB%93%E4%B8%8E%E6%80%9D%E8%80%83"><span class="toc-text">5、总结与思考</span></a></li></ol>
+        
+    </div>
+</aside>
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+<a id="back-to-top" class="icon-btn hide">
+    <i class="fa fa-chevron-up"></i>
+</a>
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="busuanzi">
+    
+    访问量:
+    <strong id="busuanzi_value_site_pv">
+        <i class="fa fa-spinner fa-spin"></i>
+    </strong>
+    &nbsp; | &nbsp;
+    访客数:
+    <strong id="busuanzi_value_site_uv">
+        <i class="fa fa-spinner fa-spin"></i>
+    </strong>
+    
+</div>
+            </div>
+            <div class="col-sm-12">
+                <span>Copyright &copy;
+                    2017
+                    
+                </span> |
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Hexo</a>
+                </span> |
+                <span>
+                    Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+<script src="/js/app.js?rev=@@hash.js"></script>
+
+</body>
+</html>
