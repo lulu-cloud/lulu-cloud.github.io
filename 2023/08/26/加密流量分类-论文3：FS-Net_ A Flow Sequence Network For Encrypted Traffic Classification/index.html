@@ -186,9 +186,7 @@
 <h1 id="1、问题引入"><a href="#1、问题引入" class="headerlink" title="1、问题引入"></a>1、问题引入</h1><p> &emsp;&emsp;传统的基于统计特征加上机器学习的流量分类，太依赖与专业经验，即人类的特征工程，特征工程的好坏直接影响分类性能。以往的基于DL的流量分类方法如<a target="_blank" rel="noopener" href="https://blog.csdn.net/qq_45125356/article/details/126661237?spm=1001.2014.3001.5501">Deep Packet:</a>，只使用了网络流量的有效载荷进行分类，没有考虑到流量中的其他信息。因此提出基于DL的端到端的分类模型，尝试设计一种新的适合<strong>流序列特征</strong>的神经网络结构，可以直接从原始输入中学习特征，学习到的特征以真实标签为指导，从而提高性能。因此，它可以节省设计和验证功能的人力。</p>
 <h1 id="2、问题定义"><a href="#2、问题定义" class="headerlink" title="2、问题定义"></a>2、问题定义</h1><ul>
 <li>FS-Net是基于网络流量的应用分类，即应用识别。</li>
-<li><p>一个原始流量可以表示为不同的类型序列，如消息类型序列或者<strong>包长度序列</strong>，本文将一个原始流量看作包长度序列。具体的，Xp表示第p个样本的序列表示：</p>
-<script type="math/tex; mode=display">
-X_p=[L_1^p,L_2^p,...,L_n^p)]</script><p>其中n是Xp的长度，L~i~^p^是时间步长i的数据包值。</p>
+<li><p>一个原始流量可以表示为不同的类型序列，如消息类型序列或者<strong>包长度序列</strong>，本文将一个原始流量看作包长度序列。具体的，Xp表示第p个样本的序列表示：<br>$$<br>X_p=[L_1^p,L_2^p,…,L_n^p)]<br>$$<br>其中n是Xp的长度，L~i~^p^是时间步长i的数据包值。</p>
 <h1 id="3、模型结构"><a href="#3、模型结构" class="headerlink" title="3、模型结构"></a>3、模型结构</h1><h2 id="3-1总览"><a href="#3-1总览" class="headerlink" title="3.1总览"></a>3.1总览</h2><p>类似于AE半监督的思想，模型由五大块组成</p>
 <ul>
 <li>嵌入层</li>
@@ -218,9 +216,7 @@ X_p=[L_1^p,L_2^p,...,L_n^p)]</script><p>其中n是Xp的长度，L~i~^p^是时间
 <li>分类器之前，设置了<strong>Dense层</strong>对分类器的输入（即Z~e~与Z~d~向量的拼接）进行压缩，得到新的特征向量z.<br><img src="https://raw.githubusercontent.com/lulu-cloud/lili_images/main/image/202311241039676.png" alt="压缩公式"><br>然而，z的维度还是太高，使用两层带Selu的激活函数的MLP对z进行降维得到Z~c~,降维过后能有效避免过拟合问题。<br><img src="https://raw.githubusercontent.com/lulu-cloud/lili_images/main/image/202311241039822.png" alt="降维"><br>公式中的W1，b1,b2都是可以学习的参数。</li>
 <li>输入为Z~c~，经过softmax分类器，得到预测标签A^-^，与真实标签A之间构造一个交叉熵损失L~C~</li>
 <li>在重构器后面，解码器中的Bi-GRU经过重构，输出的L~i^~与原始的输入特征L~i~之间可以构造另外一个交叉熵损失L~R~</li>
-<li><p>因此，最终的损失函数</p>
-<script type="math/tex; mode=display">
-L=L_C+αL_R</script><p>α是超参数。</p>
+<li><p>因此，最终的损失函数<br>$$<br>L=L_C+αL_R<br>$$<br>α是超参数。</p>
 <h1 id="4、实验"><a href="#4、实验" class="headerlink" title="4、实验"></a>4、实验</h1><ul>
 <li><strong>实验设置</strong>：以报文长度序列作为FS-Net的输出，嵌入向量维度d设置为128，GRU的隐藏状态维度也是128，α设置为1，dropout设置为0.3，Adam优化器的lr设置为0.0005</li>
 <li><strong>与其他模型结果实验对比的结论</strong>：加密流分类任务中，报文长度比消息类型更具有代表性。主要原因可能是[11]发现的不同应用程序的消息类型序列高度重叠。有更多的信息蕴含在包长度集合中而不是消息类型的集合中。</li>
@@ -278,10 +274,10 @@ L=L_C+αL_R</script><p>α是超参数。</p>
     </a>
     
     
-    <a href="/2023/08/25/%E5%8A%A0%E5%AF%86%E6%B5%81%E9%87%8F%E5%88%86%E7%B1%BB-%E8%AE%BA%E6%96%871%EF%BC%9ADeep%20Learning%20for%20Encrypted%20Traffic%20Classification_%20An%20Overview/" class="next-post btn btn-default" title='加密流量分类-论文1：Deep Learning for Encrypted Traffic Classification:An Overview'>
+    <a href="/2023/08/25/%E5%8A%A0%E5%AF%86%E6%B5%81%E9%87%8F%E5%88%86%E7%B1%BB-%E8%AE%BA%E6%96%872%EF%BC%9ADeep%20Packet_%20A%20Novel%20Approach%20For%20Encrypted%20Traffic%20Classification%20Using%20Deep%20Learning/" class="next-post btn btn-default" title='加密流量分类-论文2:Deep Packet_ A Novel Approach For Encrypted Traffic Classification Using Deep Learning'>
         <span class="hidden-lg">下一篇</span>
         <span class="hidden-xs">
-            加密流量分类-论文1：Deep Learning for Encrypted Traffic Classification:An Overview</span><i class="fa fa-angle-right fa-fw"></i>
+            加密流量分类-论文2:Deep Packet_ A Novel Approach For Encrypted Traffic Classification Using Deep Learning</span><i class="fa fa-angle-right fa-fw"></i>
     </a>
     
 </div>
