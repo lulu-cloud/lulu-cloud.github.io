@@ -25,7 +25,8 @@
 <meta name="description" content="加密流量分类-实践4：流量过滤
 炼丹的时候，经常需要过滤无关流量
 论文的通常做法是将dns、icmp、arp、tcp握手报文删除
-以下是给出我的代码，用wirshark前后对比pcap有效~~~..." />
+以下是给出我的代码，用wirshark前后对比pcap有效
+  ..." />
 
 
 <meta name="robots" content="all" />
@@ -183,10 +184,38 @@
         <h1 id="加密流量分类-实践4：流量过滤"><a href="#加密流量分类-实践4：流量过滤" class="headerlink" title="加密流量分类-实践4：流量过滤"></a>加密流量分类-实践4：流量过滤</h1><ul>
 <li>炼丹的时候，经常需要过滤无关流量</li>
 <li>论文的通常做法是将dns、icmp、arp、tcp握手报文删除</li>
-<li>以下是给出我的代码，用wirshark前后对比pcap有效<br>~~~<br>from scapy.all import *<br>from scapy.layers.dns import DNS<br>from scapy.layers.inet import ICMP, TCP<br>from scapy.layers.l2 import ARP</li>
-</ul>
-<p>def remove_pcap_errors(file_path,new_path):<br>    “””过滤的pcap与新的pcap不冲突”””<br>    packets = rdpcap(file_path)<br>    dns_cnt = 0<br>    icmp_cnt = 0<br>    arp_cnt = 0<br>    tcp_flags = 0<br>    new_packets = []<br>    for packet in packets:<br>        if packet.haslayer(DNS):<br>            dns_cnt+=1<br>        elif packet.haslayer(ICMP):<br>            icmp_cnt += 1<br>        elif packet.haslayer(TCP) and (packet[TCP].flags.value==0x12 or packet[TCP].flags.value==0x02 or packet[TCP].flags.value==0x11):<br>            tcp_flags+=1<br>        elif packet.haslayer(ARP):<br>            arp_cnt += 1<br>        else:<br>            new_packets.append(packet)<br>    wrpcap(new_path, new_packets)<br>    print(“dns:{}个”.format(dns_cnt))<br>    print(“icmp:{}个”.format(icmp_cnt))<br>    print(“tcp握手:{}个”.format(tcp_flags))<br>    print(“arp包:{}个”.format(arp_cnt))<br>~~~</p>
-<ul>
+<li><p>以下是给出我的代码，用wirshark前后对比pcap有效</p>
+<pre><code class="lang-python">  from scapy.all import *
+  from scapy.layers.dns import DNS
+  from scapy.layers.inet import ICMP, TCP
+  from scapy.layers.l2 import ARP
+
+  def remove_pcap_errors(file_path,new_path):
+      &quot;&quot;&quot;过滤的pcap与新的pcap不冲突&quot;&quot;&quot;
+      packets = rdpcap(file_path)
+      dns_cnt = 0
+      icmp_cnt = 0
+      arp_cnt = 0
+      tcp_flags = 0
+      new_packets = []
+      for packet in packets:
+          if packet.haslayer(DNS):
+              dns_cnt+=1
+          elif packet.haslayer(ICMP):
+              icmp_cnt += 1
+          elif packet.haslayer(TCP) and (packet[TCP].flags.value==0x12 or packet[TCP].flags.value==0x02 or packet[TCP].flags.value==0x11):
+              tcp_flags+=1
+          elif packet.haslayer(ARP):
+              arp_cnt += 1
+          else:
+              new_packets.append(packet)
+      wrpcap(new_path, new_packets)
+      print(&quot;dns:&#123;&#125;个&quot;.format(dns_cnt))
+      print(&quot;icmp:&#123;&#125;个&quot;.format(icmp_cnt))
+      print(&quot;tcp握手:&#123;&#125;个&quot;.format(tcp_flags))
+      print(&quot;arp包:&#123;&#125;个&quot;.format(arp_cnt))
+</code></pre>
+</li>
 <li>处理前：<br>-<img src="https://raw.githubusercontent.com/lulu-cloud/lili_images/main/image/202311242148352.png" alt="在这里插入图片描述"></li>
 <li>处理后：<br>-<img src="https://raw.githubusercontent.com/lulu-cloud/lili_images/main/image/202311242148932.png" alt="在这里插入图片描述"></li>
 </ul>
