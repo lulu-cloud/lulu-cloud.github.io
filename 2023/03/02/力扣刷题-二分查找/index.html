@@ -19,12 +19,14 @@
     <link rel="dns-prefetch" href="https://lulu-cloud.github.io">
     <!--SEO-->
 
-<meta name="keywords" content="实验" />
+<meta name="keywords" content="算法" />
 
 
-<meta name="description" content="加密流量分类-实践3：特征提取1、原因 看着博客flowcontainer)的感觉很好，但是有如下缺陷：
+<meta name="description" content="一、 原则1. 区间：左右闭区间2. while结束设定为&lt;=3. 左右界更新都为mid上下1
 
-处理大文件费内存，关于数据集ISCX2016中的FT类型一个pcap动则就是5个多G，..." />
+二分查找可以设定左闭右开的写法，也可以左右都是闭区间，这里设定后者
+
+在1的设定下，如果l..." />
 
 
 <meta name="robots" content="all" />
@@ -35,7 +37,7 @@
 
 <title>
     
-    加密流量分类-实践3: 特征提取 |
+    Java学习算法：二分查找 |
     
     lulu-cloud
 </title>
@@ -142,16 +144,16 @@
                     <p id="process"></p>
 <article class="post">
     <div class="post-head">
-        <h1 id="加密流量分类-实践3: 特征提取">
+        <h1 id="Java学习算法：二分查找">
             
-            加密流量分类-实践3: 特征提取
+            Java学习算法：二分查找
             
         </h1>
         <div class="post-meta">
     
     <span class="categories-meta fa-wrap">
         <i class="fa fa-folder-open-o"></i>
-        <a class="category-link" href="/categories/%E7%A7%91%E7%A0%94/">科研</a> <a class="category-link" href="/categories/%E7%A7%91%E7%A0%94/%E5%8A%A0%E5%AF%86%E6%B5%81%E9%87%8F%E5%88%86%E7%B1%BB/">加密流量分类</a>
+        <a class="category-link" href="/categories/Java%E5%AD%A6%E4%B9%A0/">Java学习</a>
     </span>
     
     
@@ -159,7 +161,7 @@
         <i class="fa fa-tags"></i>
         <span class="tags-meta">
             
-            <a class="tag-none-link" href="/tags/%E5%AE%9E%E9%AA%8C/" rel="tag">实验</a>
+            <a class="tag-none-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a>
             
         </span>
     </span>
@@ -169,7 +171,7 @@
     <span class="fa-wrap">
         <i class="fa fa-clock-o"></i>
         <span class="date-meta">
-            2023/03/11</span>
+            2023/03/02</span>
     </span>
     
     <span class="fa-wrap">
@@ -184,136 +186,83 @@
     </div>
     
     <div class="post-body post-content">
-        <h1 id="加密流量分类-实践3：特征提取"><a href="#加密流量分类-实践3：特征提取" class="headerlink" title="加密流量分类-实践3：特征提取"></a>加密流量分类-实践3：特征提取</h1><h2 id="1、原因"><a href="#1、原因" class="headerlink" title="1、原因"></a>1、原因</h2><p> 看着博客<a href="[flowcontainer: 基于python3的pcap网络流量特征信息提取库_Icoding_F2014的博客-CSDN博客](https://blog.csdn.net/jmh1996/article/details/107148871">flowcontainer</a>)的感觉很好，但是有如下缺陷：</p>
+        <h1 id="一、-原则"><a href="#一、-原则" class="headerlink" title="一、 原则"></a>一、 原则</h1><h2 id="1-区间：左右闭区间"><a href="#1-区间：左右闭区间" class="headerlink" title="1. 区间：左右闭区间"></a>1. 区间：左右闭区间</h2><h2 id="2-while结束设定为-lt"><a href="#2-while结束设定为-lt" class="headerlink" title="2. while结束设定为&lt;="></a>2. while结束设定为&lt;=</h2><h2 id="3-左右界更新都为mid上下1"><a href="#3-左右界更新都为mid上下1" class="headerlink" title="3. 左右界更新都为mid上下1"></a>3. 左右界更新都为mid上下1</h2><blockquote>
 <ol>
-<li><p>处理大文件费内存，关于数据集ISCX2016中的FT类型一个pcap动则就是5个多G，吃不消</p>
+<li><p>二分查找可以设定左闭右开的写法，也可以左右都是闭区间，这里设定后者</p>
 </li>
-<li><p>设置extension字段提取tcp与udp有效负载时，对于上述的大文件处理特别慢！！！原因是加载所有数据进入内存，但是实际预处理只需要前几个包的有效载荷数据，造成内存大开销！</p>
+<li><p>在1的设定下，如果left=right，即当前搜索区间长度为1，如果while里面不是&lt;=二是严格&lt;,那么该长度为1的区间就不会搜索，出现遗漏</p>
 </li>
-<li><p>如果有pcap开始的数据报文不是包含有效载荷的报文，如开始为icmp报文的pcap文件，该库会报错，具体溯源已找到：</p>
-<p><img src="https://raw.githubusercontent.com/lulu-cloud/lili_images/main/image/202311242147711.png" alt="image-20230309201640624"></p>
-<p><img src="https://raw.githubusercontent.com/lulu-cloud/lili_images/main/image/202311242147859.png" alt="image-20230309201731035"></p>
-<pre><code>            if protocol in [&#39;tcp&#39;,&#39;udp&#39;] and ip_layer == False:
-                flowid = packet[1] if protocol==&#39;tcp&#39; else packet[2]
-                srcport = packet[7] if protocol==&#39;tcp&#39; else packet[8]
-                dstport = packet[11] if protocol==&#39;tcp&#39; else packet[12]
-                payload_length = packet[15] if protocol ==&#39;tcp&#39; else packet[16]
-            else:
-                flowid = 0
-                srcport = 1
-                dstport = 0
-                # 这一行是加上的，如果不加上，payload_length就会为初始化，导致result的appeend失败，从而在流生成的函数里造成对空对象的迭代遍历
-                payload_length = &#39;0&#39;
-</code></pre><blockquote>
-<p>红色圈圈是加上的代码，加上后就不会出现致命异常</p>
-</blockquote>
-</li>
-<li><p>但是依旧是慢！在处理大文件的pcap特别费劲！等个几个小时才读取完！</p>
-</li>
-<li><p>分流与SplitCap.exe的分流有出入，目前论文主流方法分流是使用SplitCap.exe工具</p>
+<li><p>在1，2的设定之下，必须让left、right的更新机制在循环结束后，right在left的左边，即每次更新right与left必须都不能为mid，因为mid可能 在区间长度为1或者2的时候mid等于其中的left，必须使得right与left有机制在更新时不能一直等于mid，故有原则3</p>
 </li>
 </ol>
-<h2 id="2、预处理功能"><a href="#2、预处理功能" class="headerlink" title="2、预处理功能"></a>2、预处理功能</h2><p>直接上代码：</p>
-<pre><code>import binascii
-import scapy.all as scapy
-import numpy as np
-
-def hex_to_dec(hex_str, target_length):
-    dec_list = []
-    for i in range(0, len(hex_str), 2):
-        dec_list.append(int(hex_str[i:i + 2], 16))
-    dec_list = pad_or_truncate(dec_list, target_length)
-    return dec_list
-
-def pad_or_truncate(some_list, target_len):
-    return some_list[:target_len] + [0] * (target_len - len(some_list))
-
-
-
-def pad_or_truncate_seq(some_list, target_len):
-    return some_list[:target_len] + [0] * (target_len - len(some_list))
-
-
-
-# 获取流的长度、方向、到达时间序列
-# 一个字节8位，占两个十六进制数字
-def get_seq_feature(pcap_path, pack_nums=4, byte_nums=128, seq_length=128, throw=3):
-    &quot;&quot;&quot;
-    读取分流好的pcap文件，返回它的ip报文长度、到达时间序列与前pack_num个报文的前byte_num字节的负载
-    &quot;&quot;&quot;
-    packets = scapy.rdpcap(pcap_path)
-    ip_lengths = []
-    ip_arrive_time = []
-    pay_load = []
-    pay_index = []
-
-    if len(packets) &lt;= throw:
-        return ip_lengths, ip_arrive_time, pay_load,pay_index
-
-    dic = &#123;&#125;
-    pay_num = 0
-
-    for i, packet in enumerate(packets):
-        # 提取包长序列
-        if i == 0:
-            dst = packet.src
-            src = packet.dst
-            dic = &#123;dst: -1, src: 1&#125;
-        dst = packet.dst
-        ip_length = dic[dst] * len(packet)
-        ip_lengths.append(ip_length)
-        # 包到达时间提取
-        ip_arrive_time.append(float(packet.time))
-
-        # 提取负载与负载在流中包的序号
-        if len(packet.payload.payload) != 0:
-            if pay_num &lt; pack_nums:
-                pay = packet.payload.payload
-                # print(type(pay))
-                # print(pay)
-                data = (binascii.hexlify(bytes(pay)))
-                data = hex_to_dec(data, target_length=byte_nums)
-                pay_load.extend(data)
-                pay_index.append(i+1)
-                pay_num += 1
-    if len(pay_index)&lt;pack_nums:
-        # 不足
-        for i in range(pack_nums-len(pay_index)):
-            data = hex_to_dec([],byte_nums)
-            pay_load.extend(data)
-            pay_index.append(-1)
-    ip_lengths = pad_or_truncate_seq(ip_lengths, seq_length)
-    ip_arrive_time = pad_or_truncate_seq(ip_arrive_time, seq_length)
-    return ip_lengths, ip_arrive_time, pay_load, pay_index
-</code></pre><ul>
-<li><p>首先输入是预处理分流好的pcap文件，使用SplitCap.exe分流即可</p>
-<ul>
-<li>函数参数解释</li>
-</ul>
-<pre><code>pack_nums：提取前几个包的负载
-byte_nums：提取包的前几个字节的负载
-seq_length：提取流的前几个包的长度（正负表示方向）
-throw：表示流中的包少于多少个不处理
-</code></pre><ul>
-<li><p>输出：</p>
-<ul>
-<li><p>包长度</p>
-</li>
-<li><p>包到达时间</p>
-</li>
-<li><p>包负载</p>
-</li>
-<li><p>前几个负载包的流中的序号</p>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<p>上述都是短则补0，长则截断</p>
 </blockquote>
-<p>不会有内存不足的问题辣，处理负载也很快，因为不看报头，所以不需要什么匿名ip，mac地址啥的</p>
+<h1 id="二、三种情况"><a href="#二、三种情况" class="headerlink" title="二、三种情况"></a>二、三种情况</h1><h2 id="2-1-直接找元素"><a href="#2-1-直接找元素" class="headerlink" title="2.1 直接找元素"></a>2.1 直接找元素</h2><pre><code class="java">int searchBinary(int[] nums, int target) &#123;
+    //原则1 左右闭区间
+    int left = 0, right = nums.length - 1;
+    //原则2 while结束条件为&lt;=
+    while (left &lt;= right) &#123;
+        int mid = left + ((right - left) &gt;&gt; 1);
+        if (nums[mid] == target) &#123;
+            return mid;
+        &#125; else if (nums[mid] &lt; target) &#123;
+            //原则3 左右界更新为mid加减1
+            left = mid + 1;
+        &#125; else &#123;
+            //原则3 左右界更新为mid加减1
+            right = mid - 1;
+        &#125;
+    &#125;
+    return -1;
+&#125;
+
+</code></pre>
+<h2 id="2-2-寻找左右边界"><a href="#2-2-寻找左右边界" class="headerlink" title="2.2 寻找左右边界"></a>2.2 寻找左右边界</h2><p>给定有序数组<br>$$<br>[0,1,2,2,2,3,4]<br>$$<br>如何找第一个2出现的下标或者最后一个2出现的下标</p>
+<ul>
+<li>找第一个：找左边界</li>
+</ul>
+<pre><code class="java">int searchLeftBound(int[] nums, int target) &#123;
+    int left = 0, right = nums.length - 1;
+    while (left &lt;= right) &#123;
+        int mid = left + ((right - left) &gt;&gt; 1);
+        if (nums[mid] == target) &#123;
+            right = mid - 1; // 收缩右边界
+        &#125; else if (nums[mid] &lt; target) &#123;
+            left = mid + 1;
+        &#125; else &#123;
+            right = mid - 1;
+        &#125;
+    &#125;
+    // 越界检查，不存在检查
+    if (left &gt;= nums.length || nums[left] != target) &#123;
+        return -1;
+    &#125;
+    return left;
+&#125;
+
+</code></pre>
+<ul>
+<li>找最后一个：找右边界</li>
+</ul>
+<pre><code class="java">
+int searchRightBound(int[] nums, int target) &#123;
+    int left = 0, right = nums.length - 1;
+    while (left &lt;= right) &#123;
+        int mid = left + ((right - left) &gt;&gt; 1);
+        if (nums[mid] == target) &#123;
+            left = mid + 1; // 收缩左边界
+        &#125; else if (nums[mid] &lt; target) &#123;
+            left = mid + 1;
+        &#125; else &#123;
+            right = mid - 1;
+        &#125;
+    &#125;
+    if (right &lt; 0 || nums[right] != target) &#123;
+        return -1;
+    &#125;
+    return right;
+&#125;
+
+</code></pre>
 
     </div>
     
@@ -332,17 +281,17 @@ throw：表示流中的包少于多少个不处理
 </article>
 <div class="article-nav prev-next-wrap clearfix">
     
-    <a href="/2023/04/01/%E6%B5%81%E9%87%8F%E9%A2%84%E5%A4%84%E7%90%86-2%EF%BC%9A%E8%BF%87%E6%BB%A4/" class="pre-post btn btn-default" title='加密流量分类-实践4: 流量过滤'>
+    <a href="/2023/03/09/%E5%8A%A0%E5%AF%86%E6%B5%81%E9%87%8F%E5%88%86%E7%B1%BBtorch%E5%AE%9E%E8%B7%B52%EF%BC%9ACNN+LSTM%E6%A8%A1%E5%9E%8B%E8%AE%AD%E7%BB%83%E4%B8%8E%E6%B5%8B%E8%AF%95/" class="pre-post btn btn-default" title='加密流量分类-实践2: CNN+LSTM模型训练与测试'>
         <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
         <span class="hidden-xs">
-            加密流量分类-实践4: 流量过滤</span>
+            加密流量分类-实践2: CNN+LSTM模型训练与测试</span>
     </a>
     
     
-    <a href="/2023/03/09/%E5%8A%A0%E5%AF%86%E6%B5%81%E9%87%8F%E5%88%86%E7%B1%BBtorch%E5%AE%9E%E8%B7%B52%EF%BC%9ACNN+LSTM%E6%A8%A1%E5%9E%8B%E8%AE%AD%E7%BB%83%E4%B8%8E%E6%B5%8B%E8%AF%95/" class="next-post btn btn-default" title='加密流量分类-实践2: CNN+LSTM模型训练与测试'>
+    <a href="/2023/01/19/%E5%8A%A0%E5%AF%86%E6%B5%81%E9%87%8F%E5%88%86%E7%B1%BB-%E8%AE%BA%E6%96%8712%EF%BC%9ASeeing%20Traffic%20Paths_%20Encrypted%20Traffic%20Classification%20With%20Path%20Signature%20Features/" class="next-post btn btn-default" title='加密流量分类-论文12: Seeing Traffic Paths_ Encrypted Traffic Classification With Path Signature Features'>
         <span class="hidden-lg">下一篇</span>
         <span class="hidden-xs">
-            加密流量分类-实践2: CNN+LSTM模型训练与测试</span><i class="fa fa-angle-right fa-fw"></i>
+            加密流量分类-论文12: Seeing Traffic Paths_ Encrypted Traffic Classification With Path Signature Features</span><i class="fa fa-angle-right fa-fw"></i>
     </a>
     
 </div>
@@ -376,7 +325,7 @@ throw：表示流中的包少于多少个不处理
             文章目录
         </h3>
         
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8A%A0%E5%AF%86%E6%B5%81%E9%87%8F%E5%88%86%E7%B1%BB-%E5%AE%9E%E8%B7%B53%EF%BC%9A%E7%89%B9%E5%BE%81%E6%8F%90%E5%8F%96"><span class="toc-text">加密流量分类-实践3：特征提取</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1%E3%80%81%E5%8E%9F%E5%9B%A0"><span class="toc-text">1、原因</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2%E3%80%81%E9%A2%84%E5%A4%84%E7%90%86%E5%8A%9F%E8%83%BD"><span class="toc-text">2、预处理功能</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%80%E3%80%81-%E5%8E%9F%E5%88%99"><span class="toc-text">一、 原则</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E5%8C%BA%E9%97%B4%EF%BC%9A%E5%B7%A6%E5%8F%B3%E9%97%AD%E5%8C%BA%E9%97%B4"><span class="toc-text">1. 区间：左右闭区间</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-while%E7%BB%93%E6%9D%9F%E8%AE%BE%E5%AE%9A%E4%B8%BA-lt"><span class="toc-text">2. while结束设定为&lt;&#x3D;</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E5%B7%A6%E5%8F%B3%E7%95%8C%E6%9B%B4%E6%96%B0%E9%83%BD%E4%B8%BAmid%E4%B8%8A%E4%B8%8B1"><span class="toc-text">3. 左右界更新都为mid上下1</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E4%B8%89%E7%A7%8D%E6%83%85%E5%86%B5"><span class="toc-text">二、三种情况</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2-1-%E7%9B%B4%E6%8E%A5%E6%89%BE%E5%85%83%E7%B4%A0"><span class="toc-text">2.1 直接找元素</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2-%E5%AF%BB%E6%89%BE%E5%B7%A6%E5%8F%B3%E8%BE%B9%E7%95%8C"><span class="toc-text">2.2 寻找左右边界</span></a></li></ol></li></ol>
         
     </div>
 </aside>
