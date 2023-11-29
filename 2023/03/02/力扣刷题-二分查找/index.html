@@ -122,11 +122,6 @@
                         </li>
                         
                         <li role="presentation" class="text-center">
-                            <a href="/categories/硕士生活/"><i class="fa "></i>
-                                硕士生活</a>
-                        </li>
-                        
-                        <li role="presentation" class="text-center">
                             <a href="/archives/"><i class="fa "></i>
                                 时间轴</a>
                         </li>
@@ -196,7 +191,7 @@
 </li>
 </ol>
 </blockquote>
-<h1 id="二、三种情况"><a href="#二、三种情况" class="headerlink" title="二、三种情况"></a>二、三种情况</h1><h2 id="2-1-直接找元素"><a href="#2-1-直接找元素" class="headerlink" title="2.1 直接找元素"></a>2.1 直接找元素</h2><pre><code class="java">int searchBinary(int[] nums, int target) &#123;
+<h1 id="二、三种情况"><a href="#二、三种情况" class="headerlink" title="二、三种情况"></a>二、三种情况</h1><h2 id="2-1-直接找元素"><a href="#2-1-直接找元素" class="headerlink" title="2.1 直接找元素"></a>2.1 直接找元素</h2><pre><code class="lang-java">int searchBinary(int[] nums, int target) &#123;
     //原则1 左右闭区间
     int left = 0, right = nums.length - 1;
     //原则2 while结束条件为&lt;=
@@ -214,13 +209,14 @@
     &#125;
     return -1;
 &#125;
-
 </code></pre>
-<h2 id="2-2-寻找左右边界"><a href="#2-2-寻找左右边界" class="headerlink" title="2.2 寻找左右边界"></a>2.2 寻找左右边界</h2><p>给定有序数组<br>$$<br>[0,1,2,2,2,3,4]<br>$$<br>如何找第一个2出现的下标或者最后一个2出现的下标</p>
+<h2 id="2-2-寻找左右边界"><a href="#2-2-寻找左右边界" class="headerlink" title="2.2 寻找左右边界"></a>2.2 寻找左右边界</h2><p>给定有序数组</p>
+<script type="math/tex; mode=display">
+[0,1,2,2,2,3,4]</script><p>如何找第一个2出现的下标或者最后一个2出现的下标</p>
 <ul>
 <li>找第一个：找左边界</li>
 </ul>
-<pre><code class="java">int searchLeftBound(int[] nums, int target) &#123;
+<pre><code class="lang-java">int searchLeftBound(int[] nums, int target) &#123;
     int left = 0, right = nums.length - 1;
     while (left &lt;= right) &#123;
         int mid = left + ((right - left) &gt;&gt; 1);
@@ -238,12 +234,11 @@
     &#125;
     return left;
 &#125;
-
 </code></pre>
 <ul>
 <li>找最后一个：找右边界</li>
 </ul>
-<pre><code class="java">
+<pre><code class="lang-java">
 int searchRightBound(int[] nums, int target) &#123;
     int left = 0, right = nums.length - 1;
     while (left &lt;= right) &#123;
@@ -261,7 +256,6 @@ int searchRightBound(int[] nums, int target) &#123;
     &#125;
     return right;
 &#125;
-
 </code></pre>
 
     </div>

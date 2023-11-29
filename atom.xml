@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://lulu-cloud.github.io/"/>
-  <updated>2023-11-24T13:38:35.077Z</updated>
+  <updated>2023-11-24T13:56:04.952Z</updated>
   <id>https://lulu-cloud.github.io/</id>
   
   <author>
@@ -15,36 +15,6 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
-  
-  <entry>
-    <title>疯狂的横向：开题期间</title>
-    <link href="https://lulu-cloud.github.io/2023/11/23/%E5%BC%80%E9%A2%98%E3%80%81%E7%A7%91%E7%A0%94%E4%B8%8E%E6%A8%AA%E5%90%91/"/>
-    <id>https://lulu-cloud.github.io/2023/11/23/开题、科研与横向/</id>
-    <published>2023-11-23T13:42:14.000Z</published>
-    <updated>2023-11-24T13:38:35.077Z</updated>
-    
-    <content type="html"><![CDATA[<ol><li>狠狠滴看领域内的论文，编开题报告！！</li><li>横向横向横向，每次会议的主题。无语辣。</li><li>听首歌，只想那种积极的，听得我爽就好，邓紫棋的《再见》</li></ol>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;ol&gt;
-&lt;li&gt;狠狠滴看领域内的论文，编开题报告！！&lt;/li&gt;
-&lt;li&gt;横向横向横向，每次会议的主题。无语辣。&lt;/li&gt;
-&lt;li&gt;听首歌，只想那种积极的，听得我爽就好，邓紫棋的《再见》&lt;/li&gt;
-&lt;/ol&gt;
-
-      
-    
-    </summary>
-    
-      <category term="硕士生活" scheme="https://lulu-cloud.github.io/categories/%E7%A1%95%E5%A3%AB%E7%94%9F%E6%B4%BB/"/>
-    
-    
-      <category term="生活随记" scheme="https://lulu-cloud.github.io/tags/%E7%94%9F%E6%B4%BB%E9%9A%8F%E8%AE%B0/"/>
-    
-  </entry>
   
   <entry>
     <title>加密流量分类-实践4: 流量过滤</title>
@@ -133,9 +103,9 @@
     <link href="https://lulu-cloud.github.io/2023/03/02/%E5%8A%9B%E6%89%A3%E5%88%B7%E9%A2%98-%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/"/>
     <id>https://lulu-cloud.github.io/2023/03/02/力扣刷题-二分查找/</id>
     <published>2023-03-02T01:27:18.000Z</published>
-    <updated>2023-11-28T02:17:18.693Z</updated>
+    <updated>2023-11-28T02:18:54.375Z</updated>
     
-    <content type="html"><![CDATA[<h1 id="一、-原则"><a href="#一、-原则" class="headerlink" title="一、 原则"></a>一、 原则</h1><h2 id="1-区间：左右闭区间"><a href="#1-区间：左右闭区间" class="headerlink" title="1. 区间：左右闭区间"></a>1. 区间：左右闭区间</h2><h2 id="2-while结束设定为-lt"><a href="#2-while结束设定为-lt" class="headerlink" title="2. while结束设定为&lt;="></a>2. while结束设定为&lt;=</h2><h2 id="3-左右界更新都为mid上下1"><a href="#3-左右界更新都为mid上下1" class="headerlink" title="3. 左右界更新都为mid上下1"></a>3. 左右界更新都为mid上下1</h2><blockquote><ol><li><p>二分查找可以设定左闭右开的写法，也可以左右都是闭区间，这里设定后者</p></li><li><p>在1的设定下，如果left=right，即当前搜索区间长度为1，如果while里面不是&lt;=二是严格&lt;,那么该长度为1的区间就不会搜索，出现遗漏</p></li><li><p>在1，2的设定之下，必须让left、right的更新机制在循环结束后，right在left的左边，即每次更新right与left必须都不能为mid，因为mid可能 在区间长度为1或者2的时候mid等于其中的left，必须使得right与left有机制在更新时不能一直等于mid，故有原则3</p></li></ol></blockquote><h1 id="二、三种情况"><a href="#二、三种情况" class="headerlink" title="二、三种情况"></a>二、三种情况</h1><h2 id="2-1-直接找元素"><a href="#2-1-直接找元素" class="headerlink" title="2.1 直接找元素"></a>2.1 直接找元素</h2><pre><code class="java">int searchBinary(int[] nums, int target) &#123;    //原则1 左右闭区间    int left = 0, right = nums.length - 1;    //原则2 while结束条件为&lt;=    while (left &lt;= right) &#123;        int mid = left + ((right - left) &gt;&gt; 1);        if (nums[mid] == target) &#123;            return mid;        &#125; else if (nums[mid] &lt; target) &#123;            //原则3 左右界更新为mid加减1            left = mid + 1;        &#125; else &#123;            //原则3 左右界更新为mid加减1            right = mid - 1;        &#125;    &#125;    return -1;&#125;</code></pre><h2 id="2-2-寻找左右边界"><a href="#2-2-寻找左右边界" class="headerlink" title="2.2 寻找左右边界"></a>2.2 寻找左右边界</h2><p>给定有序数组<br>$$<br>[0,1,2,2,2,3,4]<br>$$<br>如何找第一个2出现的下标或者最后一个2出现的下标</p><ul><li>找第一个：找左边界</li></ul><pre><code class="java">int searchLeftBound(int[] nums, int target) &#123;    int left = 0, right = nums.length - 1;    while (left &lt;= right) &#123;        int mid = left + ((right - left) &gt;&gt; 1);        if (nums[mid] == target) &#123;            right = mid - 1; // 收缩右边界        &#125; else if (nums[mid] &lt; target) &#123;            left = mid + 1;        &#125; else &#123;            right = mid - 1;        &#125;    &#125;    // 越界检查，不存在检查    if (left &gt;= nums.length || nums[left] != target) &#123;        return -1;    &#125;    return left;&#125;</code></pre><ul><li>找最后一个：找右边界</li></ul><pre><code class="java">int searchRightBound(int[] nums, int target) &#123;    int left = 0, right = nums.length - 1;    while (left &lt;= right) &#123;        int mid = left + ((right - left) &gt;&gt; 1);        if (nums[mid] == target) &#123;            left = mid + 1; // 收缩左边界        &#125; else if (nums[mid] &lt; target) &#123;            left = mid + 1;        &#125; else &#123;            right = mid - 1;        &#125;    &#125;    if (right &lt; 0 || nums[right] != target) &#123;        return -1;    &#125;    return right;&#125;</code></pre>]]></content>
+    <content type="html"><![CDATA[<h1 id="一、-原则"><a href="#一、-原则" class="headerlink" title="一、 原则"></a>一、 原则</h1><h2 id="1-区间：左右闭区间"><a href="#1-区间：左右闭区间" class="headerlink" title="1. 区间：左右闭区间"></a>1. 区间：左右闭区间</h2><h2 id="2-while结束设定为-lt"><a href="#2-while结束设定为-lt" class="headerlink" title="2. while结束设定为&lt;="></a>2. while结束设定为&lt;=</h2><h2 id="3-左右界更新都为mid上下1"><a href="#3-左右界更新都为mid上下1" class="headerlink" title="3. 左右界更新都为mid上下1"></a>3. 左右界更新都为mid上下1</h2><blockquote><ol><li><p>二分查找可以设定左闭右开的写法，也可以左右都是闭区间，这里设定后者</p></li><li><p>在1的设定下，如果left=right，即当前搜索区间长度为1，如果while里面不是&lt;=二是严格&lt;,那么该长度为1的区间就不会搜索，出现遗漏</p></li><li><p>在1，2的设定之下，必须让left、right的更新机制在循环结束后，right在left的左边，即每次更新right与left必须都不能为mid，因为mid可能 在区间长度为1或者2的时候mid等于其中的left，必须使得right与left有机制在更新时不能一直等于mid，故有原则3</p></li></ol></blockquote><h1 id="二、三种情况"><a href="#二、三种情况" class="headerlink" title="二、三种情况"></a>二、三种情况</h1><h2 id="2-1-直接找元素"><a href="#2-1-直接找元素" class="headerlink" title="2.1 直接找元素"></a>2.1 直接找元素</h2><pre><code class="lang-java">int searchBinary(int[] nums, int target) &#123;    //原则1 左右闭区间    int left = 0, right = nums.length - 1;    //原则2 while结束条件为&lt;=    while (left &lt;= right) &#123;        int mid = left + ((right - left) &gt;&gt; 1);        if (nums[mid] == target) &#123;            return mid;        &#125; else if (nums[mid] &lt; target) &#123;            //原则3 左右界更新为mid加减1            left = mid + 1;        &#125; else &#123;            //原则3 左右界更新为mid加减1            right = mid - 1;        &#125;    &#125;    return -1;&#125;</code></pre><h2 id="2-2-寻找左右边界"><a href="#2-2-寻找左右边界" class="headerlink" title="2.2 寻找左右边界"></a>2.2 寻找左右边界</h2><p>给定有序数组</p><script type="math/tex; mode=display">[0,1,2,2,2,3,4]</script><p>如何找第一个2出现的下标或者最后一个2出现的下标</p><ul><li>找第一个：找左边界</li></ul><pre><code class="lang-java">int searchLeftBound(int[] nums, int target) &#123;    int left = 0, right = nums.length - 1;    while (left &lt;= right) &#123;        int mid = left + ((right - left) &gt;&gt; 1);        if (nums[mid] == target) &#123;            right = mid - 1; // 收缩右边界        &#125; else if (nums[mid] &lt; target) &#123;            left = mid + 1;        &#125; else &#123;            right = mid - 1;        &#125;    &#125;    // 越界检查，不存在检查    if (left &gt;= nums.length || nums[left] != target) &#123;        return -1;    &#125;    return left;&#125;</code></pre><ul><li>找最后一个：找右边界</li></ul><pre><code class="lang-java">int searchRightBound(int[] nums, int target) &#123;    int left = 0, right = nums.length - 1;    while (left &lt;= right) &#123;        int mid = left + ((right - left) &gt;&gt; 1);        if (nums[mid] == target) &#123;            left = mid + 1; // 收缩左边界        &#125; else if (nums[mid] &lt; target) &#123;            left = mid + 1;        &#125; else &#123;            right = mid - 1;        &#125;    &#125;    if (right &lt; 0 || nums[right] != target) &#123;        return -1;    &#125;    return right;&#125;</code></pre>]]></content>
     
     <summary type="html">
     
