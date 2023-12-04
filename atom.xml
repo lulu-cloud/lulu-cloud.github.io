@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://lulu-cloud.github.io/"/>
-  <updated>2023-11-24T13:56:04.952Z</updated>
+  <updated>2023-12-04T03:18:03.326Z</updated>
   <id>https://lulu-cloud.github.io/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Java学习算法：区间问题1</title>
+    <link href="https://lulu-cloud.github.io/2023/04/04/%E5%8A%9B%E6%89%A3%E5%88%B7%E9%A2%98-%E5%8C%BA%E9%97%B4%E9%97%AE%E9%A2%98/"/>
+    <id>https://lulu-cloud.github.io/2023/04/04/力扣刷题-区间问题/</id>
+    <published>2023-04-04T03:37:54.000Z</published>
+    <updated>2023-12-04T03:18:03.326Z</updated>
+    
+    <content type="html"><![CDATA[<p>对力扣的区间类题目做一个总结！</p><h1 id="合并区间"><a href="#合并区间" class="headerlink" title="合并区间"></a>合并区间</h1><h2 id="1-算法思想"><a href="#1-算法思想" class="headerlink" title="1 算法思想"></a>1 算法思想</h2><ol><li><p>按照区间起点升序排序</p><pre><code class="lang-java">//按照区间起始位置排序/**        如果v1[0]-v2[0]为正，代表v1与v2交换位置，故这是升序排序        */Arrays.sort(intervals,(v1,v2)-&gt;v1[0]-v2[0]);</code></pre></li></ol><ol><li><p>设定<code>start</code>与<code>end</code>指针，首先初始化为第一个区间的两端值</p><pre><code class="lang-java">int start = intervals[0][0];int end = intervals[0][1];</code></pre></li></ol><ol><li><p>循环遍历，如果当前的<code>end</code>大于下一个区间的起点，那么说明两个区间有交集了，<code>end</code>更新，更新策略为当前<code>end</code>与下一个区间终点的最大值</p><pre><code class="lang-java">List&lt;int[]&gt;ans = new LinkedList&lt;&gt;();for(int i = 1;i&lt;intervals.length;i++)&#123;    if(end&gt;=intervals[i][0])&#123;        end = Math.max(end,intervals[i][1]);    &#125;    else&#123;        ans.add(new int[]&#123;start,end&#125;);        start = intervals[i][0];        end = intervals[i][1];    &#125;&#125;</code></pre></li><li><p>最后一步由于<code>start</code>与<code>end</code>圈区间的未加入最后结果，再次更新一次</p><pre><code class="lang-java">//最后一个区间加一下ans.add(new int[]&#123;start,end&#125;);int[][]res = new int[ans.size()][2];return ans.toArray(res);</code></pre></li></ol><h2 id="2-完整代码"><a href="#2-完整代码" class="headerlink" title="2 完整代码"></a>2 完整代码</h2><pre><code class="lang-java">class Solution &#123;    public int[][] merge(int[][] intervals) &#123;        //0 特殊情况处理        if(intervals.length&lt;=1)&#123;            return intervals;        &#125;        //1 按照区间起始位置排序        /**        如果v1[0]-v2[0]为正，代表v1与v2交换位置，故这是升序排序        */        Arrays.sort(intervals,(v1,v2)-&gt;v1[0]-v2[0]);        //2 设定start end指针        int start = intervals[0][0];        int end = intervals[0][1];        //3 循环算法策略        List&lt;int[]&gt;ans = new LinkedList&lt;&gt;();        for(int i = 1;i&lt;intervals.length;i++)&#123;            if(end&gt;=intervals[i][0])&#123;                end = Math.max(end,intervals[i][1]);            &#125;            else&#123;                ans.add(new int[]&#123;start,end&#125;);                start = intervals[i][0];                end = intervals[i][1];            &#125;        &#125;        //4 最后一个区间加一下        ans.add(new int[]&#123;start,end&#125;);        int[][]res = new int[ans.size()][2];        return ans.toArray(res);    &#125;&#125;</code></pre><h1 id="无重叠区间"><a href="#无重叠区间" class="headerlink" title="无重叠区间"></a>无重叠区间</h1><h2 id="1-算法思想-1"><a href="#1-算法思想-1" class="headerlink" title="1 算法思想"></a>1 算法思想</h2><p>&emsp;&emsp;本质与合并区间没有什么不同，这里是求没有重叠区间的数目，那么在<code>end</code>指针的更新策略不是取最大，而是取最小。</p><p>区别在第<code>3</code>步</p><ol><li>循环遍历，如果当前的<code>end</code>大于下一个区间的起点，那么说明两个区间有交集了，<code>end</code>更新，更新策略为当前<code>end</code>与下一个区间终点的最大值</li></ol><pre><code class="lang-java">List&lt;int[]&gt;ans = new LinkedList&lt;&gt;();for(int i = 1;i&lt;intervals.length;i++)&#123;    //&gt;=号也要变成&gt;,因为区间刚好相“切”是表明不重叠    if(end&gt;intervals[i][0])&#123;        //这里换成min        //当前end大于下一个区间的起点，那么就是说明交叉了        //end更新        end = Math.min(end,intervals[i][1]);        cnt++;    &#125;    else&#123;        end = intervals[i][1];    &#125;&#125;</code></pre><h2 id="2-完整代码-1"><a href="#2-完整代码-1" class="headerlink" title="2 完整代码"></a>2 完整代码</h2><ul><li>start指针没有用，但是写出</li></ul><pre><code class="lang-java">class Solution &#123;    public int eraseOverlapIntervals(int[][] intervals) &#123;        if(intervals.length==1)&#123;            return 0;        &#125;        //按照区间起始位置排序        Arrays.sort(intervals,(v1,v2)-&gt;v1[0]-v2[0]);        //2         int start = intervals[0][0];        int end = intervals[0][1];        int cnt = 0;        for(int i = 1;i&lt;intervals.length;i++)&#123;            if(end&gt;intervals[i][0])&#123;                //当前end大于下一个区间的起点，那么就是说明交叉了                //end更新                end = Math.min(end,intervals[i][1]);                cnt++;            &#125;else&#123;                start = intervals[i][0];                end = intervals[i][1];            &#125;        &#125;        //cnt表示重叠的数目        return cnt;    &#125;&#125;</code></pre><h1 id="戳气球问题"><a href="#戳气球问题" class="headerlink" title="戳气球问题"></a>戳气球问题</h1><blockquote><p>本质是计算无重叠区间问题，不过需要注意的是这里的区间相切，视作区间重叠，故代码的<code>&gt;</code>又得换回<code>&gt;=</code>拿最终的长度减去重叠的数目返回即可</p></blockquote><h2 id="1-完整代码"><a href="#1-完整代码" class="headerlink" title="1 完整代码"></a>1 完整代码</h2><pre><code class="lang-java">class Solution &#123;    public int findMinArrowShots(int[][] points) &#123;        //一样的套路，排序右边界        if(points.length&lt;=1)&#123;            return 1;        &#125;        Arrays.sort(points,(a,b)-&gt;Integer.compare(a[0],b[0]));        //2         int start = points[0][0];        int end = points[0][1];        int cnt = 0;        for(int i = 1;i&lt;points.length;i++)&#123;            if(end&gt;=points[i][0])&#123;                //当前end大于等于下一个区间的起点，那么就是说明交叉了                //end更新                end = Math.min(end,points[i][1]);                cnt++;            &#125;else&#123;                start = points[i][0];                end = points[i][1];            &#125;        &#125;        //cnt表示重叠的数目        return points.length-cnt;    &#125;&#125;</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;对力扣的区间类题目做一个总结！&lt;/p&gt;
+&lt;h1 id=&quot;合并区间&quot;&gt;&lt;a href=&quot;#合并区间&quot; class=&quot;headerlink&quot; title=&quot;合并区间&quot;&gt;&lt;/a&gt;合并区间&lt;/h1&gt;&lt;h2 id=&quot;1-算法思想&quot;&gt;&lt;a href=&quot;#1-算法思想&quot; class=&quot;h
+      
+    
+    </summary>
+    
+      <category term="Java学习" scheme="https://lulu-cloud.github.io/categories/Java%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+      <category term="算法" scheme="https://lulu-cloud.github.io/tags/%E7%AE%97%E6%B3%95/"/>
+    
+  </entry>
   
   <entry>
     <title>加密流量分类-实践4: 流量过滤</title>
