@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://lulu-cloud.github.io/"/>
-  <updated>2023-12-04T03:19:26.507Z</updated>
+  <updated>2023-12-05T07:29:01.959Z</updated>
   <id>https://lulu-cloud.github.io/</id>
   
   <author>
@@ -15,6 +15,35 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Tor网络构建(1)-网桥配置</title>
+    <link href="https://lulu-cloud.github.io/2023/12/05/tor-%E7%BD%91%E6%A1%A5%E9%85%8D%E7%BD%AE/"/>
+    <id>https://lulu-cloud.github.io/2023/12/05/tor-网桥配置/</id>
+    <published>2023-12-05T07:45:14.000Z</published>
+    <updated>2023-12-05T07:29:01.959Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="实验目标"><a href="#实验目标" class="headerlink" title="实验目标"></a>实验目标</h1><blockquote><p> 搭配tor的obfs4网桥，本地tor浏览器使用该网桥访问tor网络</p></blockquote><h1 id="实验需求"><a href="#实验需求" class="headerlink" title="实验需求"></a>实验需求</h1><ol><li>本地windows客户端需要下载tor浏览器</li><li>准备一台海外vps，能有公网ip进行访问</li></ol><h1 id="实验步骤"><a href="#实验步骤" class="headerlink" title="实验步骤"></a>实验步骤</h1><h2 id="1-网桥vps配置"><a href="#1-网桥vps配置" class="headerlink" title="1 网桥vps配置"></a>1 网桥vps配置</h2><h3 id="安装tor与obfs4"><a href="#安装tor与obfs4" class="headerlink" title="安装tor与obfs4"></a>安装tor与obfs4</h3><pre><code>apt-get install tor -yapt-get install obfs4proxy -y</code></pre><h3 id="安装nyx监控工具"><a href="#安装nyx监控工具" class="headerlink" title="安装nyx监控工具"></a>安装nyx监控工具</h3><pre><code>apy-get install nyx -y</code></pre><h3 id="修改tor配置文件"><a href="#修改tor配置文件" class="headerlink" title="修改tor配置文件"></a>修改tor配置文件</h3><ol><li>使用该命令修改配置文件</li></ol><pre><code>vi /etc/tor/torrc</code></pre><ol><li>按照官网给出的示例demo，修改</li></ol><pre><code>BridgeRelay 1ORPort port1ServerTransportPlugin obfs4 exec /usr/bin/obfs4proxyServerTransportListenAddr obfs4 0.0.0.0:port2ExtORPort autoPublishServerDescriptor 0Nickname yourName</code></pre><blockquote><p>port1与port2都是自定义的，同时修改vps的防火墙将该两个端口打开</p></blockquote><h3 id="重启tor，记录机器指纹与证书"><a href="#重启tor，记录机器指纹与证书" class="headerlink" title="重启tor，记录机器指纹与证书"></a>重启tor，记录机器指纹与证书</h3><p>使用命令重启tor，然后使用nyx工具进行监控</p><pre><code>systemctl restart tor</code></pre><pre><code>nyx</code></pre><p><img src="https://raw.githubusercontent.com/lulu-cloud/lili_images/main/image/202312051527105.png" alt="image-20231205151255192"></p><blockquote><ol><li><p>获取指纹</p><pre><code>cat /var/lib/tor/fingerprint</code></pre><p>该字符串其实就是nyx界面的右上角的fingerprint</p><p><img src="https://raw.githubusercontent.com/lulu-cloud/lili_images/main/image/202312051527722.png" alt="image-20231205151604854"></p></li><li><p>获取证书</p><pre><code>cat /var/lib/tor/pt_state/obfs4_bridgeline.txt</code></pre><p><img src="https://raw.githubusercontent.com/lulu-cloud/lili_images/main/image/202312051528606.png" alt="image-20231205152826903"></p><p><code>Bridge obfs4 &lt;IP ADDRESS&gt;:&lt;PORT&gt; &lt;FINGERPRINT&gt; cert=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx iat-mode=0</code></p></li></ol></blockquote><h2 id="2-本地客户端配置"><a href="#2-本地客户端配置" class="headerlink" title="2 本地客户端配置"></a>2 本地客户端配置</h2><ol><li><p>手动选择网桥</p><p><img src="https://raw.githubusercontent.com/lulu-cloud/lili_images/main/image/202312051528646.png" alt="image-20231205152036696"></p></li><li><p>填入网桥</p><p>根据第一大部分得到的信息，按照如下格式填充网桥字符串</p><p><code>obfs4 你的vps ip地址:port2 指纹 cert=证书 iat-mode=0</code></p></li><li><p>开始上网</p><blockquote><p>在没有科学上网的环境下尝试访问youtube，点左上角的线路可以看到中继转发情况，通过配置的网桥，然后经历一个普通中继与出口中继转发到目的网络。</p><p><img src="https://raw.githubusercontent.com/lulu-cloud/lili_images/main/image/202312051528923.png" alt="image-20231205152419619"></p></blockquote></li></ol><blockquote><p>在浏览器同步点击的时候，nyx查看到vps的流量是有突发的上下行流量的</p><p><img src="https://raw.githubusercontent.com/lulu-cloud/lili_images/main/image/202312051528493.png" alt="image-20231205152637974"></p></blockquote>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;实验目标&quot;&gt;&lt;a href=&quot;#实验目标&quot; class=&quot;headerlink&quot; title=&quot;实验目标&quot;&gt;&lt;/a&gt;实验目标&lt;/h1&gt;&lt;blockquote&gt;
+&lt;p&gt; 搭配tor的obfs4网桥，本地tor浏览器使用该网桥访问tor网络&lt;/p&gt;
+&lt;/blockqu
+      
+    
+    </summary>
+    
+      <category term="科研" scheme="https://lulu-cloud.github.io/categories/%E7%A7%91%E7%A0%94/"/>
+    
+      <category term="Tor" scheme="https://lulu-cloud.github.io/categories/%E7%A7%91%E7%A0%94/Tor/"/>
+    
+    
+      <category term="实验" scheme="https://lulu-cloud.github.io/tags/%E5%AE%9E%E9%AA%8C/"/>
+    
+  </entry>
   
   <entry>
     <title>Java学习算法：区间问题</title>
