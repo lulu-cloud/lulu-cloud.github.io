@@ -193,12 +193,12 @@
 </ol>
 <h1 id="实验步骤"><a href="#实验步骤" class="headerlink" title="实验步骤"></a>实验步骤</h1><h2 id="1-网桥vps配置"><a href="#1-网桥vps配置" class="headerlink" title="1 网桥vps配置"></a>1 网桥vps配置</h2><h3 id="安装tor与obfs4"><a href="#安装tor与obfs4" class="headerlink" title="安装tor与obfs4"></a>安装tor与obfs4</h3><pre><code>apt-get install tor -y
 apt-get install obfs4proxy -y
-</code></pre><h3 id="安装nyx监控工具"><a href="#安装nyx监控工具" class="headerlink" title="安装nyx监控工具"></a>安装nyx监控工具</h3><pre><code>apy-get install nyx -y
+</code></pre><h3 id="安装nyx监控工具"><a href="#安装nyx监控工具" class="headerlink" title="安装nyx监控工具"></a>安装nyx监控工具</h3><pre><code>apt-get install nyx -y
 </code></pre><h3 id="修改tor配置文件"><a href="#修改tor配置文件" class="headerlink" title="修改tor配置文件"></a>修改tor配置文件</h3><ol>
 <li>使用该命令修改配置文件</li>
 </ol>
 <pre><code>vi /etc/tor/torrc
-</code></pre><ol>
+</code></pre><ol start="2">
 <li>按照官网给出的示例demo，修改</li>
 </ol>
 <pre><code>BridgeRelay 1
@@ -253,6 +253,8 @@ Nickname yourName
 </ol>
 <blockquote>
 <p>在浏览器同步点击的时候，nyx查看到vps的流量是有突发的上下行流量的</p>
+</blockquote>
+<blockquote>
 <p><img src="https://raw.githubusercontent.com/lulu-cloud/lili_images/main/image/202312051528493.png" alt="image-20231205152637974"></p>
 </blockquote>
 
