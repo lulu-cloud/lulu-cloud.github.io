@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://lulu-cloud.github.io/"/>
-  <updated>2023-12-11T02:58:42.868Z</updated>
+  <updated>2024-02-22T09:08:14.805Z</updated>
   <id>https://lulu-cloud.github.io/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Java算法学习：动态规划1-打家劫舍</title>
+    <link href="https://lulu-cloud.github.io/2024/02/22/%E5%8A%9B%E6%89%A3%E5%88%B7%E9%A2%98-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%EF%BC%88%E4%B8%80%20%E6%89%93%E5%AE%B6%E5%8A%AB%E8%88%8D%EF%BC%89/"/>
+    <id>https://lulu-cloud.github.io/2024/02/22/力扣刷题-动态规划（一 打家劫舍）/</id>
+    <published>2024-02-22T09:02:18.000Z</published>
+    <updated>2024-02-22T09:08:14.805Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="递推关系"><a href="#递推关系" class="headerlink" title="递推关系"></a>递推关系</h1><p>&emsp;&emsp;设置dp[i]为当前打劫到第i个户的最大收益，那么，当前收益等于<strong>前一个户的最大收益</strong>与<strong>前两个户的最大收益加上当前户的收益</strong>的最大值：</p><script type="math/tex; mode=display">dp[i] = max(dp[i-1],dp[i-2]+nums[i])</script><h1 id="边界条件"><a href="#边界条件" class="headerlink" title="边界条件"></a>边界条件</h1><ol><li>数组长度为0的情况</li><li>数组长度为1的情况</li><li>dp[0]为第一户的收益，dp[1]为前两个户收益的最大值</li></ol><h1 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h1><pre><code class="lang-java">class Solution &#123;    public int rob(int[] nums) &#123;        if(nums==null||nums.length==0)&#123;            return 0;        &#125;        int len = nums.length;        if(len==1)&#123;            return nums[0];        &#125;        int[]dp = new int[len];        dp[0] = nums[0];        dp[1] = Math.max(dp[0],nums[1]);        for(int i = 2;i&lt;len;i++)&#123;            //当前的dp = max(前一个dp值,前两个dp值+当前值)            dp[i] = Math.max(dp[i-1],dp[i-2]+nums[i]);        &#125;        return dp[len-1];    &#125;&#125;</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;递推关系&quot;&gt;&lt;a href=&quot;#递推关系&quot; class=&quot;headerlink&quot; title=&quot;递推关系&quot;&gt;&lt;/a&gt;递推关系&lt;/h1&gt;&lt;p&gt;&amp;emsp;&amp;emsp;设置dp[i]为当前打劫到第i个户的最大收益，那么，当前收益等于&lt;strong&gt;前一个户的最大收益&lt;
+      
+    
+    </summary>
+    
+      <category term="Java学习" scheme="https://lulu-cloud.github.io/categories/Java%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+      <category term="算法" scheme="https://lulu-cloud.github.io/tags/%E7%AE%97%E6%B3%95/"/>
+    
+  </entry>
   
   <entry>
     <title>加密流量分类-实践5: 利用CIC-FlowMeter工具提取流量特征</title>
@@ -101,11 +126,11 @@
   </entry>
   
   <entry>
-    <title>Java学习算法：区间问题</title>
+    <title>Java算法学习：区间问题</title>
     <link href="https://lulu-cloud.github.io/2023/04/04/%E5%8A%9B%E6%89%A3%E5%88%B7%E9%A2%98-%E5%8C%BA%E9%97%B4%E9%97%AE%E9%A2%98/"/>
     <id>https://lulu-cloud.github.io/2023/04/04/力扣刷题-区间问题/</id>
     <published>2023-04-04T03:37:54.000Z</published>
-    <updated>2023-12-04T03:19:26.507Z</updated>
+    <updated>2024-02-22T09:07:56.373Z</updated>
     
     <content type="html"><![CDATA[<p>对力扣的区间类题目做一个总结！</p><h1 id="合并区间"><a href="#合并区间" class="headerlink" title="合并区间"></a>合并区间</h1><h2 id="1-算法思想"><a href="#1-算法思想" class="headerlink" title="1 算法思想"></a>1 算法思想</h2><ol><li><p>按照区间起点升序排序</p><pre><code class="lang-java">//按照区间起始位置排序/**        如果v1[0]-v2[0]为正，代表v1与v2交换位置，故这是升序排序        */Arrays.sort(intervals,(v1,v2)-&gt;v1[0]-v2[0]);</code></pre></li></ol><ol><li><p>设定<code>start</code>与<code>end</code>指针，首先初始化为第一个区间的两端值</p><pre><code class="lang-java">int start = intervals[0][0];int end = intervals[0][1];</code></pre></li></ol><ol><li><p>循环遍历，如果当前的<code>end</code>大于下一个区间的起点，那么说明两个区间有交集了，<code>end</code>更新，更新策略为当前<code>end</code>与下一个区间终点的最大值</p><pre><code class="lang-java">List&lt;int[]&gt;ans = new LinkedList&lt;&gt;();for(int i = 1;i&lt;intervals.length;i++)&#123;    if(end&gt;=intervals[i][0])&#123;        end = Math.max(end,intervals[i][1]);    &#125;    else&#123;        ans.add(new int[]&#123;start,end&#125;);        start = intervals[i][0];        end = intervals[i][1];    &#125;&#125;</code></pre></li><li><p>最后一步由于<code>start</code>与<code>end</code>圈区间的未加入最后结果，再次更新一次</p><pre><code class="lang-java">//最后一个区间加一下ans.add(new int[]&#123;start,end&#125;);int[][]res = new int[ans.size()][2];return ans.toArray(res);</code></pre></li></ol><h2 id="2-完整代码"><a href="#2-完整代码" class="headerlink" title="2 完整代码"></a>2 完整代码</h2><pre><code class="lang-java">class Solution &#123;    public int[][] merge(int[][] intervals) &#123;        //0 特殊情况处理        if(intervals.length&lt;=1)&#123;            return intervals;        &#125;        //1 按照区间起始位置排序        /**        如果v1[0]-v2[0]为正，代表v1与v2交换位置，故这是升序排序        */        Arrays.sort(intervals,(v1,v2)-&gt;v1[0]-v2[0]);        //2 设定start end指针        int start = intervals[0][0];        int end = intervals[0][1];        //3 循环算法策略        List&lt;int[]&gt;ans = new LinkedList&lt;&gt;();        for(int i = 1;i&lt;intervals.length;i++)&#123;            if(end&gt;=intervals[i][0])&#123;                end = Math.max(end,intervals[i][1]);            &#125;            else&#123;                ans.add(new int[]&#123;start,end&#125;);                start = intervals[i][0];                end = intervals[i][1];            &#125;        &#125;        //4 最后一个区间加一下        ans.add(new int[]&#123;start,end&#125;);        int[][]res = new int[ans.size()][2];        return ans.toArray(res);    &#125;&#125;</code></pre><h1 id="无重叠区间"><a href="#无重叠区间" class="headerlink" title="无重叠区间"></a>无重叠区间</h1><h2 id="1-算法思想-1"><a href="#1-算法思想-1" class="headerlink" title="1 算法思想"></a>1 算法思想</h2><p>&emsp;&emsp;本质与合并区间没有什么不同，这里是求没有重叠区间的数目，那么在<code>end</code>指针的更新策略不是取最大，而是取最小。</p><p>区别在第<code>3</code>步</p><ol><li>循环遍历，如果当前的<code>end</code>大于下一个区间的起点，那么说明两个区间有交集了，<code>end</code>更新，更新策略为当前<code>end</code>与下一个区间终点的最大值</li></ol><pre><code class="lang-java">List&lt;int[]&gt;ans = new LinkedList&lt;&gt;();for(int i = 1;i&lt;intervals.length;i++)&#123;    //&gt;=号也要变成&gt;,因为区间刚好相“切”是表明不重叠    if(end&gt;intervals[i][0])&#123;        //这里换成min        //当前end大于下一个区间的起点，那么就是说明交叉了        //end更新        end = Math.min(end,intervals[i][1]);        cnt++;    &#125;    else&#123;        end = intervals[i][1];    &#125;&#125;</code></pre><h2 id="2-完整代码-1"><a href="#2-完整代码-1" class="headerlink" title="2 完整代码"></a>2 完整代码</h2><ul><li>start指针没有用，但是写出</li></ul><pre><code class="lang-java">class Solution &#123;    public int eraseOverlapIntervals(int[][] intervals) &#123;        if(intervals.length==1)&#123;            return 0;        &#125;        //按照区间起始位置排序        Arrays.sort(intervals,(v1,v2)-&gt;v1[0]-v2[0]);        //2         int start = intervals[0][0];        int end = intervals[0][1];        int cnt = 0;        for(int i = 1;i&lt;intervals.length;i++)&#123;            if(end&gt;intervals[i][0])&#123;                //当前end大于下一个区间的起点，那么就是说明交叉了                //end更新                end = Math.min(end,intervals[i][1]);                cnt++;            &#125;else&#123;                start = intervals[i][0];                end = intervals[i][1];            &#125;        &#125;        //cnt表示重叠的数目        return cnt;    &#125;&#125;</code></pre><h1 id="戳气球问题"><a href="#戳气球问题" class="headerlink" title="戳气球问题"></a>戳气球问题</h1><blockquote><p>本质是计算无重叠区间问题，不过需要注意的是这里的区间相切，视作区间重叠，故代码的<code>&gt;</code>又得换回<code>&gt;=</code>拿最终的长度减去重叠的数目返回即可</p></blockquote><h2 id="1-完整代码"><a href="#1-完整代码" class="headerlink" title="1 完整代码"></a>1 完整代码</h2><pre><code class="lang-java">class Solution &#123;    public int findMinArrowShots(int[][] points) &#123;        //一样的套路，排序右边界        if(points.length&lt;=1)&#123;            return 1;        &#125;        Arrays.sort(points,(a,b)-&gt;Integer.compare(a[0],b[0]));        //2         int start = points[0][0];        int end = points[0][1];        int cnt = 0;        for(int i = 1;i&lt;points.length;i++)&#123;            if(end&gt;=points[i][0])&#123;                //当前end大于等于下一个区间的起点，那么就是说明交叉了                //end更新                end = Math.min(end,points[i][1]);                cnt++;            &#125;else&#123;                start = points[i][0];                end = points[i][1];            &#125;        &#125;        //cnt表示重叠的数目        return points.length-cnt;    &#125;&#125;</code></pre>]]></content>
     
@@ -209,11 +234,11 @@
   </entry>
   
   <entry>
-    <title>Java学习算法：二分查找</title>
+    <title>Java算法学习：二分查找</title>
     <link href="https://lulu-cloud.github.io/2023/03/02/%E5%8A%9B%E6%89%A3%E5%88%B7%E9%A2%98-%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/"/>
     <id>https://lulu-cloud.github.io/2023/03/02/力扣刷题-二分查找/</id>
     <published>2023-03-02T01:27:18.000Z</published>
-    <updated>2023-11-28T02:18:54.375Z</updated>
+    <updated>2024-02-22T09:07:51.106Z</updated>
     
     <content type="html"><![CDATA[<h1 id="一、-原则"><a href="#一、-原则" class="headerlink" title="一、 原则"></a>一、 原则</h1><h2 id="1-区间：左右闭区间"><a href="#1-区间：左右闭区间" class="headerlink" title="1. 区间：左右闭区间"></a>1. 区间：左右闭区间</h2><h2 id="2-while结束设定为-lt"><a href="#2-while结束设定为-lt" class="headerlink" title="2. while结束设定为&lt;="></a>2. while结束设定为&lt;=</h2><h2 id="3-左右界更新都为mid上下1"><a href="#3-左右界更新都为mid上下1" class="headerlink" title="3. 左右界更新都为mid上下1"></a>3. 左右界更新都为mid上下1</h2><blockquote><ol><li><p>二分查找可以设定左闭右开的写法，也可以左右都是闭区间，这里设定后者</p></li><li><p>在1的设定下，如果left=right，即当前搜索区间长度为1，如果while里面不是&lt;=二是严格&lt;,那么该长度为1的区间就不会搜索，出现遗漏</p></li><li><p>在1，2的设定之下，必须让left、right的更新机制在循环结束后，right在left的左边，即每次更新right与left必须都不能为mid，因为mid可能 在区间长度为1或者2的时候mid等于其中的left，必须使得right与left有机制在更新时不能一直等于mid，故有原则3</p></li></ol></blockquote><h1 id="二、三种情况"><a href="#二、三种情况" class="headerlink" title="二、三种情况"></a>二、三种情况</h1><h2 id="2-1-直接找元素"><a href="#2-1-直接找元素" class="headerlink" title="2.1 直接找元素"></a>2.1 直接找元素</h2><pre><code class="lang-java">int searchBinary(int[] nums, int target) &#123;    //原则1 左右闭区间    int left = 0, right = nums.length - 1;    //原则2 while结束条件为&lt;=    while (left &lt;= right) &#123;        int mid = left + ((right - left) &gt;&gt; 1);        if (nums[mid] == target) &#123;            return mid;        &#125; else if (nums[mid] &lt; target) &#123;            //原则3 左右界更新为mid加减1            left = mid + 1;        &#125; else &#123;            //原则3 左右界更新为mid加减1            right = mid - 1;        &#125;    &#125;    return -1;&#125;</code></pre><h2 id="2-2-寻找左右边界"><a href="#2-2-寻找左右边界" class="headerlink" title="2.2 寻找左右边界"></a>2.2 寻找左右边界</h2><p>给定有序数组</p><script type="math/tex; mode=display">[0,1,2,2,2,3,4]</script><p>如何找第一个2出现的下标或者最后一个2出现的下标</p><ul><li>找第一个：找左边界</li></ul><pre><code class="lang-java">int searchLeftBound(int[] nums, int target) &#123;    int left = 0, right = nums.length - 1;    while (left &lt;= right) &#123;        int mid = left + ((right - left) &gt;&gt; 1);        if (nums[mid] == target) &#123;            right = mid - 1; // 收缩右边界        &#125; else if (nums[mid] &lt; target) &#123;            left = mid + 1;        &#125; else &#123;            right = mid - 1;        &#125;    &#125;    // 越界检查，不存在检查    if (left &gt;= nums.length || nums[left] != target) &#123;        return -1;    &#125;    return left;&#125;</code></pre><ul><li>找最后一个：找右边界</li></ul><pre><code class="lang-java">int searchRightBound(int[] nums, int target) &#123;    int left = 0, right = nums.length - 1;    while (left &lt;= right) &#123;        int mid = left + ((right - left) &gt;&gt; 1);        if (nums[mid] == target) &#123;            left = mid + 1; // 收缩左边界        &#125; else if (nums[mid] &lt; target) &#123;            left = mid + 1;        &#125; else &#123;            right = mid - 1;        &#125;    &#125;    if (right &lt; 0 || nums[right] != target) &#123;        return -1;    &#125;    return right;&#125;</code></pre>]]></content>
     
@@ -521,33 +546,6 @@
       
       
         &lt;h1 id=&quot;0、摘要&quot;&gt;&lt;a href=&quot;#0、摘要&quot; class=&quot;headerlink&quot; title=&quot;0、摘要&quot;&gt;&lt;/a&gt;0、摘要&lt;/h1&gt;&lt;p&gt; &amp;emsp;&amp;emsp;FS-Net是一个端到端的分类模型，它从原始流中学习代表性特征，然后在一个统一的框架中对它们进行分
-      
-    
-    </summary>
-    
-      <category term="科研" scheme="https://lulu-cloud.github.io/categories/%E7%A7%91%E7%A0%94/"/>
-    
-      <category term="加密流量分类" scheme="https://lulu-cloud.github.io/categories/%E7%A7%91%E7%A0%94/%E5%8A%A0%E5%AF%86%E6%B5%81%E9%87%8F%E5%88%86%E7%B1%BB/"/>
-    
-    
-      <category term="论文" scheme="https://lulu-cloud.github.io/tags/%E8%AE%BA%E6%96%87/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>加密流量分类-论文2: Deep Packet_ A Novel Approach For Encrypted Traffic Classification Using Deep Learning</title>
-    <link href="https://lulu-cloud.github.io/2022/09/02/%E5%8A%A0%E5%AF%86%E6%B5%81%E9%87%8F%E5%88%86%E7%B1%BB-%E8%AE%BA%E6%96%872%EF%BC%9ADeep%20Packet_%20A%20Novel%20Approach%20For%20Encrypted%20Traffic%20Classification%20Using%20Deep%20Learning/"/>
-    <id>https://lulu-cloud.github.io/2022/09/02/加密流量分类-论文2：Deep Packet_ A Novel Approach For Encrypted Traffic Classification Using Deep Learning/</id>
-    <published>2022-09-02T13:27:14.000Z</published>
-    <updated>2023-11-24T13:43:25.733Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="0、摘要"><a href="#0、摘要" class="headerlink" title="0、摘要"></a>0、摘要</h1><p>&emsp;&emsp;论文提出的方案称为“深度包”(deep packet)，可以处理网络流量分类为主要类别(如FTP和P2P)的流量表征，以及需要终端用户应用程序(如BitTorrent和Skype)识别的应用程序识别。与现有的大多数方法不同，深度报文不仅可以识别加密流量，还可以区分VPN网络流量和非VPN网络流量。网络架构基于CNN与SAE，能同时进行<strong>应用识别</strong>与<strong>流量类型</strong>的分类任务。</p><h1 id="1、介绍"><a href="#1、介绍" class="headerlink" title="1、介绍"></a>1、介绍</h1><p>&emsp;&emsp;准确的流量分类已成为提供适当的服务质量(quality of service, QoS)、异常检测等高级网络管理任务的先决条件之一。流量分类在与网络管理相关的学术界和工业界都引起了极大的兴趣。</p><p>&emsp;&emsp;本文贡献：</p><ul><li>在Deep Packet中，不需要专家来提取与网络流量相关的特征。这种方法省去了查找和提取特征的繁琐步骤。（只要是基于DL的方法都能做到这一点）</li><li>Deep Packet可以在两个粒度级别(应用程序识别和流量表征)上识别流量，并获得最先进的结果。</li><li><p>深度数据包可以准确地分类最难的一类应用程序，已知是P2P。</p><h1 id="2、相关工作"><a href="#2、相关工作" class="headerlink" title="2、相关工作"></a>2、相关工作</h1><p>&emsp;&emsp;等于是一个综述，概览了之前流量分类的一些方法以及它的适用性与优缺点。可以参考<a href="https://blog.csdn.net/qq_45125356/article/details/126592812?spm=1001.2014.3001.5502">论文解读1</a></p></li><li><p>Port-based approach（基于端口）：提取过程简单，端口号不受加密方案的影响。然而，端口混淆、网络地址转换(NAT)、端口转发、协议嵌入和端口随机分配的普遍存在大大降低了这种方法的准确性，<strong>目前已经不适用</strong>。</p></li><li>Payload Inspection Techniques（基于有效载荷）:即深度包检测（DPI）。</li><li>Statistical and machine learning approach（基于统计特征+机器学习方法）：这些方法依赖于流量的统计或时间序列特性，能够处理加密和未加密的流量。</li></ul><p>&emsp;&emsp;<strong>总之，以前的方法，特征提取阶段依赖于人类的特征工程，耗时、昂贵且出错率高。</strong></p><h1 id="3、深度学习背景"><a href="#3、深度学习背景" class="headerlink" title="3、深度学习背景"></a>3、深度学习背景</h1><p>&emsp;&emsp;依旧是综述，关于神经网络的。这里主要介绍了两种神经网络结构。</p><h2 id="3-1-自编码器（Autoencoder，AE）"><a href="#3-1-自编码器（Autoencoder，AE）" class="headerlink" title="3.1 自编码器（Autoencoder，AE）"></a>3.1 自编码器（Autoencoder，AE）</h2><p>&emsp;&emsp;AE是一种无监督框架。考虑一个训练集{x1, x2，…， xn}其中对于每个训练数据我们有xi∈Rn。自编码器目标定义为yi = xi，对于i∈{1,2，…， n}，即网络的输出等于输入。自动编码器试图学习数据集的压缩表示，即<strong>将高维数据通过编码器降维，然后降维后的数据通过解码器升维，输出尽量与输入相同。这样。降维后的数据则包含了原始输入数据的信息</strong>。一般地，编码器与解码器的结构都是对称的。<br><img src="https://raw.githubusercontent.com/lulu-cloud/lili_images/main/image/202311011127286.png" alt="AE结构"><br>&emsp;&emsp;在实践中，为了获得更好的性能，一般使用<strong>堆栈式自动编码器(SAE)</strong>。将多个自动编码器堆叠起来，每个编码器的输出都是连续层的输入，而连续层本身就是一个自动编码器。堆叠式自动编码器的训练过程采用贪婪的分层方式完成。首先，该方法训练网络的每一层，同时冻结其他层的权值。在训练完所有层之后，为了得到更准确的结果，对整个神经网络进行微调。在微调阶段，利用反向传播算法调整各层权重。此外，对于分类任务，可以在最后一层应用额外的softmax层。<br><img src="https://raw.githubusercontent.com/lulu-cloud/lili_images/main/image/202311011127399.png" alt="SAE"></p><h2 id="3-2-卷积神经网络-Convolutional-Neural-Network-CNN"><a href="#3-2-卷积神经网络-Convolutional-Neural-Network-CNN" class="headerlink" title="3.2 卷积神经网络(Convolutional Neural Network, CNN)"></a>3.2 卷积神经网络(Convolutional Neural Network, CNN)</h2><ul><li>卷积：进行特征抽取</li><li>池化：聚合低级特征，获得局部不变性，并且能降低网络训练与测试的参数量。<br>&emsp;&emsp;一维卷积神经网络（1D-CNNs）可以捕获网络数据包中相邻字节之间的空间依赖关系，从而找到每一类协议/应用程序的区别模式，从而对流量进行准确的分类。<h1 id="4、方法"><a href="#4、方法" class="headerlink" title="4、方法"></a>4、方法</h1><h2 id="4-1-数据集"><a href="#4-1-数据集" class="headerlink" title="4.1 数据集"></a>4.1 数据集</h2>&emsp;&emsp;<strong>ISCX VPN-nonVPN</strong>：该数据集实在数据链路层捕获的，因此，每个数据包都包含一个以太网报头、一个IP数据报报头、一个TCP/UDP报头。</li></ul><h2 id="4-2-预处理"><a href="#4-2-预处理" class="headerlink" title="4.2 预处理"></a>4.2 预处理</h2><ol><li>删除以太网报头</li><li>将UDP报头填充0至20字节长度（TCP通常具有20字节长度的报头，而UDP具有8字节长度的报头。为了使传输层的段一致，在UDP段的报头末尾注入0，使它们的长度与TCP报头相等）</li><li>屏蔽IP数据报报头的IP</li><li>删除不相关的数据包，例如没有负载的数据包（TCP握手时SYN、ACK设置为1以及FIN设置为1的数据包）或者DNS数据段（将url转为IP地址的）</li><li>将原始数据包转为字节向量</li><li>截断超过1500的向量，不足1500长度的填充0</li><li>将向量的每个元素除以255来规范化字节向量</li><li>针对样本不均衡问题，对样本更多的类进行欠采样，直到类相对平衡。<br><img src="https://raw.githubusercontent.com/lulu-cloud/lili_images/main/image/202311011127411.png" alt="每个类别中的样本数量"><h2 id="4-3-网络架构"><a href="#4-3-网络架构" class="headerlink" title="4.3 网络架构"></a>4.3 网络架构</h2><img src="https://raw.githubusercontent.com/lulu-cloud/lili_images/main/image/202311011127926.png" alt="Deep Packet网络架构"></li></ol><ul><li>关于SAE的部分：<br>由五个全连接层（FC）,分别由400、300、200、100和50个神经元组成。为防止过拟合问题，每层后采用dropout技术，dropout率为0.05。针对应用识别和流量表征任务，在SAE的最后一层，分别添加了一个包含17个神经元和12个神经元的softmax分类器。</li><li>关于CNN的部分：<br>包括两个连续的卷积层，然后是池化层。将二维张量压缩为一维矢量，并将其送入三层全连接神经元网络，该网络采用dropout技术以避免过拟合。最后，将类似于SAE架构的softmax分类器应用于分类任务。<br><img src="https://raw.githubusercontent.com/lulu-cloud/lili_images/main/image/202311011128167.png" alt="CNN架构"><br>CNN的超参数如下：<br><img src="https://raw.githubusercontent.com/lulu-cloud/lili_images/main/image/202311011128738.png" alt="CNN的超参数"><h1 id="5、实验"><a href="#5、实验" class="headerlink" title="5、实验"></a>5、实验</h1></li><li>对于CNN的调参，此处改变了两个卷积层的滤波器大小、滤波器数量和步幅。总共评估了116个应用识别和交通表征任务的加权平均F1分数模型。通过结果得出如下结论：<strong>对于流量分类任务，无法选择最优模型，因为“最优模型”的定义是不明确的，而且模型的精度和它的复杂性(即训练速度和测试速度)之间存在权衡</strong>。</li><li><strong>增加神经网络的复杂度并不一定会带来更好的性能</strong>。可能的原因有：<br>&emsp;&emsp;一个复杂的模型在训练阶段更容易遇到梯度消失问题，从而导致模型的<strong>欠拟合</strong>。<br>&emsp;&emsp; 一个学习模型变得更复杂，而训练数据的大小保持不变，就会出现<strong>过拟合</strong>问题。</li><li>该工作与Wang W, Zhu M, Wang J, Zeng X, Yang Z (2017)<br>End-to-end encrypted traffic classification with one-dimensional convolution neural networks. In: Intel-ligence and Security Informatics (ISI), 2017 IEEE International Conference on, IEEE. 的方法类似，但Wang等人在流量表征的任务上获得了100%的精度，可能的原因是<strong>预处理过程中没有屏蔽IP地址字段，导致模型仅仅用IP地址这一特征来进行分类</strong>。</li></ul><h1 id="6、总结"><a href="#6、总结" class="headerlink" title="6、总结"></a>6、总结</h1><p><img src="https://raw.githubusercontent.com/lulu-cloud/lili_images/main/image/202311011128877.png" alt="总结"></p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;0、摘要&quot;&gt;&lt;a href=&quot;#0、摘要&quot; class=&quot;headerlink&quot; title=&quot;0、摘要&quot;&gt;&lt;/a&gt;0、摘要&lt;/h1&gt;&lt;p&gt;&amp;emsp;&amp;emsp;论文提出的方案称为“深度包”(deep packet)，可以处理网络流量分类为主要类别(如FTP和P
       
     
     </summary>
