@@ -22,9 +22,10 @@
 <meta name="keywords" content="算法" />
 
 
-<meta name="description" content="递推关系&emsp;&emsp;设置dp[i]为当前打劫到第i个户的最大收益，那么，当前收益等于前一个户的最大收益与前两个户的最大收益加上当前户的收益的最大值：
+<meta name="description" content="
+二叉树的核心是三个dfs与bfs层序遍历
 
-dp[i] = max(dp[..." />
+1 最大回文子串1.1 递归关系&emsp;&emsp;    设置dp[i][j]是以索引i开头索引j结尾的字符串是否为回文串$$dp[i][j]..." />
 
 
 <meta name="robots" content="all" />
@@ -35,7 +36,7 @@ dp[i] = max(dp[..." />
 
 <title>
     
-    Java算法学习：动态规划1-打家劫舍 |
+    Java算法学习：二叉树 |
     
     lulu-cloud
 </title>
@@ -137,9 +138,9 @@ dp[i] = max(dp[..." />
                     <p id="process"></p>
 <article class="post">
     <div class="post-head">
-        <h1 id="Java算法学习：动态规划1-打家劫舍">
+        <h1 id="Java算法学习：二叉树">
             
-            Java算法学习：动态规划1-打家劫舍
+            Java算法学习：二叉树
             
         </h1>
         <div class="post-meta">
@@ -164,7 +165,7 @@ dp[i] = max(dp[..." />
     <span class="fa-wrap">
         <i class="fa fa-clock-o"></i>
         <span class="date-meta">
-            2024/02/22</span>
+            2024/02/26</span>
     </span>
     
     <span class="fa-wrap">
@@ -179,30 +180,82 @@ dp[i] = max(dp[..." />
     </div>
     
     <div class="post-body post-content">
-        <h1 id="递推关系"><a href="#递推关系" class="headerlink" title="递推关系"></a>递推关系</h1><p>&emsp;&emsp;设置dp[i]为当前打劫到第i个户的最大收益，那么，当前收益等于<strong>前一个户的最大收益</strong>与<strong>前两个户的最大收益加上当前户的收益</strong>的最大值：</p>
-<script type="math/tex; mode=display">
-dp[i] = max(dp[i-1],dp[i-2]+nums[i])</script><h1 id="边界条件"><a href="#边界条件" class="headerlink" title="边界条件"></a>边界条件</h1><ol>
-<li>数组长度为0的情况</li>
-<li>数组长度为1的情况</li>
-<li>dp[0]为第一户的收益，dp[1]为前两个户收益的最大值</li>
+        <blockquote>
+<p>二叉树的核心是三个dfs与bfs层序遍历</p>
+</blockquote>
+<h1 id="1-最大回文子串"><a href="#1-最大回文子串" class="headerlink" title="1 最大回文子串"></a>1 最大回文子串</h1><h2 id="1-1-递归关系"><a href="#1-1-递归关系" class="headerlink" title="1.1 递归关系"></a>1.1 递归关系</h2><p>&emsp;&emsp;    设置dp[i][j]是以索引i开头索引j结尾的字符串是否为回文串<br>$$<br>dp[i][j] = dp[i+1][j-1]\&amp;\&amp;s[i]==s[j]<br>$$</p>
+<blockquote>
+<p>此种遍历由下到上开始遍历</p>
+</blockquote>
+<h2 id="1-2-边界条件"><a href="#1-2-边界条件" class="headerlink" title="1.2 边界条件"></a>1.2 边界条件</h2><ol>
+<li><p>串长度为1，都是回文串<br>$$<br>dp[i][i] = true<br>$$</p>
+</li>
+<li><p>子串长度为2<br>$$<br>dp[i][i+1] = s[i]==s[i+1]<br>$$</p>
+</li>
 </ol>
-<h1 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h1><pre><code class="lang-java">class Solution &#123;
-    public int rob(int[] nums) &#123;
-        if(nums==null||nums.length==0)&#123;
-            return 0;
+<h2 id="1-3-代码"><a href="#1-3-代码" class="headerlink" title="1.3 代码"></a>1.3 代码</h2><pre><code class="java">class Solution &#123;
+    public String longestPalindrome(String s) &#123;
+        //与字符串的一般都是二维
+        /**
+
+        设置dp[i][j]是以索引i开头索引j结尾的字符串是否为回文串
+        dp[i][j] = dp[i+1][j-1]&amp;&amp;s[i]==s[j]
+
+        初始 dp[i][i] = 1, dp[i][i+1] = s[i]==s[i+1]
+         */
+        int len = s.length();
+        boolean[][]dp = new boolean[len][len];
+        int start = 0;
+        int end = 0;
+        //初始化
+        for(int i = 0;i&lt;len;i++)&#123;
+            dp[i][i] = true;
+            start = i;
+            end = i+1;
         &#125;
-        int len = nums.length;
-        if(len==1)&#123;
-            return nums[0];
+        for(int i = 0;i&lt;len-1;i++)&#123;
+            dp[i][i+1] = s.charAt(i)==s.charAt(i+1);
+            if(dp[i][i+1])&#123;
+                start = i;
+                end = i+2;
+            &#125;
         &#125;
-        int[]dp = new int[len];
-        dp[0] = nums[0];
-        dp[1] = Math.max(dp[0],nums[1]);
-        for(int i = 2;i&lt;len;i++)&#123;
-            //当前的dp = max(前一个dp值,前两个dp值+当前值)
-            dp[i] = Math.max(dp[i-1],dp[i-2]+nums[i]);
+        //从下到上遍历
+        for(int i = len-3;i&gt;=0;i--)&#123;
+            for(int j = i+2;j&lt;len;j++)&#123;
+                dp[i][j] = dp[i+1][j-1]&amp;&amp;s.charAt(i)==s.charAt(j);
+                if(dp[i][j])&#123;
+                    if(j+1-i&gt;end-start)&#123;
+                        start = i;
+                        end = j+1;
+                    &#125;
+                &#125;
+            &#125;
         &#125;
-        return dp[len-1];
+        return s.substring(start,end);
+    &#125;
+&#125;
+</code></pre>
+<h1 id="2-最长回文子序列"><a href="#2-最长回文子序列" class="headerlink" title="2 最长回文子序列"></a>2 最长回文子序列</h1><h2 id="2-1-递归关系"><a href="#2-1-递归关系" class="headerlink" title="2.1 递归关系"></a>2.1 递归关系</h2><p>$$<br>s[i]==s[j]?dp[i][j]=dp[i+1][j-1]+2:max(dp[i+1][j],dp[i][j-1])<br>$$</p>
+<h2 id="2-2-边界条件"><a href="#2-2-边界条件" class="headerlink" title="2.2 边界条件"></a>2.2 边界条件</h2><p>起始的<br>$$<br>dp[i][i]=1<br>$$</p>
+<h2 id="2-3-代码"><a href="#2-3-代码" class="headerlink" title="2.3 代码"></a>2.3 代码</h2><pre><code class="java">class Solution &#123;
+    public int longestPalindromeSubseq(String s) &#123;
+        int n = s.length();
+        int[][]dp = new int[n][n];
+        for(int i =0;i&lt;n;i++)&#123;
+            dp[i][i] = 1;
+        &#125;
+        //倒着遍历
+        for(int i = n-2;i&gt;=0;i--)&#123;
+            for(int j = i+1;j&lt;n;j++)&#123;
+                if(s.charAt(i)==s.charAt(j))&#123;
+                    dp[i][j] = dp[i+1][j-1]+2;
+                &#125;else&#123;
+                    dp[i][j] = Math.max(dp[i+1][j],dp[i][j-1]);
+                &#125;
+            &#125;
+        &#125;
+        return dp[0][n-1];
     &#125;
 &#125;
 </code></pre>
@@ -224,17 +277,11 @@ dp[i] = max(dp[i-1],dp[i-2]+nums[i])</script><h1 id="边界条件"><a href="#边
 </article>
 <div class="article-nav prev-next-wrap clearfix">
     
-    <a href="/2024/02/25/%E5%8A%9B%E6%89%A3%E5%88%B7%E9%A2%98-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%EF%BC%88%E4%BA%8C%20%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9B%B8%E5%85%B3%EF%BC%89/" class="pre-post btn btn-default" title='Java算法学习：动态规划2-字符串与子序列问题'>
-        <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
-        <span class="hidden-xs">
-            Java算法学习：动态规划2-字符串与子序列问题</span>
-    </a>
     
-    
-    <a href="/2023/12/11/%E6%B5%81%E9%87%8F%E9%A2%84%E5%A4%84%E7%90%86-3%EF%BC%9A%E5%88%A9%E7%94%A8cic-flowmeter%E5%B7%A5%E5%85%B7%E6%8F%90%E5%8F%96%E6%B5%81%E9%87%8F%E7%89%B9%E5%BE%81/" class="next-post btn btn-default" title='加密流量分类-实践5: 利用CIC-FlowMeter工具提取流量特征'>
+    <a href="/2024/02/25/%E5%8A%9B%E6%89%A3%E5%88%B7%E9%A2%98-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%EF%BC%88%E4%BA%8C%20%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9B%B8%E5%85%B3%EF%BC%89/" class="next-post btn btn-default" title='Java算法学习：动态规划2-字符串与子序列问题'>
         <span class="hidden-lg">下一篇</span>
         <span class="hidden-xs">
-            加密流量分类-实践5: 利用CIC-FlowMeter工具提取流量特征</span><i class="fa fa-angle-right fa-fw"></i>
+            Java算法学习：动态规划2-字符串与子序列问题</span><i class="fa fa-angle-right fa-fw"></i>
     </a>
     
 </div>
@@ -268,7 +315,7 @@ dp[i] = max(dp[i-1],dp[i-2]+nums[i])</script><h1 id="边界条件"><a href="#边
             文章目录
         </h3>
         
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%80%92%E6%8E%A8%E5%85%B3%E7%B3%BB"><span class="toc-text">递推关系</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E8%BE%B9%E7%95%8C%E6%9D%A1%E4%BB%B6"><span class="toc-text">边界条件</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BB%A3%E7%A0%81"><span class="toc-text">代码</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1-%E6%9C%80%E5%A4%A7%E5%9B%9E%E6%96%87%E5%AD%90%E4%B8%B2"><span class="toc-text">1 最大回文子串</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-1-%E9%80%92%E5%BD%92%E5%85%B3%E7%B3%BB"><span class="toc-text">1.1 递归关系</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-2-%E8%BE%B9%E7%95%8C%E6%9D%A1%E4%BB%B6"><span class="toc-text">1.2 边界条件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-3-%E4%BB%A3%E7%A0%81"><span class="toc-text">1.3 代码</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-%E6%9C%80%E9%95%BF%E5%9B%9E%E6%96%87%E5%AD%90%E5%BA%8F%E5%88%97"><span class="toc-text">2 最长回文子序列</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2-1-%E9%80%92%E5%BD%92%E5%85%B3%E7%B3%BB"><span class="toc-text">2.1 递归关系</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2-%E8%BE%B9%E7%95%8C%E6%9D%A1%E4%BB%B6"><span class="toc-text">2.2 边界条件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-3-%E4%BB%A3%E7%A0%81"><span class="toc-text">2.3 代码</span></a></li></ol></li></ol>
         
     </div>
 </aside>

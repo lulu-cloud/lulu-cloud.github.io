@@ -1,0 +1,503 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+<head>
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="lulu-cloud">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <meta name="theme-version" content="1.3.0">
+    <meta name="root" content="/">
+    <link rel="dns-prefetch" href="https://lulu-cloud.github.io">
+    <!--SEO-->
+
+<meta name="keywords" content="算法" />
+
+
+<meta name="description" content="
+一般关于字符串的都是二维dp
+
+1 最大回文子串1.1 递归关系&emsp;&emsp;    设置dp[i][j]是以索引i开头索引j结尾的字符串是否为回文串$$dp[i][j] = dp[..." />
+
+
+<meta name="robots" content="all" />
+<meta name="google" content="all" />
+<meta name="googlebot" content="all" />
+<meta name="verify" content="all" />
+    <!--Title-->
+
+<title>
+    
+    Java算法学习：动态规划2-字符串与子序列问题 |
+    
+    lulu-cloud
+</title>
+
+<link rel="alternate" href="/atom.xml" title="lulu-cloud" type="application/atom+xml">
+
+
+<link rel="icon" href="/favicon.ico">
+
+    
+
+
+<link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7.css">
+<link rel="stylesheet" href="/css/font-awesome.min.css?rev=4.7.0.css">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash.css">
+
+    
+<div class="hide">
+    <script type="text/javascript">
+    var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+    document.write(unescape("%3Cspan class='cnzz_stat_icon_1263868967 hide' %3E%3Cscript%20src%3D%22https%3A%2F%2Fs95.cnzz.com%2Fz_stat.php%3Fweb_id%3D1272564536%22%3E%3C%2Fscript%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1263868967%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+</div>
+
+
+
+
+    
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+<body>
+    <header class="main-header"  style="background-image:url(
+    /./img/duolaAAA.git)"
+     >
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title='lulu-cloud'>
+            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+            <!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+            <img src="/img/branding.png" alt="Snippet 博客主题" class="img-responsive center-block">
+            
+        </div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                        <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="https://lulu-cloud.github.io">
+                        lulu-cloud</a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/"><i class="fa "></i>
+                                首页</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/科研/"><i class="fa "></i>
+                                科研</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/Java学习/"><i class="fa "></i>
+                                Java学习</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/archives/"><i class="fa "></i>
+                                时间轴</a>
+                        </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="Java算法学习：动态规划2-字符串与子序列问题">
+            
+            Java算法学习：动态规划2-字符串与子序列问题
+            
+        </h1>
+        <div class="post-meta">
+    
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        <a class="category-link" href="/categories/Java%E5%AD%A6%E4%B9%A0/">Java学习</a>
+    </span>
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+            <a class="tag-none-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a>
+            
+        </span>
+    </span>
+    
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-clock-o"></i>
+        <span class="date-meta">
+            2024/02/25</span>
+    </span>
+    
+    <span class="fa-wrap">
+        <i class="fa fa-eye"></i>
+        <span id="busuanzi_value_page_pv"></span>
+    </span>
+    
+    
+</div>
+        
+        
+    </div>
+    
+    <div class="post-body post-content">
+        <blockquote>
+<p>一般关于字符串的都是二维dp</p>
+</blockquote>
+<h1 id="1-最大回文子串"><a href="#1-最大回文子串" class="headerlink" title="1 最大回文子串"></a>1 最大回文子串</h1><h2 id="1-1-递归关系"><a href="#1-1-递归关系" class="headerlink" title="1.1 递归关系"></a>1.1 递归关系</h2><p>&emsp;&emsp;    设置dp[i][j]是以索引i开头索引j结尾的字符串是否为回文串<br>$$<br>dp[i][j] = dp[i+1][j-1]\&amp;\&amp;s[i]==s[j]<br>$$</p>
+<blockquote>
+<p>此种遍历由下到上开始遍历</p>
+</blockquote>
+<h2 id="1-2-边界条件"><a href="#1-2-边界条件" class="headerlink" title="1.2 边界条件"></a>1.2 边界条件</h2><ol>
+<li><p>串长度为1，都是回文串<br>$$<br>dp[i][i] = true<br>$$</p>
+</li>
+<li><p>子串长度为2<br>$$<br>dp[i][i+1] = s[i]==s[i+1]<br>$$</p>
+</li>
+</ol>
+<h2 id="1-3-代码"><a href="#1-3-代码" class="headerlink" title="1.3 代码"></a>1.3 代码</h2><pre><code class="java">class Solution &#123;
+    public String longestPalindrome(String s) &#123;
+        //与字符串的一般都是二维
+        /**
+
+        设置dp[i][j]是以索引i开头索引j结尾的字符串是否为回文串
+        dp[i][j] = dp[i+1][j-1]&amp;&amp;s[i]==s[j]
+
+        初始 dp[i][i] = 1, dp[i][i+1] = s[i]==s[i+1]
+         */
+        int len = s.length();
+        boolean[][]dp = new boolean[len][len];
+        int start = 0;
+        int end = 0;
+        //初始化
+        for(int i = 0;i&lt;len;i++)&#123;
+            dp[i][i] = true;
+            start = i;
+            end = i+1;
+        &#125;
+        for(int i = 0;i&lt;len-1;i++)&#123;
+            dp[i][i+1] = s.charAt(i)==s.charAt(i+1);
+            if(dp[i][i+1])&#123;
+                start = i;
+                end = i+2;
+            &#125;
+        &#125;
+        //从下到上遍历
+        for(int i = len-3;i&gt;=0;i--)&#123;
+            for(int j = i+2;j&lt;len;j++)&#123;
+                dp[i][j] = dp[i+1][j-1]&amp;&amp;s.charAt(i)==s.charAt(j);
+                if(dp[i][j])&#123;
+                    if(j+1-i&gt;end-start)&#123;
+                        start = i;
+                        end = j+1;
+                    &#125;
+                &#125;
+            &#125;
+        &#125;
+        return s.substring(start,end);
+    &#125;
+&#125;
+</code></pre>
+<h1 id="2-最长回文子序列"><a href="#2-最长回文子序列" class="headerlink" title="2 最长回文子序列"></a>2 最长回文子序列</h1><h2 id="2-1-递归关系"><a href="#2-1-递归关系" class="headerlink" title="2.1 递归关系"></a>2.1 递归关系</h2><p>$$<br>s[i]==s[j]?dp[i][j]=dp[i+1][j-1]+2:max(dp[i+1][j],dp[i][j-1])<br>$$</p>
+<h2 id="2-2-边界条件"><a href="#2-2-边界条件" class="headerlink" title="2.2 边界条件"></a>2.2 边界条件</h2><p>起始的<br>$$<br>dp[i][i]=1<br>$$</p>
+<h2 id="2-3-代码"><a href="#2-3-代码" class="headerlink" title="2.3 代码"></a>2.3 代码</h2><pre><code class="java">class Solution &#123;
+    public int longestPalindromeSubseq(String s) &#123;
+        int n = s.length();
+        int[][]dp = new int[n][n];
+        for(int i =0;i&lt;n;i++)&#123;
+            dp[i][i] = 1;
+        &#125;
+        //倒着遍历
+        for(int i = n-2;i&gt;=0;i--)&#123;
+            for(int j = i+1;j&lt;n;j++)&#123;
+                if(s.charAt(i)==s.charAt(j))&#123;
+                    dp[i][j] = dp[i+1][j-1]+2;
+                &#125;else&#123;
+                    dp[i][j] = Math.max(dp[i+1][j],dp[i][j-1]);
+                &#125;
+            &#125;
+        &#125;
+        return dp[0][n-1];
+    &#125;
+&#125;
+</code></pre>
+<h1 id="3-单词拆分（一维dp）"><a href="#3-单词拆分（一维dp）" class="headerlink" title="3 单词拆分（一维dp）"></a>3 单词拆分（一维dp）</h1><h2 id="3-1-递归关系"><a href="#3-1-递归关系" class="headerlink" title="3.1 递归关系"></a>3.1 递归关系</h2><p>&emsp;&emsp;首先弄一个集合set，存储字符串列表中的所有字符串，然后开辟一维dp数组，其中<code>dp[i]</code>的意思代表s[0,i-1]的子串是否能被列表集合单词拆分。二维遍历dp数组<br>$$<br>dp[i] = dp[j]\&amp;\&amp;set.contans(s.substring(i,j))<br>$$<br>只要遍历中有一次为<code>true</code>立马结束循环</p>
+<h2 id="3-2-边界条件"><a href="#3-2-边界条件" class="headerlink" title="3.2 边界条件"></a>3.2 边界条件</h2><p>&emsp;&emsp;起始的<code>dp[0]</code>为true</p>
+<h2 id="3-3-代码"><a href="#3-3-代码" class="headerlink" title="3.3 代码"></a>3.3 代码</h2><pre><code class="java">class Solution &#123;
+    public boolean wordBreak(String s, List&lt;String&gt; wordDict) &#123;
+        boolean[]dp = new boolean[s.length()+1];
+        Set&lt;String&gt;set = new HashSet&lt;&gt;(wordDict);
+        dp[0] = true;
+        for(int i = 1;i&lt;s.length()+1;i++)&#123;
+            for(int j = 0;j&lt;i;j++)&#123;
+                dp[i] = dp[j]&amp;&amp;set.contains(s.substring(j,i));
+                if(dp[i]==true)&#123;
+                    break;
+                &#125;
+            &#125;
+        &#125;
+        return dp[s.length()];
+    &#125;
+&#125;
+</code></pre>
+<h1 id="4-编辑距离"><a href="#4-编辑距离" class="headerlink" title="4 编辑距离"></a>4 编辑距离</h1><h2 id="4-1-递归关系"><a href="#4-1-递归关系" class="headerlink" title="4.1 递归关系"></a>4.1 递归关系</h2><p>$$<br>dp[i][j] = s[i]==s[j]?:dp[i-1][j-1]:min(dp[i-1][j],dp[i][j-1],dp[i-1][j-1])+1<br>$$</p>
+<h2 id="4-2-边界条件"><a href="#4-2-边界条件" class="headerlink" title="4.2 边界条件"></a>4.2 边界条件</h2><p>&emsp;&emsp;需要注意的是在申请dp数组的时候多申请一行一列，存放空串，空串到任意串的步数都是任意串的长度</p>
+<h2 id="4-3-代码"><a href="#4-3-代码" class="headerlink" title="4.3 代码"></a>4.3 代码</h2><pre><code class="java">class Solution &#123;
+    public int minDistance(String word1, String word2) &#123;
+        int m = word1.length();
+        int n = word2.length();
+        int[][]dp = new int[m+1][n+1];
+        //初始化边界
+        for(int i = 0;i&lt;m+1;i++)&#123;
+            dp[i][0] = i;
+        &#125;
+        for(int i = 0;i&lt;n+1;i++)&#123;
+            dp[0][i] = i;
+        &#125;
+        //递归
+        for(int i = 1;i&lt;m+1;i++)&#123;
+            for(int j = 1;j&lt;n+1;j++)&#123;
+                //注意这里的i-1，j-1
+                if(word1.charAt(i-1)==word2.charAt(j-1))&#123;
+                    dp[i][j]=dp[i-1][j-1];
+                &#125;else&#123;
+                    dp[i][j] = Math.min(
+                        Math.min(dp[i-1][j],dp[i][j-1]),
+                        dp[i-1][j-1])
+                        +1;
+                &#125;
+            &#125;
+        &#125;
+        return dp[m][n];
+
+    &#125;
+&#125;
+</code></pre>
+<h1 id="5-最长递增子序列"><a href="#5-最长递增子序列" class="headerlink" title="5 最长递增子序列"></a>5 最长递增子序列</h1><h2 id="5-1-递归关系"><a href="#5-1-递归关系" class="headerlink" title="5.1 递归关系"></a>5.1 递归关系</h2><blockquote>
+<p>双重循环，dp[i]代表到以nums[i]结尾的最长子序列的长度，设定第二个变量j，j由0-&gt;i，每次如果nums[i]&gt;nums[j]，那么dp[i]刷新为max(dp[j]+1)，最后取dp的最大值</p>
+</blockquote>
+<p>$$<br>dp[i] = nums[i]&gt;nums[j]?max(dp[j])+1:1<br>$$</p>
+<h2 id="5-2-边界条件"><a href="#5-2-边界条件" class="headerlink" title="5.2 边界条件"></a>5.2 边界条件</h2><blockquote>
+<p>起始初始化所有的dp[i] = 1</p>
+</blockquote>
+<h2 id="5-3-代码"><a href="#5-3-代码" class="headerlink" title="5.3 代码"></a>5.3 代码</h2><pre><code class="java">class Solution &#123;
+    public int lengthOfLIS(int[] nums) &#123;
+        int len = nums.length;
+        int[]dp = new int[len];
+        Arrays.fill(dp,1);
+        int ans = 1;
+        for(int i = 1;i&lt;len;i++)&#123;
+            for(int j = 0 ;j&lt;i;j++)&#123;
+                if(nums[i]&gt;nums[j])&#123;
+                    dp[i] = Math.max(dp[i],dp[j]+1);
+                    ans = Math.max(ans,dp[i]);
+                &#125;
+            &#125;
+        &#125;
+        return ans;
+    &#125;
+&#125;
+</code></pre>
+<h2 id="5-4-最长递增子序列的个数"><a href="#5-4-最长递增子序列的个数" class="headerlink" title="5.4 最长递增子序列的个数"></a>5.4 最长递增子序列的个数</h2><blockquote>
+<ol>
+<li>多使用一个cnt数组记录当前nums[i]结尾的最长地址子序列的个数</li>
+<li>如果dp[j]+1&gt;dp[i]，代表当前的最长子序列更新了，那么cnt[i] = cnt[j]，为前一个</li>
+<li>如果dp[j]+1==dp[i]，那么最长子序列的个数又得更新，cnt[i]+=cnt[j]</li>
+<li>最后取dp[i]最大值对应的cnt数值即可</li>
+</ol>
+</blockquote>
+<pre><code class="JAVA">
+class Solution &#123;
+    public int findNumberOfLIS(int[] nums) &#123;
+        int len = nums.length;
+        int[]dp = new int[len];
+        int[]cnt = new int[len];
+        Arrays.fill(dp,1);
+        Arrays.fill(cnt,1);
+        int ans = 1;
+        for(int i = 1;i&lt;len;i++)&#123;
+            for(int j = 0 ;j&lt;i;j++)&#123;
+                if(nums[i]&gt;nums[j])&#123;
+                    if(dp[j]+1&gt;dp[i])&#123;
+                        //找到了更长的,那边数字不变
+                        cnt[i] = cnt[j];
+                    &#125;else if(dp[j]+1==dp[i])&#123;
+                        //又一样长的，加上
+                        cnt[i] += cnt[j];
+                    &#125;
+                    dp[i] = Math.max(dp[i],dp[j]+1);
+                &#125;
+            &#125;
+            ans = Math.max(ans,dp[i]);
+        &#125;
+        //然后找出cnt中为ans的统计
+        int res = 0;
+        for(int i = 0;i&lt;len;i++)&#123;
+            if(dp[i]==ans)&#123;
+                res += cnt[i];
+            &#125;
+        &#125;
+        return res;
+    &#125;       
+&#125;
+</code></pre>
+
+    </div>
+    
+    <div class="post-footer">
+        <div>
+            
+            转载声明：
+            商业转载请联系作者获得授权,非商业转载请注明出处 © <a href="" target="_blank">Snippet</a>
+            
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+<div class="article-nav prev-next-wrap clearfix">
+    
+    <a href="/2024/02/26/%E5%8A%9B%E6%89%A3%E5%88%B7%E9%A2%98-%E4%BA%8C%E5%8F%89%E6%A0%91/" class="pre-post btn btn-default" title='Java算法学习：二叉树'>
+        <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
+        <span class="hidden-xs">
+            Java算法学习：二叉树</span>
+    </a>
+    
+    
+    <a href="/2024/02/22/%E5%8A%9B%E6%89%A3%E5%88%B7%E9%A2%98-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%EF%BC%88%E4%B8%80%20%E6%89%93%E5%AE%B6%E5%8A%AB%E8%88%8D%EF%BC%89/" class="next-post btn btn-default" title='Java算法学习：动态规划1-打家劫舍'>
+        <span class="hidden-lg">下一篇</span>
+        <span class="hidden-xs">
+            Java算法学习：动态规划1-打家劫舍</span><i class="fa fa-angle-right fa-fw"></i>
+    </a>
+    
+</div>
+
+<div id="comments">
+    
+    
+<div class="utteranc">
+  
+  <script
+    src='https://utteranc.es/client.js'
+    repo='lulu-cloud/lulu-blog-issue'
+    issue-term='pathname'
+    issue-number=''
+    theme='github-light'
+    label=''
+    crossorigin='anonymous'
+    async
+  ></script>
+</div>
+
+
+
+</div>
+
+                </main>
+                
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">
+            文章目录
+        </h3>
+        
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1-%E6%9C%80%E5%A4%A7%E5%9B%9E%E6%96%87%E5%AD%90%E4%B8%B2"><span class="toc-text">1 最大回文子串</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-1-%E9%80%92%E5%BD%92%E5%85%B3%E7%B3%BB"><span class="toc-text">1.1 递归关系</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-2-%E8%BE%B9%E7%95%8C%E6%9D%A1%E4%BB%B6"><span class="toc-text">1.2 边界条件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-3-%E4%BB%A3%E7%A0%81"><span class="toc-text">1.3 代码</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-%E6%9C%80%E9%95%BF%E5%9B%9E%E6%96%87%E5%AD%90%E5%BA%8F%E5%88%97"><span class="toc-text">2 最长回文子序列</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2-1-%E9%80%92%E5%BD%92%E5%85%B3%E7%B3%BB"><span class="toc-text">2.1 递归关系</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2-%E8%BE%B9%E7%95%8C%E6%9D%A1%E4%BB%B6"><span class="toc-text">2.2 边界条件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-3-%E4%BB%A3%E7%A0%81"><span class="toc-text">2.3 代码</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-%E5%8D%95%E8%AF%8D%E6%8B%86%E5%88%86%EF%BC%88%E4%B8%80%E7%BB%B4dp%EF%BC%89"><span class="toc-text">3 单词拆分（一维dp）</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#3-1-%E9%80%92%E5%BD%92%E5%85%B3%E7%B3%BB"><span class="toc-text">3.1 递归关系</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-2-%E8%BE%B9%E7%95%8C%E6%9D%A1%E4%BB%B6"><span class="toc-text">3.2 边界条件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-3-%E4%BB%A3%E7%A0%81"><span class="toc-text">3.3 代码</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4-%E7%BC%96%E8%BE%91%E8%B7%9D%E7%A6%BB"><span class="toc-text">4 编辑距离</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#4-1-%E9%80%92%E5%BD%92%E5%85%B3%E7%B3%BB"><span class="toc-text">4.1 递归关系</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-2-%E8%BE%B9%E7%95%8C%E6%9D%A1%E4%BB%B6"><span class="toc-text">4.2 边界条件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-3-%E4%BB%A3%E7%A0%81"><span class="toc-text">4.3 代码</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#5-%E6%9C%80%E9%95%BF%E9%80%92%E5%A2%9E%E5%AD%90%E5%BA%8F%E5%88%97"><span class="toc-text">5 最长递增子序列</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#5-1-%E9%80%92%E5%BD%92%E5%85%B3%E7%B3%BB"><span class="toc-text">5.1 递归关系</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-2-%E8%BE%B9%E7%95%8C%E6%9D%A1%E4%BB%B6"><span class="toc-text">5.2 边界条件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-3-%E4%BB%A3%E7%A0%81"><span class="toc-text">5.3 代码</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-4-%E6%9C%80%E9%95%BF%E9%80%92%E5%A2%9E%E5%AD%90%E5%BA%8F%E5%88%97%E7%9A%84%E4%B8%AA%E6%95%B0"><span class="toc-text">5.4 最长递增子序列的个数</span></a></li></ol></li></ol>
+        
+    </div>
+</aside>
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+<a id="back-to-top" class="icon-btn hide">
+    <i class="fa fa-chevron-up"></i>
+</a>
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="busuanzi">
+    
+    访问量:
+    <strong id="busuanzi_value_site_pv">
+        <i class="fa fa-spinner fa-spin"></i>
+    </strong>
+    &nbsp; | &nbsp;
+    访客数:
+    <strong id="busuanzi_value_site_uv">
+        <i class="fa fa-spinner fa-spin"></i>
+    </strong>
+    
+</div>
+            </div>
+            <div class="col-sm-12">
+                <span>Copyright &copy;
+                    2017
+                    
+                </span> |
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Hexo</a>
+                </span> |
+                <span>
+                    Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+<script src="/js/app.js?rev=@@hash.js"></script>
+
+</body>
+</html>
