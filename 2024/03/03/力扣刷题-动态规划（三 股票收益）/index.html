@@ -1,0 +1,692 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+<head>
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="lulu-cloud">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <meta name="theme-version" content="1.3.0">
+    <meta name="root" content="/">
+    <link rel="dns-prefetch" href="https://lulu-cloud.github.io">
+    <!--SEO-->
+
+<meta name="keywords" content="算法" />
+
+
+<meta name="description" content="1 买卖股票最佳时机
+给定一个数组 prices ，它的第 i 个元素 prices[i] 表示一支给定股票第 i 天的价格。
+你只能选择 某一天 买入这只股票，并选择在 未来的某一个不同的日子..." />
+
+
+<meta name="robots" content="all" />
+<meta name="google" content="all" />
+<meta name="googlebot" content="all" />
+<meta name="verify" content="all" />
+    <!--Title-->
+
+<title>
+    
+    Java算法学习：动态规划3-股票收益系列 |
+    
+    lulu-cloud
+</title>
+
+<link rel="alternate" href="/atom.xml" title="lulu-cloud" type="application/atom+xml">
+
+
+<link rel="icon" href="/favicon.ico">
+
+    
+
+
+<link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7.css">
+<link rel="stylesheet" href="/css/font-awesome.min.css?rev=4.7.0.css">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash.css">
+
+    
+<div class="hide">
+    <script type="text/javascript">
+    var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+    document.write(unescape("%3Cspan class='cnzz_stat_icon_1263868967 hide' %3E%3Cscript%20src%3D%22https%3A%2F%2Fs95.cnzz.com%2Fz_stat.php%3Fweb_id%3D1272564536%22%3E%3C%2Fscript%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1263868967%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+</div>
+
+
+
+
+    
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+<body>
+    <header class="main-header"  style="background-image:url(
+    /./img/duolaAAA.git)"
+     >
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title='lulu-cloud'>
+            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+            <!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+            <img src="/img/branding.png" alt="Snippet 博客主题" class="img-responsive center-block">
+            
+        </div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                        <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="https://lulu-cloud.github.io">
+                        lulu-cloud</a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/"><i class="fa "></i>
+                                首页</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/科研/"><i class="fa "></i>
+                                科研</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/Java学习/"><i class="fa "></i>
+                                Java学习</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/archives/"><i class="fa "></i>
+                                时间轴</a>
+                        </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="Java算法学习：动态规划3-股票收益系列">
+            
+            Java算法学习：动态规划3-股票收益系列
+            
+        </h1>
+        <div class="post-meta">
+    
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        <a class="category-link" href="/categories/Java%E5%AD%A6%E4%B9%A0/">Java学习</a>
+    </span>
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+            <a class="tag-none-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a>
+            
+        </span>
+    </span>
+    
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-clock-o"></i>
+        <span class="date-meta">
+            2024/03/03</span>
+    </span>
+    
+    <span class="fa-wrap">
+        <i class="fa fa-eye"></i>
+        <span id="busuanzi_value_page_pv"></span>
+    </span>
+    
+    
+</div>
+        
+        
+    </div>
+    
+    <div class="post-body post-content">
+        <h1 id="1-买卖股票最佳时机"><a href="#1-买卖股票最佳时机" class="headerlink" title="1 买卖股票最佳时机"></a>1 买卖股票最佳时机</h1><blockquote>
+<p>给定一个数组 <code>prices</code> ，它的第 <code>i</code> 个元素 <code>prices[i]</code> 表示一支给定股票第 <code>i</code> 天的价格。</p>
+<p>你只能选择 <strong>某一天</strong> 买入这只股票，并选择在 <strong>未来的某一个不同的日子</strong> 卖出该股票。设计一个算法来计算你所能获取的最大利润。</p>
+<p>返回你可以从这笔交易中获取的最大利润。如果你不能获取任何利润，返回 <code>0</code> 。</p>
+<p><strong>一次买入卖出</strong></p>
+</blockquote>
+<h2 id="1-1-递归关系"><a href="#1-1-递归关系" class="headerlink" title="1.1 递归关系"></a>1.1 递归关系</h2><p>&emsp;&emsp;    设置二维数据dp，dp[i][0]代表第i天手上有股票的最大收益，可能是之前买的，也可能是今天买的，dp[i][1]代表第i天手上无股票的最大收益，可能本来就没有买，可能是卖了。</p>
+<blockquote>
+<p>那么，当前日有股票的最大收益两种情况：</p>
+<ol>
+<li><p>昨天也有股票的最大收益</p>
+</li>
+<li><p>今日<strong>第一次</strong>入股的成本，<strong>之前没有买过</strong></p>
+</li>
+</ol>
+<p>而当前日无股票的最大收益：</p>
+<ol>
+<li>昨天也无股票的最大收益</li>
+<li>今日卖出的股价，<strong>加上昨天手上有股票的收益</strong></li>
+</ol>
+</blockquote>
+<ul>
+<li><p>当日有股票的时候</p>
+<script type="math/tex; mode=display">
+dp[i][0] = max(dp[i-1][0],-price[i])</script></li>
+<li><p>当日无股票的时候</p>
+<script type="math/tex; mode=display">
+dp[i][1] = max(dp[i-1][1],price[i]+dp[i-1][0])</script><p><code>price[i]+dp[i-1][0]</code>代表今日卖出，<code>dp[i-1][0]</code>是昨日持有股票的收益，加上今天卖出的价格<code>price[i]</code>才是最终今天卖出的收益</p>
+</li>
+</ul>
+<h2 id="1-2-边界条件"><a href="#1-2-边界条件" class="headerlink" title="1.2 边界条件"></a>1.2 边界条件</h2><ul>
+<li><p>第一日有股票</p>
+<script type="math/tex; mode=display">
+dp[0][0] = -price[0]</script></li>
+<li><p>第一日无股票</p>
+<script type="math/tex; mode=display">
+dp[0][1] = 0</script></li>
+</ul>
+<h2 id="1-3-代码"><a href="#1-3-代码" class="headerlink" title="1.3 代码"></a>1.3 代码</h2><pre><code class="lang-java">class Solution &#123;
+    public int maxProfit(int[] prices) &#123;
+        if(prices==null||prices.length==0)&#123;
+            return 0;
+        &#125;
+        int len = prices.length;
+        int[][]dp = new int[len][2];
+        //初始化
+        dp[0][0] = -prices[0];
+        dp[0][1] = 0;
+        //开始遍历
+        for(int i = 1;i&lt;len;i++)&#123;
+            dp[i][0] = Math.max(dp[i-1][0],-prices[i]);
+            dp[i][1] = Math.max(dp[i-1][1],dp[i-1][0]+prices[i]);
+        &#125;
+        return Math.max(dp[len-1][0],dp[len-1][1]);
+    &#125;
+&#125;
+</code></pre>
+<h1 id="2-买卖股票最佳时机II"><a href="#2-买卖股票最佳时机II" class="headerlink" title="2 买卖股票最佳时机II"></a>2 买卖股票最佳时机II</h1><p><strong>与第一题只改动了一行代码！</strong></p>
+<blockquote>
+<p>给你一个整数数组 <code>prices</code> ，其中 <code>prices[i]</code> 表示某支股票第 <code>i</code> 天的价格。</p>
+<p>在每一天，你可以决定是否购买和/或出售股票。你在任何时候 <strong>最多</strong> 只能持有 <strong>一股</strong> 股票。你也可以先购买，然后在 <strong>同一天</strong> 出售。</p>
+<p>返回 <em>你能获得的 <strong>最大</strong> 利润</em> 。</p>
+<p><strong>区别：能买入卖出股票很多次！</strong></p>
+</blockquote>
+<h2 id="2-1-递归关系"><a href="#2-1-递归关系" class="headerlink" title="2.1 递归关系"></a>2.1 递归关系</h2><p>&emsp;&emsp;    设置二维数据dp，dp[i][0]代表第i天手上有股票的最大收益，可能是之前买的，也可能是今天买的，dp[i][1]代表第i天手上无股票的最大收益，可能本来就没有买，可能是卖了。</p>
+<blockquote>
+<p>那么，当前日有股票的最大收益两种情况：</p>
+<ol>
+<li><p>昨天也有股票的最大收益</p>
+</li>
+<li><p><strong>今日入股的成本，加上昨天手上无股票的收益</strong></p>
+</li>
+</ol>
+<p>而当前日无股票的最大收益：</p>
+<ol>
+<li>昨天也无股票的最大收益</li>
+<li>今日卖出的股价，<strong>加上昨天手上有股票的收益</strong></li>
+</ol>
+</blockquote>
+<ul>
+<li><p>当日有股票的时候</p>
+<script type="math/tex; mode=display">
+dp[i][0] = max(dp[i-1][0],-price[i]+dp[i-1][1])</script></li>
+<li><p>当日无股票的时候</p>
+<script type="math/tex; mode=display">
+dp[i][1] = max(dp[i-1][1],price[i]+dp[i-1][0])</script><p><code>price[i]+dp[i-1][0]</code>代表今日卖出，<code>dp[i-1][0]</code>是昨日持有股票的收益，加上今天卖出的价格<code>price[i]</code>才是最终今天卖出的收益</p>
+<h2 id="2-2-边界条件"><a href="#2-2-边界条件" class="headerlink" title="2.2 边界条件"></a>2.2 边界条件</h2></li>
+<li><p>第一日有股票</p>
+<script type="math/tex; mode=display">
+dp[0][0] = -price[0]</script></li>
+<li><p>第一日无股票</p>
+<script type="math/tex; mode=display">
+dp[0][1] = 0</script></li>
+</ul>
+<h2 id="2-3-代码"><a href="#2-3-代码" class="headerlink" title="2.3 代码"></a>2.3 代码</h2><pre><code class="lang-java">class Solution &#123;
+    public int maxProfit(int[] prices) &#123;
+        if(prices==null||prices.length==0)&#123;
+            return 0;
+        &#125;
+        int len = prices.length;
+        int[][]dp = new int[len][2];
+        //初始化
+        dp[0][0] = -prices[0];
+        dp[0][1] = 0;
+        //开始遍历
+        for(int i = 1;i&lt;len;i++)&#123;
+            dp[i][0] = Math.max(dp[i-1][0],-prices[i]+dp[i-1][1]);
+            dp[i][1] = Math.max(dp[i-1][1],dp[i-1][0]+prices[i]);
+        &#125;
+        return Math.max(dp[len-1][0],dp[len-1][1]);
+    &#125;
+&#125;
+</code></pre>
+<h1 id="3-买卖股票最佳时机III"><a href="#3-买卖股票最佳时机III" class="headerlink" title="3 买卖股票最佳时机III"></a>3 买卖股票最佳时机III</h1><blockquote>
+<p>给定一个数组，它的第 <code>i</code> 个元素是一支给定的股票在第 <code>i</code> 天的价格。</p>
+<p>设计一个算法来计算你所能获取的最大利润。你最多可以完成 <strong>两笔</strong> 交易。</p>
+<p><strong>注意：</strong>你不能同时参与多笔交易（你必须在再次购买前出售掉之前的股票）。</p>
+<p><strong>最多买入卖出两次！设置dp[len][4]数组，表示第一次第二次持有与未持有的最大收益</strong></p>
+</blockquote>
+<h2 id="3-1-递归关系"><a href="#3-1-递归关系" class="headerlink" title="3.1 递归关系"></a>3.1 递归关系</h2><p>&emsp;&emsp;    设置二维数据dp，</p>
+<p>dp[i][0]代表第i天<strong>第一次买卖</strong>手上<strong>有股票</strong>的最大收益，可能是之前买的，也可能是今天第一次买的，</p>
+<p>dp[i][1]代表第i天<strong>第一次买卖</strong>手上<strong>无股票</strong>的最大收益，可能本来就没有买，可能是卖了；</p>
+<p>dp[i][2]代表第i天<strong>第二次买卖</strong>手上<strong>有股票</strong>的最大收益，可能是之前第二次买的，也可能是今天第二次买，</p>
+<p>dp[i][1]代表第i天<strong>第二次买卖</strong>手上<strong>无股票</strong>的最大收益，可能早就卖了第二次，可能是今天卖了；</p>
+<blockquote>
+<p>那么，当前日<strong>第一次有股票</strong>的最大收益两种情况：</p>
+<ol>
+<li><p>昨天也有股票的最大收益</p>
+</li>
+<li><p><strong>今日第一次入股</strong></p>
+</li>
+</ol>
+<p>而当前日<strong>第一次无股票</strong>的最大收益：</p>
+<ol>
+<li><p>昨天也无股票的最大收益</p>
+</li>
+<li><p>今日卖出的股价，加上昨天手上有股票的收益</p>
+</li>
+</ol>
+<p>当前日<strong>第二次有股票</strong>的最大收益的两天情况：</p>
+<ol>
+<li>昨天第二次有股票的收益（今天之前就已经买了第二次）</li>
+<li>昨天第一次卖股票的收益-<strong>今天第二次入股的成本</strong>（今天买第二次）</li>
+</ol>
+<p>而当前日<strong>第二次无股票</strong>的最大收益：</p>
+<ol>
+<li>昨天第二次无股票的收益（今天之前就已经卖了第二次）</li>
+<li>昨天第二次有股票的收益+今日股价（今日卖出第二次）</li>
+</ol>
+</blockquote>
+<ul>
+<li><p>当日第一次有股票的时候</p>
+<script type="math/tex; mode=display">
+dp[i][0] = max(dp[i-1][0],-price[i])</script></li>
+<li><p>当日第一次无股票的时候</p>
+<script type="math/tex; mode=display">
+dp[i][1] = max(dp[i-1][1],price[i]+dp[i-1][0])</script></li>
+<li><p>当日第二次有股票的时候</p>
+<script type="math/tex; mode=display">
+dp[i][2] = max(dp[i-1][2],dp[i-1][1]-price[i])</script></li>
+<li><p>当日第二次无股票的时候</p>
+<script type="math/tex; mode=display">
+dp[i][3] = max(dp[i-1][3],dp[i-1][2]+price[i])</script></li>
+</ul>
+<h2 id="3-2-边界条件"><a href="#3-2-边界条件" class="headerlink" title="3.2 边界条件"></a>3.2 边界条件</h2><ul>
+<li><p>第一日<strong>第一次</strong>有股票</p>
+<script type="math/tex; mode=display">
+dp[0][0] = -price[0]</script></li>
+<li><p>第一日<strong>第一次</strong>无股票</p>
+<script type="math/tex; mode=display">
+dp[0][1] = 0</script></li>
+<li><p>第一日<strong>第二次</strong>有股票</p>
+<script type="math/tex; mode=display">
+dp[0][0] = -price[0]</script></li>
+</ul>
+<ul>
+<li>第一日<strong>第二次</strong>无股票<script type="math/tex; mode=display">
+dp[0][0] = 0</script></li>
+</ul>
+<h2 id="3-3-代码"><a href="#3-3-代码" class="headerlink" title="3.3 代码"></a>3.3 代码</h2><pre><code class="lang-java">class Solution &#123;
+    public int maxProfit(int[] prices) &#123;
+        if(prices==null||prices.length==0)&#123;
+            return 0;
+        &#125;
+        int len = prices.length;
+        int[][]dp = new int[len][4];
+        //初始化
+        dp[0][0] = -prices[0];
+        dp[0][1] = 0;
+        dp[0][2] = -prices[0];
+        dp[0][3] = 0;
+
+        //开始遍历
+        for(int i = 1;i&lt;len;i++)&#123;
+            //第一次有股票
+            dp[i][0] = Math.max(dp[i-1][0],-prices[i]);
+            //第一次无股票
+            dp[i][1] = Math.max(dp[i-1][1],dp[i-1][0]+prices[i]);
+            //第二次有股票
+            dp[i][2] = Math.max(dp[i-1][2],dp[i-1][1]-prices[i]);
+            //第二次无股票
+            dp[i][3] = Math.max(dp[i-1][3],dp[i-1][2]+prices[i]);
+
+        &#125;
+        return Math.max(Math.max(dp[len-1][0],dp[len-1][1]),Math.max(dp[len-1][2],dp[len-1][3]));
+    &#125;
+&#125;
+</code></pre>
+<h1 id="4-买卖股票最佳时机IV"><a href="#4-买卖股票最佳时机IV" class="headerlink" title="4 买卖股票最佳时机IV"></a>4 买卖股票最佳时机IV</h1><blockquote>
+<p>给你一个整数数组 <code>prices</code> 和一个整数 <code>k</code> ，其中 <code>prices[i]</code> 是某支给定的股票在第 <code>i</code> 天的价格。</p>
+<p>设计一个算法来计算你所能获取的最大利润。你最多可以完成 <code>k</code> 笔交易。也就是说，你最多可以买 <code>k</code> 次，卖 <code>k</code> 次。</p>
+<p><strong>最多可以买卖k次！</strong></p>
+</blockquote>
+<h2 id="4-1-递归关系"><a href="#4-1-递归关系" class="headerlink" title="4.1 递归关系"></a>4.1 递归关系</h2><p>&emsp;&emsp;    设置二维数据dp[len][2k]，dp[i][0]代表第i天手上有股票的最大收益，可能是之前买的，也可能是今天买的，dp[i][1]代表第i天手上无股票的最大收益，可能本来就没有买，可能是卖了；dp[i][2]代表第二次买卖手上有股票的最大收益，dp[i][3]代表第二次买卖手上无股票的最大收益；</p>
+<p>……</p>
+<p>递推得知</p>
+<p>dp[i][(k-1)*2]代表第k次买卖手上有股票的最大收益</p>
+<p>dp[i][(k-1)*2+1]代表第k次买卖手上无股票的最大收益</p>
+<ul>
+<li><p>当日有股票的时候</p>
+<ul>
+<li>前一日有股票的最大收益</li>
+<li>前一日无股票的收益-当日入股市的成本<strong>（第一次入股只需成本）</strong><script type="math/tex; mode=display">
+dp[i][(k-1)*2] = max(dp[i-1][(k-1)*2],-price[i]+if(k-1==0)?0:dp[i-1][(k-1)*2-1])</script></li>
+</ul>
+</li>
+<li><p>当日无股票的时候</p>
+<ul>
+<li>前一个无股票的最大收益</li>
+<li>前一日有股票的最大收益+当日股市的股价</li>
+</ul>
+<script type="math/tex; mode=display">
+dp[i][(k-1)*2+1] = max(dp[i-1][(k-1)*2+1],dp[i-1][(k-1)*2]+price[i])</script><p><code>price[i]+dp[i-1][0]</code>代表今日卖出，<code>dp[i-1][0]</code>是昨日持有股票的收益，加上今天卖出的价格<code>price[i]</code>才是最终今天卖出的收益</p>
+<h2 id="2-2-边界条件-1"><a href="#2-2-边界条件-1" class="headerlink" title="2.2 边界条件"></a>2.2 边界条件</h2></li>
+<li><p>第一日有股票(不管买入卖出折腾多少次)</p>
+<script type="math/tex; mode=display">
+dp[0][(k-1)*2] = -price[0]</script></li>
+<li><p>第一日无股票(不管买入卖出折腾多少次)</p>
+<script type="math/tex; mode=display">
+dp[0][(k-1)*2+1] = 0</script></li>
+</ul>
+<h2 id="2-3-代码-1"><a href="#2-3-代码-1" class="headerlink" title="2.3 代码"></a>2.3 代码</h2><pre><code class="lang-java">public class Solution &#123;
+    public int maxProfit(int k, int[] prices) &#123;
+        int n = prices.length;
+        int[][] dp = new int[n][2 * k];
+        //初始化
+        for(int index=0;index&lt;2*k;index++)&#123;
+            if(index%2==0)&#123;
+                dp[0][index] = -prices[0];
+            &#125;else&#123;
+                dp[0][index] = 0;
+            &#125;
+        &#125;
+        for (int i = 1; i &lt; n; i++) &#123;
+            for (int j = 0; j &lt; k; j++) &#123;
+                dp[i][j * 2] = Math.max(dp[i - 1][j * 2], -prices[i] + (j != 0 ? dp[i - 1][j * 2 - 1] : 0));
+                dp[i][j * 2 + 1] = Math.max(dp[i - 1][j * 2 + 1], dp[i - 1][j * 2] + prices[i]);
+            &#125;
+        &#125;
+        int ans = 0;
+        for(int i=0;i&lt;2*k;i++)&#123;
+            ans = Math.max(ans,dp[n-1][i]);
+        &#125;
+        return ans;
+    &#125;
+&#125;
+</code></pre>
+<h1 id="5-买卖股票含冷冻期"><a href="#5-买卖股票含冷冻期" class="headerlink" title="5 买卖股票含冷冻期"></a>5 买卖股票含冷冻期</h1><h2 id="5-1-递归关系"><a href="#5-1-递归关系" class="headerlink" title="5.1 递归关系"></a>5.1 递归关系</h2><blockquote>
+<p>与第二题一样，无限制交易次数，但是交易一次后一天内不能再次交易</p>
+</blockquote>
+<p>&emsp;&emsp;    设置二维数据dp，dp[i][0]代表第i天手上有股票的最大收益，可能是之前买的，也可能是今天买的，dp[i][1]代表第i天手上无股票的最大收益，可能本来就没有买，可能是卖了。</p>
+<blockquote>
+<p>那么，当前日有股票的最大收益两种情况：</p>
+<ol>
+<li><p>昨天也有股票的最大收益</p>
+</li>
+<li><p>今日入股的成本，加上<strong>前天</strong>手上无股票的收益</p>
+</li>
+</ol>
+<p>而当前日无股票的最大收益：</p>
+<ol>
+<li>昨天也无股票的最大收益</li>
+<li>今日卖出，加上昨天手上有股票的收益</li>
+</ol>
+</blockquote>
+<ul>
+<li><p>当日有股票的时候</p>
+<script type="math/tex; mode=display">
+dp[i][0] = max(dp[i-1][0],dp[i-2][1]-price[i])</script></li>
+<li><p>当日无股票的时候</p>
+<script type="math/tex; mode=display">
+dp[i][1] = max(dp[i-1][1],dp[i-1][0]+price[i])</script></li>
+<li><h2 id="2-2-边界条件-2"><a href="#2-2-边界条件-2" class="headerlink" title="2.2 边界条件"></a>2.2 边界条件</h2></li>
+</ul>
+<blockquote>
+<p>初始化两天</p>
+</blockquote>
+<ul>
+<li><p>第一日有股票</p>
+<script type="math/tex; mode=display">
+dp[0][0] = -price[0]</script></li>
+<li><p>第一日无股票</p>
+<script type="math/tex; mode=display">
+dp[0][1] = 0</script></li>
+<li><p>第二日有股票</p>
+<script type="math/tex; mode=display">
+dp[1][0] = max(dp[0][0],dp[0][1]-price[1])</script></li>
+</ul>
+<ul>
+<li>第二日无股票<script type="math/tex; mode=display">
+dp[1][1] = max(dp[0][1],dp[0][0]+price[1])</script></li>
+</ul>
+<h2 id="2-3-代码-2"><a href="#2-3-代码-2" class="headerlink" title="2.3 代码"></a>2.3 代码</h2><pre><code class="lang-java">class Solution &#123;
+    public int maxProfit(int[] prices) &#123;
+        if(prices==null||prices.length==0)&#123;
+            return 0;
+        &#125;
+        int len = prices.length;
+        if(len&lt;2)&#123;
+            return 0;
+        &#125;
+        int[][]dp = new int[len][2];
+        //初始化
+        dp[0][0] = -prices[0];
+        dp[0][1] = 0;
+        dp[1][0] = Math.max(dp[0][0],dp[0][1]-prices[1]);
+        dp[1][1] = Math.max(dp[0][1],dp[0][0]+prices[1]);
+        //开始遍历
+        for(int i = 2;i&lt;len;i++)&#123;
+            dp[i][0] = Math.max(dp[i-1][0],dp[i-2][1]-prices[i]);
+            dp[i][1] = Math.max(dp[i-1][1],dp[i-1][0]+prices[i]);
+        &#125;
+        return Math.max(dp[len-1][0],dp[len-1][1]);
+    &#125;
+&#125;
+</code></pre>
+<h1 id="6-买卖股票含手续费"><a href="#6-买卖股票含手续费" class="headerlink" title="6 买卖股票含手续费"></a>6 买卖股票含手续费</h1><h2 id="5-1-递归关系-1"><a href="#5-1-递归关系-1" class="headerlink" title="5.1 递归关系"></a>5.1 递归关系</h2><blockquote>
+<p>与第二题一样，无限制交易次数，交易一次后要扣钱fee</p>
+</blockquote>
+<p>&emsp;&emsp;    设置二维数据dp，dp[i][0]代表第i天手上有股票的最大收益，可能是之前买的，也可能是今天买的，dp[i][1]代表第i天手上无股票的最大收益，可能本来就没有买，可能是卖了。</p>
+<blockquote>
+<p>那么，当前日有股票的最大收益两种情况：</p>
+<ol>
+<li><p>昨天也有股票的最大收益</p>
+</li>
+<li><p>今日入股的成本，加上<strong>昨天</strong>手上无股票的收益</p>
+</li>
+</ol>
+<p>而当前日无股票的最大收益：</p>
+<ol>
+<li>昨天也无股票的最大收益</li>
+<li>今日卖出，加上昨天手上有股票的收益，并且减去<strong>手续费fee</strong></li>
+</ol>
+</blockquote>
+<ul>
+<li>当日有股票的时候</li>
+</ul>
+<script type="math/tex; mode=display">
+dp[i][0] = max(dp[i-1][0],dp[i-1][1]-price[i])</script><ul>
+<li>当日无股票的时候<script type="math/tex; mode=display">
+dp[i][1] = max(dp[i-1][1],dp[i-1][0]+price[i]-fee)</script></li>
+</ul>
+<h2 id="2-2-边界条件-3"><a href="#2-2-边界条件-3" class="headerlink" title="2.2 边界条件"></a>2.2 边界条件</h2><blockquote>
+<p>初始化两天</p>
+</blockquote>
+<ul>
+<li><p>第一日有股票</p>
+<script type="math/tex; mode=display">
+dp[0][0] = -price[0]</script></li>
+<li><p>第一日无股票</p>
+<script type="math/tex; mode=display">
+dp[0][1] = 0</script></li>
+</ul>
+<h2 id="2-3-代码-3"><a href="#2-3-代码-3" class="headerlink" title="2.3 代码"></a>2.3 代码</h2><pre><code class="lang-java">class Solution &#123;
+    public int maxProfit(int[] prices, int fee) &#123;
+        if(prices==null||prices.length==0)&#123;
+            return 0;
+        &#125;
+        int len = prices.length;
+        if(len&lt;2)&#123;
+            return 0;
+        &#125;
+        int[][]dp = new int[len][2];
+        //初始化
+        dp[0][0] = -prices[0];
+        dp[0][1] = 0;
+        //开始遍历
+        for(int i = 1;i&lt;len;i++)&#123;
+            dp[i][0] = Math.max(dp[i-1][0],dp[i-1][1]-prices[i]);
+            dp[i][1] = Math.max(dp[i-1][1],dp[i-1][0]+prices[i]-fee);
+        &#125;
+        return Math.max(dp[len-1][0],dp[len-1][1]);
+    &#125;
+&#125;
+</code></pre>
+
+    </div>
+    
+    <div class="post-footer">
+        <div>
+            
+            转载声明：
+            商业转载请联系作者获得授权,非商业转载请注明出处 © <a href="" target="_blank">Snippet</a>
+            
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+<div class="article-nav prev-next-wrap clearfix">
+    
+    
+    <a href="/2024/02/26/%E5%8A%9B%E6%89%A3%E5%88%B7%E9%A2%98-%E4%BA%8C%E5%8F%89%E6%A0%91/" class="next-post btn btn-default" title='Java算法学习：二叉树'>
+        <span class="hidden-lg">下一篇</span>
+        <span class="hidden-xs">
+            Java算法学习：二叉树</span><i class="fa fa-angle-right fa-fw"></i>
+    </a>
+    
+</div>
+
+<div id="comments">
+    
+    
+<div class="utteranc">
+  
+  <script
+    src='https://utteranc.es/client.js'
+    repo='lulu-cloud/lulu-blog-issue'
+    issue-term='pathname'
+    issue-number=''
+    theme='github-light'
+    label=''
+    crossorigin='anonymous'
+    async
+  ></script>
+</div>
+
+
+
+</div>
+
+                </main>
+                
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">
+            文章目录
+        </h3>
+        
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1-%E4%B9%B0%E5%8D%96%E8%82%A1%E7%A5%A8%E6%9C%80%E4%BD%B3%E6%97%B6%E6%9C%BA"><span class="toc-text">1 买卖股票最佳时机</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-1-%E9%80%92%E5%BD%92%E5%85%B3%E7%B3%BB"><span class="toc-text">1.1 递归关系</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-2-%E8%BE%B9%E7%95%8C%E6%9D%A1%E4%BB%B6"><span class="toc-text">1.2 边界条件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-3-%E4%BB%A3%E7%A0%81"><span class="toc-text">1.3 代码</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-%E4%B9%B0%E5%8D%96%E8%82%A1%E7%A5%A8%E6%9C%80%E4%BD%B3%E6%97%B6%E6%9C%BAII"><span class="toc-text">2 买卖股票最佳时机II</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2-1-%E9%80%92%E5%BD%92%E5%85%B3%E7%B3%BB"><span class="toc-text">2.1 递归关系</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2-%E8%BE%B9%E7%95%8C%E6%9D%A1%E4%BB%B6"><span class="toc-text">2.2 边界条件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-3-%E4%BB%A3%E7%A0%81"><span class="toc-text">2.3 代码</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-%E4%B9%B0%E5%8D%96%E8%82%A1%E7%A5%A8%E6%9C%80%E4%BD%B3%E6%97%B6%E6%9C%BAIII"><span class="toc-text">3 买卖股票最佳时机III</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#3-1-%E9%80%92%E5%BD%92%E5%85%B3%E7%B3%BB"><span class="toc-text">3.1 递归关系</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-2-%E8%BE%B9%E7%95%8C%E6%9D%A1%E4%BB%B6"><span class="toc-text">3.2 边界条件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-3-%E4%BB%A3%E7%A0%81"><span class="toc-text">3.3 代码</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4-%E4%B9%B0%E5%8D%96%E8%82%A1%E7%A5%A8%E6%9C%80%E4%BD%B3%E6%97%B6%E6%9C%BAIV"><span class="toc-text">4 买卖股票最佳时机IV</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#4-1-%E9%80%92%E5%BD%92%E5%85%B3%E7%B3%BB"><span class="toc-text">4.1 递归关系</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2-%E8%BE%B9%E7%95%8C%E6%9D%A1%E4%BB%B6-1"><span class="toc-text">2.2 边界条件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-3-%E4%BB%A3%E7%A0%81-1"><span class="toc-text">2.3 代码</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#5-%E4%B9%B0%E5%8D%96%E8%82%A1%E7%A5%A8%E5%90%AB%E5%86%B7%E5%86%BB%E6%9C%9F"><span class="toc-text">5 买卖股票含冷冻期</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#5-1-%E9%80%92%E5%BD%92%E5%85%B3%E7%B3%BB"><span class="toc-text">5.1 递归关系</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2-%E8%BE%B9%E7%95%8C%E6%9D%A1%E4%BB%B6-2"><span class="toc-text">2.2 边界条件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-3-%E4%BB%A3%E7%A0%81-2"><span class="toc-text">2.3 代码</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#6-%E4%B9%B0%E5%8D%96%E8%82%A1%E7%A5%A8%E5%90%AB%E6%89%8B%E7%BB%AD%E8%B4%B9"><span class="toc-text">6 买卖股票含手续费</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#5-1-%E9%80%92%E5%BD%92%E5%85%B3%E7%B3%BB-1"><span class="toc-text">5.1 递归关系</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2-%E8%BE%B9%E7%95%8C%E6%9D%A1%E4%BB%B6-3"><span class="toc-text">2.2 边界条件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-3-%E4%BB%A3%E7%A0%81-3"><span class="toc-text">2.3 代码</span></a></li></ol></li></ol>
+        
+    </div>
+</aside>
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+<a id="back-to-top" class="icon-btn hide">
+    <i class="fa fa-chevron-up"></i>
+</a>
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="busuanzi">
+    
+    访问量:
+    <strong id="busuanzi_value_site_pv">
+        <i class="fa fa-spinner fa-spin"></i>
+    </strong>
+    &nbsp; | &nbsp;
+    访客数:
+    <strong id="busuanzi_value_site_uv">
+        <i class="fa fa-spinner fa-spin"></i>
+    </strong>
+    
+</div>
+            </div>
+            <div class="col-sm-12">
+                <span>Copyright &copy;
+                    2017
+                    
+                </span> |
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Hexo</a>
+                </span> |
+                <span>
+                    Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+<script src="/js/app.js?rev=@@hash.js"></script>
+
+</body>
+</html>
