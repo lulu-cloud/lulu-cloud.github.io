@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://lulu-cloud.github.io/"/>
-  <updated>2024-03-03T07:04:04.917Z</updated>
+  <updated>2024-03-04T09:47:06.225Z</updated>
   <id>https://lulu-cloud.github.io/</id>
   
   <author>
@@ -15,6 +15,33 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>加密流量分类-实践3: TrafficClassificationPandemonium流量分类项目分析</title>
+    <link href="https://lulu-cloud.github.io/2024/03/04/%E5%8A%A0%E5%AF%86%E6%B5%81%E9%87%8F%E5%88%86%E7%B1%BBtorch%E5%AE%9E%E8%B7%B53%EF%BC%9ATrafficClassificationPandemonium%E9%A1%B9%E7%9B%AE%E5%88%86%E4%BA%AB/"/>
+    <id>https://lulu-cloud.github.io/2024/03/04/加密流量分类torch实践3：TrafficClassificationPandemonium项目分享/</id>
+    <published>2024-03-04T09:27:14.000Z</published>
+    <updated>2024-03-04T09:47:06.225Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="加密流量分类-实践3-TrafficClassificationPandemonium流量分类项目分析"><a href="#加密流量分类-实践3-TrafficClassificationPandemonium流量分类项目分析" class="headerlink" title="加密流量分类-实践3: TrafficClassificationPandemonium流量分类项目分析"></a>加密流量分类-实践3: TrafficClassificationPandemonium流量分类项目分析</h1><h2 id="1-项目简介"><a href="#1-项目简介" class="headerlink" title="1 项目简介"></a>1 项目简介</h2><p>&emsp;&emsp;该项目是<strong>流量预处理</strong>与<strong>分类验证</strong>的一个统一实现，力求使用清晰的项目结构与最少的代码实现预设功能，目前支持的模型只有<code>1dcnn</code>、<code>app-net</code>两种，后续会进行更新。代码已经开源至<a href="[lulu-cloud/TrafficClassificationPandemonium: 流量分类大一统框架 (github.com">露露云的github</a>](<a href="https://github.com/lulu-cloud/TrafficClassificationPandemonium))，如果能帮助你，就给鼠鼠点一个star吧！！！">https://github.com/lulu-cloud/TrafficClassificationPandemonium))，如果能帮助你，就给鼠鼠点一个star吧！！！</a></p><h2 id="2-项目使用"><a href="#2-项目使用" class="headerlink" title="2 项目使用"></a>2 项目使用</h2><h3 id="2-1-流量预处理-pcap-gt-npy"><a href="#2-1-流量预处理-pcap-gt-npy" class="headerlink" title="2.1 流量预处理(pcap-&gt;npy)"></a>2.1 流量预处理(pcap-&gt;npy)</h3><blockquote><p>提取网络数据流量的负载、包长序列、统计（当前版本还未实现）的特征，转为<code>npy</code>格式进行持久化存储，基于<code>flowcontainer库</code></p></blockquote><ol><li><p><strong>参数配置</strong>：打开<code>configuration/traffic_classification_configuration.yaml</code>配置文件，配置<code>preprocess</code>的参数，以下是一个示例</p><pre><code class="lang-yaml">preprocess:  traffic_path: ../traffic_path/android # 原始pcap的路径  datasets: ../datasets/android # 预处理后npy文件的路径  packet_num: 4 # 负载特征参数：流的前4包的负载  byte_num: 256 # 负载特征参数：每个包的前256个字节  ip_length: 128 # 包长特征参数：提取流前128个包长序列  threshold: 4 # 阈值：流包长小于4时舍弃  train_size: 0.8 # 训练集所占比例</code></pre><p>其中对于前<code>packet_num</code>个包的前<code>byte_num</code>字节可以如图说明</p><p><img src="D:\Blog\github\hexo\source\_posts\assets\image-20240304172008854.png" alt="image-20240304172008854"></p><p>负载、包长均作了舍长补短的操作，以达到特定的格式。</p></li><li><p><strong>预处理脚本运行</strong>：</p><p>配置<code>yaml_path</code>即配置文件路径，然后运行代码<code>entry/1_preprocess_with_flowcontainer.py</code></p><pre><code class="lang-py">def main():    yaml_path = r&quot;../configuration/traffic_classification_configuration.yaml&quot;    cfg = setup_config(yaml_path) # 获取 config 文件    pay, seq, label = getPcapIPLength(        cfg.preprocess.traffic_path,        cfg.preprocess.threshold,        cfg.preprocess.ip_length,        cfg.preprocess.packet_num,        cfg.preprocess.byte_num)    split_data(pay,seq,label,cfg.preprocess.train_size,cfg.preprocess.datasets)if __name__==&quot;__main__&quot;:    main()</code></pre></li><li><p><strong>样本字典补齐</strong>：运行完后，得到一个字典输出，将该字典复制到配置文件的<code>test/label2index</code>下</p><pre><code class="lang-yaml">label2index: &#123;&#39;qq&#39;: 0, &#39;微信&#39;: 1, &#39;淘宝&#39;: 2&#125;</code></pre></li></ol><h3 id="2-2-模型训练"><a href="#2-2-模型训练" class="headerlink" title="2.2 模型训练"></a>2.2 模型训练</h3><ol><li><p><strong>参数配置</strong>：打开<code>configuration/traffic_classification_configuration.yaml</code>配置文件，配置<code>train/test</code>的参数，以下是一个示例</p><p>~~~yaml<br>train:<br>  train_pay: ../TrafficClassificationPandemonium/datasets/android/train/pay_load.npy</p><h1 id="train-seq-npy-data-test-test-ip-length-npy"><a href="#train-seq-npy-data-test-test-ip-length-npy" class="headerlink" title="train_seq: ../npy_data/test/test/ip_length.npy"></a>train_seq: ../npy_data/test/test/ip_length.npy</h1><p>  train_seq: ../TrafficClassificationPandemonium/datasets/android/train/ip_length.npy<br>  train_sta: None<br>  train_label: ../TrafficClassificationPandemonium/datasets/android/train/label.npy<br>  test_pay: ../TrafficClassificationPandemonium/datasets/android/train/pay_load.npy<br>  test_seq: ../TrafficClassificationPandemonium/datasets/android/train/ip_length.npy<br>  test_sta: None<br>  test_label: ../TrafficClassificationPandemonium/datasets/android/train/label.npy<br>  BATCH_SIZE: 128<br>  epochs: 50 # 训练的轮数<br>  lr: 0.001 # learning rate<br>  model_dir: ../TrafficClassificationPandemonium/checkpoint # 模型保存的文件夹</p><h1 id="model-name-cnn1d-pth-模型的名称"><a href="#model-name-cnn1d-pth-模型的名称" class="headerlink" title="model_name: cnn1d.pth # 模型的名称"></a>model_name: cnn1d.pth # 模型的名称</h1><p>  model_name: app-net.pth # 模型的名称</p></li></ol><p>   test:<br>     evaluate: False # 如果是 True, 则不进行训练, 只进行评测<br>     pretrained: False # 是否有训练好的模型# # # {‘Chat’: 0, ‘Email’: 1, ‘FT’: 2, ‘P2P’: 3, ‘Streaming’: 4, ‘VoIP’: 5, ‘VPN_Chat’: 6, ‘VPN_Email’: 7, ‘VPN_FT’: 8, ‘VPN_P2P’: 9, ‘VPN_Streaming’: 10, ‘VPN_VoIP’: 11}<br>     label2index: {‘qq’: 0, ‘微信’: 1, ‘淘宝’: 2}<br>     confusion_path: ../TrafficClassificationPandemonium/result/confusion/ConfusionMatrix-app-net.png<br>   ~~~</p><ol><li><p><strong>运行脚本：</strong>运行代码<code>entry/2_train_test_model.py</code></p><h3 id="2-3-模型测试"><a href="#2-3-模型测试" class="headerlink" title="2.3 模型测试"></a>2.3 模型测试</h3></li><li><p><strong>参数配置</strong>：打开<code>configuration/traffic_classification_configuration.yaml</code>配置文件，配置<code>test</code>的参数的<code>evaluate</code>与<code>pretrained</code>为<code>True</code></p></li><li><p><strong>运行脚本：</strong>运行代码<code>entry/2_train_test_model.py</code></p></li></ol><h3 id="2-4-结果展现"><a href="#2-4-结果展现" class="headerlink" title="2.4 结果展现"></a>2.4 结果展现</h3><ol><li><p>混淆矩阵的展现</p><p>默认在<code>result/confusion</code>下</p><p><img src="https://raw.githubusercontent.com/lulu-cloud/lili_images/main/image/202403041745649.png" alt="image-20240304174048201"></p></li><li><p><code>acc</code>、<code>loss</code>曲线的展现</p><p>训练中或者训练后，使用<code>tensorboard --logdir /result/tensorboard</code>进行查看</p></li></ol><p><img src="https://raw.githubusercontent.com/lulu-cloud/lili_images/main/image/202403041746995.png" alt="image-20240304174254396"></p><h2 id="3-项目结构"><a href="#3-项目结构" class="headerlink" title="3 项目结构"></a>3 项目结构</h2><p><img src="https://raw.githubusercontent.com/lulu-cloud/lili_images/main/image/202403041745638.png" alt="image-20240304173550142"></p><h2 id="4-扩展性"><a href="#4-扩展性" class="headerlink" title="4 扩展性"></a>4 扩展性</h2><ul><li><p><strong>新增模型</strong>：按照<code>models</code>下面的示例进行新增，模型都有两个返回，一个是分类结果，一个是重构结果（框架为了兼容后续上传的模型）</p></li><li><p><strong>切换模型</strong>：在<code>entry/2_train_test_model.py</code>的20/21行进行导入切换即可,下图为一维卷积与appnet的切换示例</p><p><img src="https://raw.githubusercontent.com/lulu-cloud/lili_images/main/image/202403041745627.png" alt="image-20240304173853711"></p></li></ul>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;加密流量分类-实践3-TrafficClassificationPandemonium流量分类项目分析&quot;&gt;&lt;a href=&quot;#加密流量分类-实践3-TrafficClassificationPandemonium流量分类项目分析&quot; class=&quot;headerlin
+      
+    
+    </summary>
+    
+      <category term="科研" scheme="https://lulu-cloud.github.io/categories/%E7%A7%91%E7%A0%94/"/>
+    
+      <category term="加密流量分类" scheme="https://lulu-cloud.github.io/categories/%E7%A7%91%E7%A0%94/%E5%8A%A0%E5%AF%86%E6%B5%81%E9%87%8F%E5%88%86%E7%B1%BB/"/>
+    
+    
+      <category term="实验" scheme="https://lulu-cloud.github.io/tags/%E5%AE%9E%E9%AA%8C/"/>
+    
+  </entry>
   
   <entry>
     <title>Java算法学习：动态规划3-股票收益系列</title>
@@ -520,33 +547,6 @@
 &lt;ul&gt;
 &lt;li&gt;网络数据的不平衡性&lt;/li&gt;
 &lt;li&gt;模型对真实数据的泛化能力&lt;/li
-      
-    
-    </summary>
-    
-      <category term="科研" scheme="https://lulu-cloud.github.io/categories/%E7%A7%91%E7%A0%94/"/>
-    
-      <category term="加密流量分类" scheme="https://lulu-cloud.github.io/categories/%E7%A7%91%E7%A0%94/%E5%8A%A0%E5%AF%86%E6%B5%81%E9%87%8F%E5%88%86%E7%B1%BB/"/>
-    
-    
-      <category term="论文" scheme="https://lulu-cloud.github.io/tags/%E8%AE%BA%E6%96%87/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>加密流量分类-论文5:MATEC_A_lightweight_neural_network_for_online_encrypted_traffic</title>
-    <link href="https://lulu-cloud.github.io/2022/09/27/%E5%8A%A0%E5%AF%86%E6%B5%81%E9%87%8F%E5%88%86%E7%B1%BB-%E8%AE%BA%E6%96%875%EF%BC%9AMATEC_A_lightweight_neural_network_for_online_encrypted_traffic/"/>
-    <id>https://lulu-cloud.github.io/2022/09/27/加密流量分类-论文5：MATEC_A_lightweight_neural_network_for_online_encrypted_traffic/</id>
-    <published>2022-09-27T13:27:14.000Z</published>
-    <updated>2023-11-24T13:43:36.905Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="0、摘要"><a href="#0、摘要" class="headerlink" title="0、摘要"></a>0、摘要</h1><p> &emsp;&emsp;现有的深度学习方法为了获得高精度的分类结果而牺牲了效率，已经不适合大量加密流量的场景，本文提出了一种实现为MATEC的轻量级<strong>在线</strong>方法，<strong>遵循“精简模块重用最大化”的设计原则（Maximizing the reuse of thin modules）</strong>。</p><h1 id="1、问题引入"><a href="#1、问题引入" class="headerlink" title="1、问题引入"></a>1、问题引入</h1><p> &emsp;&emsp;老规矩，先说其他方案的缺点：</p><ul><li><p>统计特征+基于机器学习的方法：要获得流量的统计特征，需要观察流的全部或者大部分，内存开销大，只能适用于离线分类。</p></li><li><p>基于深度学习的方法：为了追求精度，目前提出的神经网络运行时空开销大，效率不够高。</p><blockquote><p> 所以本文提出了MATEC的轻量级的神经网络，可以用于在线流分类，输入是<strong>流中的随机位置的三个数据包</strong>；基本结构：<strong>多头注意力机制+一维CNN</strong>；期望能提取全局（流级）与局部（包级）的特征，<strong>全局特征来自流中信息包之间的交互，而局部特征则包含在一些原始信息包的字节中。</strong></p><p>此外，这篇文章的方法通过迁移学习，也对零日应用的流量探测有一定效用。</p></blockquote></li></ul><h1 id="2、流分类的相关工作（综述部分）"><a href="#2、流分类的相关工作（综述部分）" class="headerlink" title="2、流分类的相关工作（综述部分）"></a>2、流分类的相关工作（综述部分）</h1><h2 id="2-1-加密流量分类"><a href="#2-1-加密流量分类" class="headerlink" title="2.1 加密流量分类"></a>2.1 加密流量分类</h2><p><img src="https://raw.githubusercontent.com/lulu-cloud/lili_images/main/image/202311242112540.png" alt="分类流程"></p><p>&emsp;分类目标：</p><ul><li><p>基于协议(如HTTP、SSL、SMTP、DNS或QUIC)</p></li><li><p>基于流量类型(如视频、聊天或浏览)</p></li><li><p>基于应用程序(如Amazon、Apple、Microsoft或谷歌)</p></li><li><p>基于网站</p></li></ul><p>&emsp;  分类方法是否在线，可以分为：</p><ul><li><p>在线流量分类（本文提出的是在线方法）</p></li><li><p>离线流量分类</p></li></ul><p>常见流量分类方法，包级（Packet-Based）与流级(Flow-Based),然后介绍了什么是包、什么是流。</p><blockquote><p>流是指所有具有五元组(即传输层协议、源IP、源端口、目的IP、目的端口)相同值的报文，源和目的可以交换。有的论文觉得不能交换，能交换的称作为<strong>会话（session）</strong></p></blockquote><ul><li><p>基于包级（报文级）的分类方法：直接将数据包的字节作为输入，包括报头信息与有效载荷。<strong>基于包的方法只关注少数包的详细信息，缺乏对全局特征的关注。</strong>（Deep Packet）</p></li><li><p>基于流级的分类方法：流级特征包括了全局信息。</p><ul><li>基于机器学习的方法：需要手动设计并且提取统计特征，大部分必须观察整个流或流中的大部分数据包才能获得这些特征，更适合于离线分类。</li><li>基于深度学习的方法：有使用Bi-GRU对流的字节序列或者流中的包长序列进行特征提取用于分类（FS-Net），有将流中连续的几个报文作为1D-CNN的输入进行分类，有同时使用CNN与RNN分别提取流量的空间特征与时间特征。<strong>但是RNN中单元之间的依赖关系使得等待上一个单元的输出非常耗时，本文提出的多头注意力（Multi-head attention）方法就没有这种劣势。</strong></li></ul></li></ul><blockquote><p> 这篇文章的综述特别详尽</p></blockquote><h1 id="3、模型结构"><a href="#3、模型结构" class="headerlink" title="3、模型结构"></a>3、模型结构</h1><h2 id="3-1嵌入层（Embedding）"><a href="#3-1嵌入层（Embedding）" class="headerlink" title="3.1嵌入层（Embedding）"></a>3.1嵌入层（Embedding）</h2><ul><li><p>输入：数据流中的随机位置的连续三个包，既利用了包的统计特征（如包的长度、相对位置）也利用了包的字节特征，对于一个包xi，它的浅层特征向量如下：</p><script type="math/tex; mode=display">x_i=\{x_{i_1},x_{i_2},..,x_{i_M}\}</script><p>每一个分量代表包的一个特征，例如第一个分量可以代表包的相对位置、第二个分量可以代表包长、第三个分量可以代表删除以太网头后的第一个784字节……</p></li><li><p>嵌入：对于xi中的每一个分量，若其是向量特征，做如下变换，</p><script type="math/tex; mode=display">e_{i_j}=U_jx_{i_j}</script><p>这样将改向量映射到j维向量，若其是标量特征，则做如下变换</p><script type="math/tex; mode=display">e_{i_j}=u_jx_{i_j}</script><p>这样，不论是向量特征还是标量特征都会被映射到相同的表示，转换后的向量ei如下：</p><script type="math/tex; mode=display">e_i=W_{map}[e_{i_1},e_{i_2},..,e_{i_n}]</script><script type="math/tex; mode=display">W_{map}∈R^{d*m}</script><p>因此，一个包就转为一个d维向量，一个流转为N*d维矩阵，这里研究N取3,即随机选取流中3个连续数据包的那个3。嵌入向量的位置编码采用绝对编码方式。</p></li></ul><h2 id="3-2-注意力编码层"><a href="#3-2-注意力编码层" class="headerlink" title="3.2 注意力编码层"></a>3.2 注意力编码层</h2><p> &emsp;&emsp;这里期望注意力编码层能够捕获数据的高维特征，并且捕获到数据包之间的交互关系。这里的注意力层跟Transformer块很像，给出图</p><p><img src="https://raw.githubusercontent.com/lulu-cloud/lili_images/main/image/202311242112113.png" alt="多头注意力编码器"></p><p>使用注意力机制的好处：</p><ul><li>并行学习，运算快，参数量少</li><li><p>将数据映射到多个高维度，更能发掘潜在信息</p><h2 id="3-3-全连接层"><a href="#3-3-全连接层" class="headerlink" title="3.3 全连接层"></a>3.3 全连接层</h2><ul><li><p>将编码后的特征作为输入，输出为预测标签的概率分布</p></li><li><p><strong>结构可变，针对不同任务灵活改变全连接层的输出神经元个数，输入的个数是固定的，</strong>利用迁移学习优化对新交通数据的<strong>微调</strong>训练，可以加快模型的收敛速度。</p></li></ul></li></ul><p><img src="https://raw.githubusercontent.com/lulu-cloud/lili_images/main/image/202311242112169.png" alt="模型结构"></p><h1 id="4、总结与思考"><a href="#4、总结与思考" class="headerlink" title="4、总结与思考"></a>4、总结与思考</h1><ul><li>模型结构声称是第一个将注意力机制引入流量分类任务。</li><li>通过调整网络结构后端的FC层，可以在新任务上通过少量标签样本进行微调，迅速收敛达到不错的效果。</li></ul>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;0、摘要&quot;&gt;&lt;a href=&quot;#0、摘要&quot; class=&quot;headerlink&quot; title=&quot;0、摘要&quot;&gt;&lt;/a&gt;0、摘要&lt;/h1&gt;&lt;p&gt; &amp;emsp;&amp;emsp;现有的深度学习方法为了获得高精度的分类结果而牺牲了效率，已经不适合大量加密流量的场景，本文提出了一
       
     
     </summary>
