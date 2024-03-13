@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://lulu-cloud.github.io/"/>
-  <updated>2024-03-04T09:49:07.542Z</updated>
+  <updated>2024-03-13T02:30:19.999Z</updated>
   <id>https://lulu-cloud.github.io/</id>
   
   <author>
@@ -15,6 +15,58 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Java算法学习：回溯法1-排列组合问题</title>
+    <link href="https://lulu-cloud.github.io/2024/03/13/%E5%8A%9B%E6%89%A3%E5%88%B7%E9%A2%98-%E5%9B%9E%E6%BA%AF%E6%B3%95%EF%BC%88%E4%B8%80%20%E6%8E%92%E5%88%97%E7%BB%84%E5%90%88%EF%BC%89/"/>
+    <id>https://lulu-cloud.github.io/2024/03/13/力扣刷题-回溯法（一 排列组合）/</id>
+    <published>2024-03-13T01:46:20.000Z</published>
+    <updated>2024-03-13T02:30:19.999Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="0-写在前面"><a href="#0-写在前面" class="headerlink" title="0 写在前面"></a>0 写在前面</h1><blockquote><p>回溯法：n叉不等高度数的完全遍历，明确树的下一个分支宽度与树的高度。</p><p>对于宽度：<strong>这个体现在回溯法模板的for循环里面</strong></p><p>对于高度：<strong>体现在回溯法遍历结束的终止条件里面</strong></p><p><strong>这两个的核心思想如下:</strong></p><ol><li><strong>排列问题要搞一个visited数组标记已经访问的</strong></li><li><strong>组合问题要维护好一个起始的索引</strong></li></ol></blockquote><h1 id="1-排列问题-全排列"><a href="#1-排列问题-全排列" class="headerlink" title="1 排列问题 - 全排列"></a>1 排列问题 - 全排列</h1><blockquote><p>LeetCode 46</p><p>给定一个不含重复数字的数组 <code>nums</code> ，返回其 <em>所有可能的全排列</em> 。你可以 <strong>按任意顺序</strong> 返回答案。</p><p><strong>示例 1：</strong></p><pre><code>输入：nums = [1,2,3]输出：[[1,2,3],[1,3,2],[2,1,3],[2,3,1],[3,1,2],[3,2,1]]</code></pre><p><strong>示例 2：</strong></p><pre><code>输入：nums = [0,1]输出：[[0,1],[1,0]]</code></pre><p><strong>示例 3：</strong></p><pre><code>输入：nums = [1]输出：[[1]]</code></pre></blockquote><h2 id="1-1-树的确定"><a href="#1-1-树的确定" class="headerlink" title="1.1 树的确定"></a>1.1 树的确定</h2><ul><li>宽度：每一层都要遍历一下数组的每一个数字，那么树的宽度是nums.length，<strong>这个体现在回溯法模板的for循环里面</strong></li><li>高度：当前的临时list长度为数组长度，结束</li></ul><h2 id="1-2-排列：维护一个visited数组"><a href="#1-2-排列：维护一个visited数组" class="headerlink" title="1.2 排列：维护一个visited数组"></a>1.2 排列：维护一个visited数组</h2><p>回溯时也得同步这个<code>visited</code>数组</p><h2 id="1-3-代码"><a href="#1-3-代码" class="headerlink" title="1.3 代码"></a>1.3 代码</h2><pre><code class="lang-java">class Solution &#123;    public void backTrack(List&lt;List&lt;Integer&gt;&gt;ans,List&lt;Integer&gt;temp,int[]visited,int[]nums)&#123;        if(temp.size()==nums.length)&#123;            ans.add(new ArrayList&lt;&gt;(temp));            return ;        &#125;        //回溯法        for(int i = 0;i&lt;nums.length;i++)&#123;            //没有遍历过            if(visited[i]==0)&#123;                temp.add(nums[i]);                visited[i] = 1;                //遍历树的下一层就好                backTrack(ans,temp,visited,nums);                //回溯                temp.remove(temp.size()-1);                visited[i] = 0;            &#125;        &#125;        return ;    &#125;    public List&lt;List&lt;Integer&gt;&gt; permute(int[] nums) &#123;        List&lt;List&lt;Integer&gt;&gt;res = new ArrayList&lt;&gt;();        List&lt;Integer&gt;temp = new ArrayList&lt;&gt;();        backTrack(res,temp,new int[nums.length],nums);        return res;    &#125;&#125;</code></pre><h1 id="2-组合问题-组合"><a href="#2-组合问题-组合" class="headerlink" title="2 组合问题-组合"></a>2 组合问题-组合</h1><blockquote><p>LeetCode 77</p><p>给定两个整数 <code>n</code> 和 <code>k</code>，返回范围 <code>[1, n]</code> 中所有可能的 <code>k</code> 个数的组合。</p><p>你可以按 <strong>任何顺序</strong> 返回答案。</p><p><strong>示例 1：</strong></p><pre><code>输入：n = 4, k = 2输出：[  [2,4],  [3,4],  [2,3],  [1,2],  [1,3],  [1,4],]</code></pre><p><strong>示例 2：</strong></p><pre><code>输入：n = 1, k = 1输出：[[1]]</code></pre></blockquote><h2 id="2-1-树的确定"><a href="#2-1-树的确定" class="headerlink" title="2.1 树的确定"></a>2.1 树的确定</h2><ul><li><p>索引维护：维护一个<code>index</code>索引，保证当前遍历的起点</p></li><li><p>宽度：当前每次遍历<code>index-n</code>的<code>n-index+1</code>个数</p></li><li>高度：当前临时list长度为k，退出</li></ul><h2 id="2-2-代码"><a href="#2-2-代码" class="headerlink" title="2.2 代码"></a>2.2 代码</h2><pre><code class="lang-java">class Solution &#123;    public void backTrack(List&lt;List&lt;Integer&gt;&gt;res,List&lt;Integer&gt;temp,int n,int k,int index)&#123;        if(temp.size()==k)&#123;            res.add(new ArrayList&lt;&gt;(temp));            return ;        &#125;        //维护一个index，一直往后走        for(int i = index;i&lt;=n;i++)&#123;            temp.add(i);            backTrack(res,temp,n,k,i+1);            temp.remove(temp.size()-1);        &#125;    &#125;    public List&lt;List&lt;Integer&gt;&gt; combine(int n, int k) &#123;        List&lt;List&lt;Integer&gt;&gt;res = new ArrayList&lt;&gt;();        List&lt;Integer&gt;temp = new ArrayList&lt;&gt;();        backTrack(res,temp,n,k,1);        return res;    &#125;&#125;</code></pre><h1 id="3-组合总数I"><a href="#3-组合总数I" class="headerlink" title="3 组合总数I"></a>3 组合总数I</h1><blockquote><p>LeetCode39</p></blockquote><h2 id="3-1-树的确定"><a href="#3-1-树的确定" class="headerlink" title="3.1 树的确定"></a>3.1 树的确定</h2><ul><li>高度：不定，如果当前<code>target&lt;0</code>直接返回，<code>target==0</code>，正确返回</li><li>宽度：<code>candidates</code>数组长度</li></ul><h2 id="3-2-代码"><a href="#3-2-代码" class="headerlink" title="3.2 代码"></a>3.2 代码</h2><pre><code class="lang-java">class Solution &#123;    public void backTrack(List&lt;List&lt;Integer&gt;&gt;res,List&lt;Integer&gt;temp,int[]candidates,int target,int index)&#123;        //这一步必须，防止为空        if(target&lt;0)&#123;            return ;        &#125;        if(target==0)&#123;            res.add(new ArrayList&lt;&gt;(temp));            return ;        &#125;        for(int i = index;i&lt;candidates.length;i++)&#123;            target -= candidates[i];            temp.add(candidates[i]);            //可重复的精髓，下一个的起始还是当前            backTrack(res,temp,candidates,target,i);            target += candidates[i];            temp.remove(temp.size()-1);        &#125;    &#125;    public List&lt;List&lt;Integer&gt;&gt; combinationSum(int[] candidates, int target) &#123;        List&lt;List&lt;Integer&gt;&gt;res = new ArrayList&lt;&gt;();        List&lt;Integer&gt;temp = new ArrayList&lt;&gt;();        backTrack(res,temp,candidates,target,0);        return res;    &#125;&#125;</code></pre><h1 id="4-组合总数"><a href="#4-组合总数" class="headerlink" title="4 组合总数"></a>4 组合总数</h1><blockquote><p>LeetCode 40</p><p>去重，需要排序后剪枝</p></blockquote><h2 id="4-1-代码"><a href="#4-1-代码" class="headerlink" title="4.1 代码"></a>4.1 代码</h2><pre><code class="lang-java">class Solution &#123;    public void backTrack(List&lt;List&lt;Integer&gt;&gt;res,List&lt;Integer&gt;temp,int[]candidates,int target,int index)&#123;        //这一步必须，防止为空        if(target&lt;0)&#123;            return ;        &#125;        if(target==0)&#123;            res.add(new ArrayList&lt;&gt;(temp));            return ;        &#125;        for(int i = index;i&lt;candidates.length;i++)&#123;            //大剪枝            if(target-candidates[i]&lt;0)&#123;                break;            &#125;            if(i&gt;index&amp;&amp;candidates[i]==candidates[i-1])&#123;                //小剪枝，与前一个元素相等                continue;            &#125;            target -= candidates[i];            temp.add(candidates[i]);            backTrack(res,temp,candidates,target,i+1);            target += candidates[i];            temp.remove(temp.size()-1);        &#125;    &#125;    public List&lt;List&lt;Integer&gt;&gt; combinationSum2(int[] candidates, int target) &#123;        List&lt;List&lt;Integer&gt;&gt;res = new ArrayList&lt;&gt;();        List&lt;Integer&gt;temp = new ArrayList&lt;&gt;();        Arrays.sort(candidates);        backTrack(res,temp,candidates,target,0);        return res;    &#125;&#125;</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;0-写在前面&quot;&gt;&lt;a href=&quot;#0-写在前面&quot; class=&quot;headerlink&quot; title=&quot;0 写在前面&quot;&gt;&lt;/a&gt;0 写在前面&lt;/h1&gt;&lt;blockquote&gt;
+&lt;p&gt;回溯法：n叉不等高度数的完全遍历，明确树的下一个分支宽度与树的高度。&lt;/p&gt;
+&lt;p
+      
+    
+    </summary>
+    
+      <category term="Java学习" scheme="https://lulu-cloud.github.io/categories/Java%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+      <category term="算法" scheme="https://lulu-cloud.github.io/tags/%E7%AE%97%E6%B3%95/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Java算法学习：排序</title>
+    <link href="https://lulu-cloud.github.io/2024/03/06/%E5%8A%9B%E6%89%A3%E5%88%B7%E9%A2%98-%E6%8E%92%E5%BA%8F/"/>
+    <id>https://lulu-cloud.github.io/2024/03/06/力扣刷题-排序/</id>
+    <published>2024-03-06T01:57:12.000Z</published>
+    <updated>2024-03-06T02:18:38.124Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="1-堆排序"><a href="#1-堆排序" class="headerlink" title="1 堆排序"></a>1 堆排序</h1><h2 id="1-1-算法流程"><a href="#1-1-算法流程" class="headerlink" title="1.1 算法流程"></a>1.1 算法流程</h2><ol><li><p>从n/2-1处开始构建大根堆（使用堆调整算法）</p></li><li><p>堆顶元素此时为最大值，放入数组末尾，然后重新调整堆</p><blockquote><p>调整堆算法：</p><p>输入：数组arr、堆长度n、根节点位置root</p><ol><li>初始化左右子树与最大值索引变量，左子树为根节点位置*2，右子树为根节点位置*2+1，最大值索引为根节点索引</li><li>最大值索引变量取左右子树的最大值</li><li>如果此时最大值索引已经不是根节点索引<ul><li>交换根节点的值与最大索引值</li><li>递归调整子树</li></ul></li></ol></blockquote></li></ol><h2 id="1-2-代码"><a href="#1-2-代码" class="headerlink" title="1.2 代码"></a>1.2 代码</h2><pre><code class="lang-java">public class HeapSort &#123;    // 主要的堆排序方法    public static void heapSort(int arr[]) &#123;        int n = arr.length;        // 构建最大堆（初始时将数组看作一个完全二叉树）        for (int i = n / 2 - 1; i &gt;= 0; i--) &#123;            heapify(arr, n, i);        &#125;        // 一个一个从堆顶取出元素，将最大值放到数组末尾，然后重新调整堆        for (int i = n - 1; i &gt; 0; i--) &#123;            // 交换堆顶（最大值）和当前未排序部分的最后一个元素            int temp = arr[0];            arr[0] = arr[i];            arr[i] = temp;            // 调整堆，排除刚刚交换的元素            heapify(arr, i, 0);        &#125;    &#125;    // 将子树以root为根的堆调整为最大堆    public static void heapify(int arr[], int n, int root) &#123;        int largest = root; // 初始化根节点为最大值        int leftChild = 2 * root + 1; // 左子节点        int rightChild = 2 * root + 2; // 右子节点        // 如果左子节点比根节点大        if (leftChild &lt; n &amp;&amp; arr[leftChild] &gt; arr[largest]) &#123;            largest = leftChild;        &#125;        // 如果右子节点比根节点或左子节点大        if (rightChild &lt; n &amp;&amp; arr[rightChild] &gt; arr[largest]) &#123;            largest = rightChild;        &#125;        // 如果最大值不是根节点        if (largest != root) &#123;            // 交换根节点和最大值            int temp = arr[root];            arr[root] = arr[largest];            arr[largest] = temp;            // 递归调整受影响的子树            heapify(arr, n, largest);        &#125;    &#125;&#125;</code></pre>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;1-堆排序&quot;&gt;&lt;a href=&quot;#1-堆排序&quot; class=&quot;headerlink&quot; title=&quot;1 堆排序&quot;&gt;&lt;/a&gt;1 堆排序&lt;/h1&gt;&lt;h2 id=&quot;1-1-算法流程&quot;&gt;&lt;a href=&quot;#1-1-算法流程&quot; class=&quot;headerlink&quot; titl
+      
+    
+    </summary>
+    
+      <category term="Java学习" scheme="https://lulu-cloud.github.io/categories/Java%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+      <category term="算法" scheme="https://lulu-cloud.github.io/tags/%E7%AE%97%E6%B3%95/"/>
+    
+  </entry>
   
   <entry>
     <title>加密流量分类-实践3: TrafficClassificationPandemonium流量分类项目分析</title>
@@ -490,63 +542,6 @@
       
       
         &lt;h1 id=&quot;0、摘要&quot;&gt;&lt;a href=&quot;#0、摘要&quot; class=&quot;headerlink&quot; title=&quot;0、摘要&quot;&gt;&lt;/a&gt;0、摘要&lt;/h1&gt;&lt;p&gt;&amp;emsp;&amp;emsp;构造了一个k -最近邻(KNN)交通图来表示交通数据的结构，从流量结构和流量数据中学习特征表示，利用
-      
-    
-    </summary>
-    
-      <category term="科研" scheme="https://lulu-cloud.github.io/categories/%E7%A7%91%E7%A0%94/"/>
-    
-      <category term="加密流量分类" scheme="https://lulu-cloud.github.io/categories/%E7%A7%91%E7%A0%94/%E5%8A%A0%E5%AF%86%E6%B5%81%E9%87%8F%E5%88%86%E7%B1%BB/"/>
-    
-    
-      <category term="论文" scheme="https://lulu-cloud.github.io/tags/%E8%AE%BA%E6%96%87/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>加密流量分类-论文7: MEMG_Mobile Encrypted Traffic Classification With Markov Chains and Graph Neural Network</title>
-    <link href="https://lulu-cloud.github.io/2022/10/06/%E5%8A%A0%E5%AF%86%E6%B5%81%E9%87%8F%E5%88%86%E7%B1%BB-%E8%AE%BA%E6%96%877%EF%BC%9AMEMG_%20Mobile%20Encrypted%20Traffic%20Classification%20With%20Markov%20Chains%20and%20Graph%20Neural%20Network/"/>
-    <id>https://lulu-cloud.github.io/2022/10/06/加密流量分类-论文7：MEMG_ Mobile Encrypted Traffic Classification With Markov Chains and Graph Neural Network/</id>
-    <published>2022-10-06T13:27:14.000Z</published>
-    <updated>2023-11-24T13:43:42.160Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="0、摘要"><a href="#0、摘要" class="headerlink" title="0、摘要"></a>0、摘要</h1><p>&emsp;&emsp;本文提出了一种基于马尔可夫链和图神经网络(MEMG)的移动加密流量分类方法。我们利用马尔可夫链来挖掘流中隐藏的拓扑信息。然后在此基础上构建流图结构，在图的节点特征中加入流量的<strong>序列信息</strong>。我们还设计了一个基于图神经网络的分类器，从图中学习拓扑和顺序特征。分类器可以将图结构映射到嵌入空间中，并通过嵌入向量差对不同的图结构进行分类。</p><h1 id="1、概念介绍"><a href="#1、概念介绍" class="headerlink" title="1、概念介绍"></a>1、概念介绍</h1><h2 id="1-1-综述部分"><a href="#1-1-综述部分" class="headerlink" title="1.1 综述部分"></a>1.1 综述部分</h2><h3 id="1-1-1-基于机器学习的加密流量分类"><a href="#1-1-1-基于机器学习的加密流量分类" class="headerlink" title="1.1.1 基于机器学习的加密流量分类"></a>1.1.1 基于机器学习的加密流量分类</h3><ul><li><p>依赖于<strong>统计特征</strong>：</p><ul><li>包级别的统计特征，包括接收和发送包数的平均值、最小值和最大值。</li><li><p>TLS的时间分布、未加密的报头信息和流元数据为特征</p></li><li><p>流的统计特征和突发元数据（burst metadata）中的统计特征</p></li></ul></li><li><p>依赖于<strong>流级特征</strong>（Flow-level feature）：一般方法根据流中的每个包提取流的生成概率</p><ul><li>利用加密流量的消息类型序列，构造生成概率最大的一阶马尔可夫模型对加密流量进行分类</li><li>根据证书长度和首包长度，以提高二级马尔可夫模型下的流分类任务的性能</li><li>利用包长度马尔可夫随机场(MRF)转换矩阵作为结构特征，构建了加密流量的指纹</li></ul></li></ul><h3 id="1-1-2-基于深度学习的加密流量分类"><a href="#1-1-2-基于深度学习的加密流量分类" class="headerlink" title="1.1.2 基于深度学习的加密流量分类"></a>1.1.2 基于深度学习的加密流量分类</h3><ul><li><p>DeepPacket借助1-D CNN与堆栈自编码器，通过提取有效载荷对流量进行分类（包级）</p></li><li><p>有的利用注意力机制对有效载荷进行编码，最后进行分类</p><p>&emsp;&emsp;缺点：没有考虑客户端到服务器之间的交互运动等其他流信息，计算开销大</p></li></ul><h2 id="1-2-文章核心观点引入"><a href="#1-2-文章核心观点引入" class="headerlink" title="1.2 文章核心观点引入"></a>1.2 文章核心观点引入</h2><ul><li><p>使用一阶马尔可夫链来构造流的拓扑结构，捕获流的隐藏拓扑信息和序列信息，称为马尔可夫图。节点为马尔可夫跃迁状态，边为跃迁概率。</p></li><li><p>流中每个包的上下文序列添加到图结构中作为节点特征，通过图这种数据结构，将拓扑信息与序列信息结合在一起，将流分类问题转化为图分类问题。</p></li><li><p>GCN与MLP自动从<strong>拓扑结构信息</strong>和<strong>序列信息</strong>中提取相应特征，并将两种特征进行融合。</p><ul><li><p>GCN提取拓扑特征</p></li><li><p>MLP学习序列特征</p></li></ul></li></ul><h1 id="2、图构造"><a href="#2、图构造" class="headerlink" title="2、图构造"></a>2、图构造</h1><h2 id="2-1-问题定义"><a href="#2-1-问题定义" class="headerlink" title="2.1 问题定义"></a>2.1 问题定义</h2><p>&emsp;&emsp;对于流序列的表示，有许多中序列表示方法表示一个流，如包长序列、消息类型序列等。这里取其中一个，假定N个样本，M个应用，对于数据集中的第i个样本x<sub>i</sub></p><script type="math/tex; mode=display">x_i=[p_1^i,p_2^i,...,p_{li}^i]</script><p>li代表样本x<sub>i</sub>的长度，x<sub>i</sub>的每一个分值x<sub>i</sub><sup>j</sup>代表时间序列为j的值</p><blockquote><p>这里并没有明说这个值到底是啥，是包长？负载？</p></blockquote><h2 id="2-2-序列转换"><a href="#2-2-序列转换" class="headerlink" title="2.2 序列转换"></a>2.2 序列转换</h2><p>&emsp;&emsp;考虑一个五元组流的前100个数据包的长度信息，将这个100个数据包作为一个流，转为一个一阶马尔可夫链。假定MTU为1500byte，那么设定10个状态S<sub>j</sub>,j从1-10每个状态的长度区间为150。譬如：1-150长度为状态1；…1351-1500长度为状态10。计算状态转移矩阵W，并将状态转移矩阵W按行归一化，即每一行的元素之和为1.</p><p><img src="https://raw.githubusercontent.com/lulu-cloud/lili_images/main/image/202311242119138.png" alt="image-20221006163843150"></p><h2 id="2-3-节点与节点状态"><a href="#2-3-节点与节点状态" class="headerlink" title="2.3 节点与节点状态"></a>2.3 节点与节点状态</h2><ul><li><p>节点：由于根据数据包长度的大小将原始数据包长度序列转换为<strong>状态序列</strong>，所以<strong>马尔可夫图中的每个节点都包含多个数据包，其长度值属于相应的状态。</strong></p></li><li><p>节点特征：由于每个节点可能包含多个数据包，故数据包的顺序信息可能会难以提取，故对数据包状态序列进行切片操作：</p><ul><li><strong>每个数据包的上下文是状态序列的前2个数据包和后2个数据包</strong>，作为该数据包状态的<strong>顺序信息</strong></li><li>对于处于相同状态的所有包，使用RNN对那些包的上下文进行压缩，最后形成p维向量，p取128，作为节点特征</li></ul><h2 id="2-4-马尔科夫图的构造"><a href="#2-4-马尔科夫图的构造" class="headerlink" title="2.4 马尔科夫图的构造"></a>2.4 马尔科夫图的构造</h2></li></ul><p>&emsp;&emsp;这里给出了前面所有步骤的算法描述:</p><ul><li>输入：流序列、状态空间、窗口大小</li><li>输出：马尔科夫图</li></ul><p><img src="https://raw.githubusercontent.com/lulu-cloud/lili_images/main/image/202311242119602.png" alt="image-20221006163822285"></p><ul><li>具体描述：<ul><li>1-3行的循环：将原始流序列X<sub>i</sub>转为状态序列B<sub>i</sub>（4），对S取模，这里S=150</li><li>5-7行的循环：通过得到的状态序列B<sub>i</sub>构造马尔科夫图的节点集合</li><li>8：计算状态转移概率矩阵M</li><li>9-15：将M的值作为权重赋给马尔科夫图的边</li><li>16：初始化状态特征集合F<sub>i</sub></li><li>17-19：对窗口w内的上下文状态序列，进行切片，作为状态序列的顺序信息添加到F<sub>i</sub>中</li><li>20-22：对F特征集合的对每一个特征，利用RNN压缩映射到128维向量，作为节点的特征向量</li><li>23：得到最终的马尔科夫图G</li></ul></li></ul><h2 id="2-5-马尔科夫图MG的优势"><a href="#2-5-马尔科夫图MG的优势" class="headerlink" title="2.5 马尔科夫图MG的优势"></a>2.5 马尔科夫图MG的优势</h2><p>&emsp;&emsp;这里作者任务MG至少包含流量的两种特征：</p><ul><li><p>马尔科夫链能包含流量的<strong>拓扑信息</strong></p></li><li><p><strong>包长度序列</strong>也能在拓扑信息中表示</p><p><img src="https://raw.githubusercontent.com/lulu-cloud/lili_images/main/image/202311242119411.png" alt="MG的概览"></p><h1 id="3、图神经网络结构"><a href="#3、图神经网络结构" class="headerlink" title="3、图神经网络结构"></a>3、图神经网络结构</h1></li></ul><p>&emsp;&emsp;原始流量转为图结构后，使用GCN与MLP进行特征抽取进行分类。</p><p><img src="https://raw.githubusercontent.com/lulu-cloud/lili_images/main/image/202311242120482.png" alt="image-20221006171200053"></p><p>&emsp;&emsp;对于图中橙色模块的，分为特征提取与特征池化</p><ul><li><p>特征提取：</p><ul><li>提取图的全局拓扑信息：使用GCN，每次使用当前节点的邻接节点进行节点状态更新，得到F<sub>1</sub></li><li>提取每一个节点状态的顺序信息：使用MLP，得到F<sub>2</sub></li></ul></li><li><p>特征池化：减少参数，获得更鲁棒的泛化，缓解过拟合</p><script type="math/tex; mode=display">F_{fusion}=Activate(MLP([F_1;F_2]))</script><p>[;]表示拼接，根据对应的分数对节点进行排序，取前k个节点的特征，论文中k取5</p></li></ul><blockquote><p>为了考虑到模型结构的全局与局部特征，对每个橙色结构块的输出进行拼接考虑，作为最终分类器的输入（图中的Readout模块）</p></blockquote><p><img src="https://img-blog.csdnimg.cn/img_convert/b819551006e66d672184de683f7f2ecf.png#pic_center#pic_center" alt="image-20221006172326628"></p><ul><li>分类器模块：MLP结构，采用交叉熵损失。</li></ul><h1 id="4、实验"><a href="#4、实验" class="headerlink" title="4、实验"></a>4、实验</h1><ul><li><p>与机器学习方法与其他的马尔科夫族方法做了对比</p></li><li><p>似乎没有做消融实验，不能证明模型每个结构的必要性</p></li><li><p>实验证明在精度性能的优越性下，MEMG保证的小的内存开销与快速收敛</p></li><li><p>似乎也没有跟目前的主流的深度学习方法做对比</p></li></ul><h1 id="5、总结与思考"><a href="#5、总结与思考" class="headerlink" title="5、总结与思考"></a>5、总结与思考</h1><p>&emsp;&emsp;马尔科夫图+GNN可以凑一起，并且理由解释得很好，什么拓扑信息、顺序序列信息怎么怎么提取。</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;0、摘要&quot;&gt;&lt;a href=&quot;#0、摘要&quot; class=&quot;headerlink&quot; title=&quot;0、摘要&quot;&gt;&lt;/a&gt;0、摘要&lt;/h1&gt;&lt;p&gt;&amp;emsp;&amp;emsp;本文提出了一种基于马尔可夫链和图神经网络(MEMG)的移动加密流量分类方法。我们利用马尔可夫链来挖掘
-      
-    
-    </summary>
-    
-      <category term="科研" scheme="https://lulu-cloud.github.io/categories/%E7%A7%91%E7%A0%94/"/>
-    
-      <category term="加密流量分类" scheme="https://lulu-cloud.github.io/categories/%E7%A7%91%E7%A0%94/%E5%8A%A0%E5%AF%86%E6%B5%81%E9%87%8F%E5%88%86%E7%B1%BB/"/>
-    
-    
-      <category term="论文" scheme="https://lulu-cloud.github.io/tags/%E8%AE%BA%E6%96%87/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>加密流量分类-论文6:Learning to Classify A Flow-Based Relation Network for Encrypted Traffic Classification</title>
-    <link href="https://lulu-cloud.github.io/2022/10/02/%E5%8A%A0%E5%AF%86%E6%B5%81%E9%87%8F%E5%88%86%E7%B1%BB-%E8%AE%BA%E6%96%876%EF%BC%9ALearning%20to%20Classify%20A%20Flow-Based%20Relation%20Network%20for%20Encrypted%20Traffic%20Classification/"/>
-    <id>https://lulu-cloud.github.io/2022/10/02/加密流量分类-论文6：Learning to Classify A Flow-Based Relation Network for Encrypted Traffic Classification/</id>
-    <published>2022-10-02T13:27:14.000Z</published>
-    <updated>2023-11-24T13:43:39.453Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="0、摘要"><a href="#0、摘要" class="headerlink" title="0、摘要"></a>0、摘要</h1><p>加密流量分类的挑战性问题:</p><ul><li>网络数据的不平衡性</li><li>模型对真实数据的泛化能力</li><li>模型对数据大小的过度依赖。</li></ul><h1 id="1、概念介绍"><a href="#1、概念介绍" class="headerlink" title="1、概念介绍"></a>1、概念介绍</h1><h2 id="1-1-流量加密背景"><a href="#1-1-流量加密背景" class="headerlink" title="1.1 流量加密背景"></a>1.1 流量加密背景</h2><p>&emsp;&emsp;加密技术虽然保护了互联网用户的自由、隐私和匿名性，但也<strong>用户避开了防火墙的检测，绕过了监控系统</strong>。</p><p>&emsp;&emsp;由此导致的问题：</p><ul><li>攻击者通过<strong>加密恶意软件流量</strong>来匿名入侵和攻击系统。</li><li>犯罪分子使用隐私增强工具(例如Tor)穿透黑暗网络，在那里他们可以购买毒品、武器和伪造的文件(如护照、驾照、提供合同杀手的媒体)来吸引客户.</li></ul><h2 id="1-2-流量分类技术的发展（综述部分）"><a href="#1-2-流量分类技术的发展（综述部分）" class="headerlink" title="1.2 流量分类技术的发展（综述部分）"></a>1.2 流量分类技术的发展（综述部分）</h2><ol><li>基于端口号</li><li>基于有效载荷,也就是DPI方法。<strong>1,2只能针对非加密流量</strong></li><li>基于流统计特征的方法，<strong>分类性能取决于人类的特征工程</strong></li><li>基于深度学习的方法：<ul><li>优点：端到端、具有相当高的学习能力</li><li>缺点：<ul><li>不能解决数据中类的不均衡问题</li><li>训练好的模型不能很好适用于真是流量环境，泛化能力差</li><li>过分依赖数据集的大小与数据分布的好坏</li></ul></li></ul></li></ol><h2 id="1-4-文章核心观点引入"><a href="#1-4-文章核心观点引入" class="headerlink" title="1.4 文章核心观点引入"></a>1.4 文章核心观点引入</h2><p>&emsp;&emsp;对于一个新奇概念的样本，人类可以轻易根据对事物共同变化模式的了解，想象该样本在其他环境的样子。如果机器从辨别出在不同环境（<strong>原文这里称作幻觉（hallucination）</strong>）下的同一样本，那么通过一个<strong>致幻器（hallucinator）</strong>产生额外的训练样本，理论上就可以在少量数据样本的情况下学习到不错的泛化能力。</p><p>&emsp;&emsp;将从有限的数据中提取先验知识并将其转移到不可见的任务或者环境中，<strong>元学习</strong>是一种解决方案。（不是半监督模型预训练那一套）</p><ul><li><p>关于<strong>元学习</strong>（学习如何去学习）：</p><ol><li><p>元级（meta-level）学习器：在不同的训练任务以及对应的训练数据上进行学习，以此作为网络结构的先验知识，下图的F。</p></li><li><p>基础级（base-level）学习器：为特定任务设计的学习器。由F针对测试任务学习出来的f<br><img src="https://raw.githubusercontent.com/lulu-cloud/lili_images/main/image/202311242114732.png" alt="在这里插入图片描述"><br><img src="https://raw.githubusercontent.com/lulu-cloud/lili_images/main/image/202311242114211.png" alt="在这里插入图片描述"></p></li></ol></li></ul><p>&emsp;&emsp;在元学习阶段，进行多任务学习，称作Training Task，每个任务都有自己的训练集与测试集，也称为支持集（support set）与查询集（query set），学习到一个F。在基础级学习阶段，进行特定任务的学习，称作Testing Task，将Testing task的给入F，得出学习到的f，然后在f上进行传统的训练测试，用f的表现去反映F的泛化能力好坏。</p><ul><li>分类粒度：基于流的分类（这里是原文：流序列作为唯一的原始流量信息。原始流可以表示为几个具有相同流长度和不同类型的序列(例如，消息类型序列和包长度序列)。一般我们把一种序列看作流序列，其他的序列也可以用同样的方法。）类似于FS-Net的输入，所以此模型输入应该是类似与FS-Net的输入，比如是取<strong>原始流的包长序列</strong>或者<strong>消息类型序列</strong>作为流序列信息，输入到模型</li><li><p>分类目标：应用分类</p></li><li><p>本文的分为训练集、支持集、测试集（支持集和测试集共享相同的标签空间，但训练集有自己的标签空间），原则上只需要支持集与测试集就可以了，但是<strong>支持集中缺乏标记样本，使用训练集上的元学习将提取的知识转移到支持集</strong></p></li><li><p>训练集合切割成为支持集与查询集？？？</p><h1 id="2、模型结构"><a href="#2、模型结构" class="headerlink" title="2、模型结构"></a>2、模型结构</h1><h2 id="2-1总览"><a href="#2-1总览" class="headerlink" title="2.1总览"></a>2.1总览</h2></li></ul><p>&emsp;&emsp;本文提出基于流的关系网络分类模型（FlowBased Ralation Network，RBRN），从原始流序列学习特征，是端到端的分类模型。</p><ul><li>致幻器：产生额外样本（相当于一个数据增强器？）</li><li>编码器：生成样本特征</li><li>解码器：恢复输入序列，也进行特征的学习。编码器解码器都是多层CNN结构</li><li><p><strong>基于元学习</strong>的分类器：分类粒度，对应用程序的分类</p><h2 id="2-2-集合分割"><a href="#2-2-集合分割" class="headerlink" title="2.2 集合分割"></a>2.2 集合分割</h2><p><img src="https://raw.githubusercontent.com/lulu-cloud/lili_images/main/image/202311242114008.png" alt=""></p></li></ul><p>从训练集中选择跟支持集一样规模的作为集合S：假定支持集n个类，每个类m个样本，从训练集也随机选n个类，每个类选m个样本，剩余的作为查询集。</p><h2 id="2-3-致幻器（Hallucinator）"><a href="#2-3-致幻器（Hallucinator）" class="headerlink" title="2.3 致幻器（Hallucinator）"></a>2.3 致幻器（Hallucinator）</h2><p> <img src="https://raw.githubusercontent.com/lulu-cloud/lili_images/main/image/202311242114432.png" alt=" "></p><ul><li><p>Hallucinator的测试流程：</p><ol><li><p>从原始数据集S中对每一个类别进行采样。</p></li><li><p>将采用后的样本添加噪声z，送入流产生器Flow（图中红色部分），输出数据增强后的样本Sg</p></li><li><p>将S<sub>g</sub>与原始数据S合并为S<sub>aug</sub>，并作为最终的训练数据，送入h（分类算法）中进行<strong>预测</strong>。</p></li></ol></li><li><p>Hallucinator的训练流程：</p><ul><li><p>采用元学习的方法来训练Hallucinator与后面的分类器h，要求h对于S<sub>aug</sub>的元素可微，以便进行梯度下降，Hallucinator与后面的网络结构是同步进行训练学习的。</p></li><li><p>这里目前还没有提及到关于元学习的多任务。</p></li></ul></li></ul><p> <img src="https://raw.githubusercontent.com/lulu-cloud/lili_images/main/image/202311242114179.png" alt="致幻器细节"></p><h2 id="2-4-编码器（Encoder）与解码器（Decoder）"><a href="#2-4-编码器（Encoder）与解码器（Decoder）" class="headerlink" title="2.4 编码器（Encoder）与解码器（Decoder）"></a>2.4 编码器（Encoder）与解码器（Decoder）</h2><ul><li>编码器输入：S<sub>aug</sub>，输出压缩特征。</li><li>体系结构：VGG16网络中的前13个卷积层，舍弃全连接层，理由：以便在最深的编码器输出处保留更高分辨率的特征映射（论文讲的理由）。<ul><li>这里说卷积后的特征应该存储起来，但是由于内存限制，采用存储池化层的索引</li><li>即池化窗口的最大特征值的位置被存储起来</li></ul></li><li>解码器输入：编码器输出的压缩特征，输出提供给基于元学习的分类器。<ul><li>从相应解码器存储的最大池化层索引来进行采样</li><li>卷积层的滤波器仍旧是可训练的</li></ul></li></ul><p><img src="https://raw.githubusercontent.com/lulu-cloud/lili_images/main/image/202311242117222.png" alt="img"></p><h2 id="2-5-基于元学习的分类器"><a href="#2-5-基于元学习的分类器" class="headerlink" title="2.5 基于元学习的分类器"></a>2.5 基于元学习的分类器</h2><p><img src="https://raw.githubusercontent.com/lulu-cloud/lili_images/main/image/202311242117850.png" alt="img"></p><ol><li>假设样本<strong>x<sub>j</sub></strong>来自查询集<strong>Q</strong>，样本<strong>x<sub>i</sub></strong>来自增强后的数据集**S<sub>aug</sub></li><li>通过编码器-解码器输出后为<strong>z<sub>j</sub>=f<sub>encoder-decoder</sub>(x<sub>j</sub>)</strong>为<strong>z<sub>i</sub>=f<sub>encoder-decoder</sub>(x<sub>i</sub>)</strong></li><li>定义样本通过特征抽取模块的输出为<strong>m<sub>j</sub>=f<sub>meta-network</sub>(z<sub>j</sub>)</strong>和<strong>m<sub>i</sub></strong>=f<sub>meta-network</sub>(z<sub>i</sub>)**</li><li>将<strong>m<sub>j</sub></strong>与<strong>m<sub>i</sub></strong>联结起来，通过关系模型 <strong>J<sub>relation</sub></strong>计算两个样本之间的相关度</li><li>采用与最后查询集的实际类形成的独热向量之间的均方差作为损失，构建损失函数</li></ol><p><img src="https://raw.githubusercontent.com/lulu-cloud/lili_images/main/image/202311242117008.png" alt="img"></p><h1 id="4、实验"><a href="#4、实验" class="headerlink" title="4、实验"></a>4、实验</h1><ul><li><p>在小样本学习有不错的表现：在Full ISCX vpn -非vpn流量数据集中，为每个应用程序选择1000条流量记录作为训练集，其他的作为测试集，仍旧有不错的效果。</p></li><li><p>在数据不均衡样本集有不错的表现</p></li><li><p>在复杂环境时能保证不错的泛化能力：<strong>在均衡样本集中训练，在非均衡上测试，对比其他模型，表现出不错的效果</strong></p><blockquote><p>不太理解在均匀数据集上训练的模型在非均衡数据集上进行测试，如何能体现出泛化能力。</p></blockquote></li></ul><h1 id="5、总结与思考"><a href="#5、总结与思考" class="headerlink" title="5、总结与思考"></a>5、总结与思考</h1><ul><li>从李宏毅老师学习到元学习的有关概念，感觉这里元学习作者没有太突出出来，我的理解是训练集很大，每次选一个子集合作为支持集，就相当于一个元学习任务了，这样多次选训练集子集，相当于对元分类器进行多任务训练。……不知道理解对不对。。。</li><li>网络模型挺深，模块多，实验部分做了消融实验以此证明每部分都是有必要的。</li><li>不太理解在编码器解码器中对于池化索引的记录的点，以及解码器的存在的意义，只需编码部分可不可以?</li></ul>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;0、摘要&quot;&gt;&lt;a href=&quot;#0、摘要&quot; class=&quot;headerlink&quot; title=&quot;0、摘要&quot;&gt;&lt;/a&gt;0、摘要&lt;/h1&gt;&lt;p&gt;加密流量分类的挑战性问题:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;网络数据的不平衡性&lt;/li&gt;
-&lt;li&gt;模型对真实数据的泛化能力&lt;/li
       
     
     </summary>

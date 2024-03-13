@@ -22,11 +22,14 @@
 <meta name="keywords" content="算法" />
 
 
-<meta name="description" content="一、 原则1. 区间：左右闭区间2. while结束设定为&lt;=3. 左右界更新都为mid上下1
+<meta name="description" content="1 堆排序1.1 算法流程
+从n/2-1处开始构建大根堆（使用堆调整算法）
 
-二分查找可以设定左闭右开的写法，也可以左右都是闭区间，这里设定后者
+堆顶元素此时为最大值，放入数组末尾，然后重新调整堆
 
-在1的设定下，如果l..." />
+调整堆算法：
+输入：数组arr、堆长度n、根节点位置root
+..." />
 
 
 <meta name="robots" content="all" />
@@ -37,7 +40,7 @@
 
 <title>
     
-    Java算法学习：二分查找 |
+    Java算法学习：排序 |
     
     lulu-cloud
 </title>
@@ -139,9 +142,9 @@
                     <p id="process"></p>
 <article class="post">
     <div class="post-head">
-        <h1 id="Java算法学习：二分查找">
+        <h1 id="Java算法学习：排序">
             
-            Java算法学习：二分查找
+            Java算法学习：排序
             
         </h1>
         <div class="post-meta">
@@ -166,7 +169,7 @@
     <span class="fa-wrap">
         <i class="fa fa-clock-o"></i>
         <span class="date-meta">
-            2023/03/02</span>
+            2024/03/06</span>
     </span>
     
     <span class="fa-wrap">
@@ -178,89 +181,78 @@
 </div>
         
         
-        <p class="fa fa-exclamation-triangle warning">
-            本文于<strong>
-                377</strong>
-            天之前发表，文中内容可能已经过时。
-        </p>
-        
     </div>
     
     <div class="post-body post-content">
-        <h1 id="一、-原则"><a href="#一、-原则" class="headerlink" title="一、 原则"></a>一、 原则</h1><h2 id="1-区间：左右闭区间"><a href="#1-区间：左右闭区间" class="headerlink" title="1. 区间：左右闭区间"></a>1. 区间：左右闭区间</h2><h2 id="2-while结束设定为-lt"><a href="#2-while结束设定为-lt" class="headerlink" title="2. while结束设定为&lt;="></a>2. while结束设定为&lt;=</h2><h2 id="3-左右界更新都为mid上下1"><a href="#3-左右界更新都为mid上下1" class="headerlink" title="3. 左右界更新都为mid上下1"></a>3. 左右界更新都为mid上下1</h2><blockquote>
+        <h1 id="1-堆排序"><a href="#1-堆排序" class="headerlink" title="1 堆排序"></a>1 堆排序</h1><h2 id="1-1-算法流程"><a href="#1-1-算法流程" class="headerlink" title="1.1 算法流程"></a>1.1 算法流程</h2><ol>
+<li><p>从n/2-1处开始构建大根堆（使用堆调整算法）</p>
+</li>
+<li><p>堆顶元素此时为最大值，放入数组末尾，然后重新调整堆</p>
+<blockquote>
+<p>调整堆算法：</p>
+<p>输入：数组arr、堆长度n、根节点位置root</p>
 <ol>
-<li><p>二分查找可以设定左闭右开的写法，也可以左右都是闭区间，这里设定后者</p>
-</li>
-<li><p>在1的设定下，如果left=right，即当前搜索区间长度为1，如果while里面不是&lt;=二是严格&lt;,那么该长度为1的区间就不会搜索，出现遗漏</p>
-</li>
-<li><p>在1，2的设定之下，必须让left、right的更新机制在循环结束后，right在left的左边，即每次更新right与left必须都不能为mid，因为mid可能 在区间长度为1或者2的时候mid等于其中的left，必须使得right与left有机制在更新时不能一直等于mid，故有原则3</p>
+<li>初始化左右子树与最大值索引变量，左子树为根节点位置*2，右子树为根节点位置*2+1，最大值索引为根节点索引</li>
+<li>最大值索引变量取左右子树的最大值</li>
+<li>如果此时最大值索引已经不是根节点索引<ul>
+<li>交换根节点的值与最大索引值</li>
+<li>递归调整子树</li>
+</ul>
 </li>
 </ol>
 </blockquote>
-<h1 id="二、三种情况"><a href="#二、三种情况" class="headerlink" title="二、三种情况"></a>二、三种情况</h1><h2 id="2-1-直接找元素"><a href="#2-1-直接找元素" class="headerlink" title="2.1 直接找元素"></a>2.1 直接找元素</h2><pre><code class="lang-java">int searchBinary(int[] nums, int target) &#123;
-    //原则1 左右闭区间
-    int left = 0, right = nums.length - 1;
-    //原则2 while结束条件为&lt;=
-    while (left &lt;= right) &#123;
-        int mid = left + ((right - left) &gt;&gt; 1);
-        if (nums[mid] == target) &#123;
-            return mid;
-        &#125; else if (nums[mid] &lt; target) &#123;
-            //原则3 左右界更新为mid加减1
-            left = mid + 1;
-        &#125; else &#123;
-            //原则3 左右界更新为mid加减1
-            right = mid - 1;
+</li>
+</ol>
+<h2 id="1-2-代码"><a href="#1-2-代码" class="headerlink" title="1.2 代码"></a>1.2 代码</h2><pre><code class="lang-java">public class HeapSort &#123;
+
+    // 主要的堆排序方法
+    public static void heapSort(int arr[]) &#123;
+        int n = arr.length;
+
+        // 构建最大堆（初始时将数组看作一个完全二叉树）
+        for (int i = n / 2 - 1; i &gt;= 0; i--) &#123;
+            heapify(arr, n, i);
+        &#125;
+
+        // 一个一个从堆顶取出元素，将最大值放到数组末尾，然后重新调整堆
+        for (int i = n - 1; i &gt; 0; i--) &#123;
+            // 交换堆顶（最大值）和当前未排序部分的最后一个元素
+            int temp = arr[0];
+            arr[0] = arr[i];
+            arr[i] = temp;
+
+            // 调整堆，排除刚刚交换的元素
+            heapify(arr, i, 0);
         &#125;
     &#125;
-    return -1;
-&#125;
-</code></pre>
-<h2 id="2-2-寻找左右边界"><a href="#2-2-寻找左右边界" class="headerlink" title="2.2 寻找左右边界"></a>2.2 寻找左右边界</h2><p>给定有序数组</p>
-<script type="math/tex; mode=display">
-[0,1,2,2,2,3,4]</script><p>如何找第一个2出现的下标或者最后一个2出现的下标</p>
-<ul>
-<li>找第一个：找左边界</li>
-</ul>
-<pre><code class="lang-java">int searchLeftBound(int[] nums, int target) &#123;
-    int left = 0, right = nums.length - 1;
-    while (left &lt;= right) &#123;
-        int mid = left + ((right - left) &gt;&gt; 1);
-        if (nums[mid] == target) &#123;
-            right = mid - 1; // 收缩右边界
-        &#125; else if (nums[mid] &lt; target) &#123;
-            left = mid + 1;
-        &#125; else &#123;
-            right = mid - 1;
+
+    // 将子树以root为根的堆调整为最大堆
+    public static void heapify(int arr[], int n, int root) &#123;
+        int largest = root; // 初始化根节点为最大值
+        int leftChild = 2 * root + 1; // 左子节点
+        int rightChild = 2 * root + 2; // 右子节点
+
+        // 如果左子节点比根节点大
+        if (leftChild &lt; n &amp;&amp; arr[leftChild] &gt; arr[largest]) &#123;
+            largest = leftChild;
+        &#125;
+
+        // 如果右子节点比根节点或左子节点大
+        if (rightChild &lt; n &amp;&amp; arr[rightChild] &gt; arr[largest]) &#123;
+            largest = rightChild;
+        &#125;
+
+        // 如果最大值不是根节点
+        if (largest != root) &#123;
+            // 交换根节点和最大值
+            int temp = arr[root];
+            arr[root] = arr[largest];
+            arr[largest] = temp;
+
+            // 递归调整受影响的子树
+            heapify(arr, n, largest);
         &#125;
     &#125;
-    // 越界检查，不存在检查
-    if (left &gt;= nums.length || nums[left] != target) &#123;
-        return -1;
-    &#125;
-    return left;
-&#125;
-</code></pre>
-<ul>
-<li>找最后一个：找右边界</li>
-</ul>
-<pre><code class="lang-java">
-int searchRightBound(int[] nums, int target) &#123;
-    int left = 0, right = nums.length - 1;
-    while (left &lt;= right) &#123;
-        int mid = left + ((right - left) &gt;&gt; 1);
-        if (nums[mid] == target) &#123;
-            left = mid + 1; // 收缩左边界
-        &#125; else if (nums[mid] &lt; target) &#123;
-            left = mid + 1;
-        &#125; else &#123;
-            right = mid - 1;
-        &#125;
-    &#125;
-    if (right &lt; 0 || nums[right] != target) &#123;
-        return -1;
-    &#125;
-    return right;
 &#125;
 </code></pre>
 
@@ -281,17 +273,17 @@ int searchRightBound(int[] nums, int target) &#123;
 </article>
 <div class="article-nav prev-next-wrap clearfix">
     
-    <a href="/2023/03/09/%E5%8A%A0%E5%AF%86%E6%B5%81%E9%87%8F%E5%88%86%E7%B1%BBtorch%E5%AE%9E%E8%B7%B52%EF%BC%9ACNN+LSTM%E6%A8%A1%E5%9E%8B%E8%AE%AD%E7%BB%83%E4%B8%8E%E6%B5%8B%E8%AF%95/" class="pre-post btn btn-default" title='加密流量分类-实践2: CNN+LSTM模型训练与测试'>
+    <a href="/2024/03/13/%E5%8A%9B%E6%89%A3%E5%88%B7%E9%A2%98-%E5%9B%9E%E6%BA%AF%E6%B3%95%EF%BC%88%E4%B8%80%20%E6%8E%92%E5%88%97%E7%BB%84%E5%90%88%EF%BC%89/" class="pre-post btn btn-default" title='Java算法学习：回溯法1-排列组合问题'>
         <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
         <span class="hidden-xs">
-            加密流量分类-实践2: CNN+LSTM模型训练与测试</span>
+            Java算法学习：回溯法1-排列组合问题</span>
     </a>
     
     
-    <a href="/2023/01/19/%E5%8A%A0%E5%AF%86%E6%B5%81%E9%87%8F%E5%88%86%E7%B1%BB-%E8%AE%BA%E6%96%8712%EF%BC%9ASeeing%20Traffic%20Paths_%20Encrypted%20Traffic%20Classification%20With%20Path%20Signature%20Features/" class="next-post btn btn-default" title='加密流量分类-论文12: Seeing Traffic Paths_ Encrypted Traffic Classification With Path Signature Features'>
+    <a href="/2024/03/04/%E5%8A%A0%E5%AF%86%E6%B5%81%E9%87%8F%E5%88%86%E7%B1%BBtorch%E5%AE%9E%E8%B7%B53%EF%BC%9ATrafficClassificationPandemonium%E9%A1%B9%E7%9B%AE%E5%88%86%E4%BA%AB/" class="next-post btn btn-default" title='加密流量分类-实践3: TrafficClassificationPandemonium流量分类项目分析'>
         <span class="hidden-lg">下一篇</span>
         <span class="hidden-xs">
-            加密流量分类-论文12: Seeing Traffic Paths_ Encrypted Traffic Classification With Path Signature Features</span><i class="fa fa-angle-right fa-fw"></i>
+            加密流量分类-实践3: TrafficClassificationPandemonium流量分类项目分析</span><i class="fa fa-angle-right fa-fw"></i>
     </a>
     
 </div>
@@ -325,7 +317,7 @@ int searchRightBound(int[] nums, int target) &#123;
             文章目录
         </h3>
         
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%80%E3%80%81-%E5%8E%9F%E5%88%99"><span class="toc-text">一、 原则</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E5%8C%BA%E9%97%B4%EF%BC%9A%E5%B7%A6%E5%8F%B3%E9%97%AD%E5%8C%BA%E9%97%B4"><span class="toc-text">1. 区间：左右闭区间</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-while%E7%BB%93%E6%9D%9F%E8%AE%BE%E5%AE%9A%E4%B8%BA-lt"><span class="toc-text">2. while结束设定为&lt;&#x3D;</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E5%B7%A6%E5%8F%B3%E7%95%8C%E6%9B%B4%E6%96%B0%E9%83%BD%E4%B8%BAmid%E4%B8%8A%E4%B8%8B1"><span class="toc-text">3. 左右界更新都为mid上下1</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BA%8C%E3%80%81%E4%B8%89%E7%A7%8D%E6%83%85%E5%86%B5"><span class="toc-text">二、三种情况</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2-1-%E7%9B%B4%E6%8E%A5%E6%89%BE%E5%85%83%E7%B4%A0"><span class="toc-text">2.1 直接找元素</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2-%E5%AF%BB%E6%89%BE%E5%B7%A6%E5%8F%B3%E8%BE%B9%E7%95%8C"><span class="toc-text">2.2 寻找左右边界</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1-%E5%A0%86%E6%8E%92%E5%BA%8F"><span class="toc-text">1 堆排序</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-1-%E7%AE%97%E6%B3%95%E6%B5%81%E7%A8%8B"><span class="toc-text">1.1 算法流程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-2-%E4%BB%A3%E7%A0%81"><span class="toc-text">1.2 代码</span></a></li></ol></li></ol>
         
     </div>
 </aside>

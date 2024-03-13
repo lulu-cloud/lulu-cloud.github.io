@@ -1,0 +1,481 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+<head>
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="lulu-cloud">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <meta name="theme-version" content="1.3.0">
+    <meta name="root" content="/">
+    <link rel="dns-prefetch" href="https://lulu-cloud.github.io">
+    <!--SEO-->
+
+<meta name="keywords" content="算法" />
+
+
+<meta name="description" content="0 写在前面
+回溯法：n叉不等高度数的完全遍历，明确树的下一个分支宽度与树的高度。
+对于宽度：这个体现在回溯法模板的for循环里面
+对于高度：体现在回溯法遍历结束的终止条件里面
+这两个的核心思想..." />
+
+
+<meta name="robots" content="all" />
+<meta name="google" content="all" />
+<meta name="googlebot" content="all" />
+<meta name="verify" content="all" />
+    <!--Title-->
+
+<title>
+    
+    Java算法学习：回溯法1-排列组合问题 |
+    
+    lulu-cloud
+</title>
+
+<link rel="alternate" href="/atom.xml" title="lulu-cloud" type="application/atom+xml">
+
+
+<link rel="icon" href="/favicon.ico">
+
+    
+
+
+<link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7.css">
+<link rel="stylesheet" href="/css/font-awesome.min.css?rev=4.7.0.css">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash.css">
+
+    
+<div class="hide">
+    <script type="text/javascript">
+    var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+    document.write(unescape("%3Cspan class='cnzz_stat_icon_1263868967 hide' %3E%3Cscript%20src%3D%22https%3A%2F%2Fs95.cnzz.com%2Fz_stat.php%3Fweb_id%3D1272564536%22%3E%3C%2Fscript%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1263868967%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+</div>
+
+
+
+
+    
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+<body>
+    <header class="main-header"  style="background-image:url(
+    /./img/duolaAAA.git)"
+     >
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title='lulu-cloud'>
+            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+            <!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
+            
+            <img src="/img/branding.png" alt="Snippet 博客主题" class="img-responsive center-block">
+            
+        </div>
+    </div>
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                        <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="https://lulu-cloud.github.io">
+                        lulu-cloud</a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/"><i class="fa "></i>
+                                首页</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/科研/"><i class="fa "></i>
+                                科研</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/Java学习/"><i class="fa "></i>
+                                Java学习</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/archives/"><i class="fa "></i>
+                                时间轴</a>
+                        </li>
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content m-post">
+                    <p id="process"></p>
+<article class="post">
+    <div class="post-head">
+        <h1 id="Java算法学习：回溯法1-排列组合问题">
+            
+            Java算法学习：回溯法1-排列组合问题
+            
+        </h1>
+        <div class="post-meta">
+    
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        <a class="category-link" href="/categories/Java%E5%AD%A6%E4%B9%A0/">Java学习</a>
+    </span>
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+            <a class="tag-none-link" href="/tags/%E7%AE%97%E6%B3%95/" rel="tag">算法</a>
+            
+        </span>
+    </span>
+    
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-clock-o"></i>
+        <span class="date-meta">
+            2024/03/13</span>
+    </span>
+    
+    <span class="fa-wrap">
+        <i class="fa fa-eye"></i>
+        <span id="busuanzi_value_page_pv"></span>
+    </span>
+    
+    
+</div>
+        
+        
+    </div>
+    
+    <div class="post-body post-content">
+        <h1 id="0-写在前面"><a href="#0-写在前面" class="headerlink" title="0 写在前面"></a>0 写在前面</h1><blockquote>
+<p>回溯法：n叉不等高度数的完全遍历，明确树的下一个分支宽度与树的高度。</p>
+<p>对于宽度：<strong>这个体现在回溯法模板的for循环里面</strong></p>
+<p>对于高度：<strong>体现在回溯法遍历结束的终止条件里面</strong></p>
+<p><strong>这两个的核心思想如下:</strong></p>
+<ol>
+<li><strong>排列问题要搞一个visited数组标记已经访问的</strong></li>
+<li><strong>组合问题要维护好一个起始的索引</strong></li>
+</ol>
+</blockquote>
+<h1 id="1-排列问题-全排列"><a href="#1-排列问题-全排列" class="headerlink" title="1 排列问题 - 全排列"></a>1 排列问题 - 全排列</h1><blockquote>
+<p>LeetCode 46</p>
+<p>给定一个不含重复数字的数组 <code>nums</code> ，返回其 <em>所有可能的全排列</em> 。你可以 <strong>按任意顺序</strong> 返回答案。</p>
+<p><strong>示例 1：</strong></p>
+<pre><code>输入：nums = [1,2,3]
+输出：[[1,2,3],[1,3,2],[2,1,3],[2,3,1],[3,1,2],[3,2,1]]
+</code></pre><p><strong>示例 2：</strong></p>
+<pre><code>输入：nums = [0,1]
+输出：[[0,1],[1,0]]
+</code></pre><p><strong>示例 3：</strong></p>
+<pre><code>输入：nums = [1]
+输出：[[1]]
+</code></pre></blockquote>
+<h2 id="1-1-树的确定"><a href="#1-1-树的确定" class="headerlink" title="1.1 树的确定"></a>1.1 树的确定</h2><ul>
+<li>宽度：每一层都要遍历一下数组的每一个数字，那么树的宽度是nums.length，<strong>这个体现在回溯法模板的for循环里面</strong></li>
+<li>高度：当前的临时list长度为数组长度，结束</li>
+</ul>
+<h2 id="1-2-排列：维护一个visited数组"><a href="#1-2-排列：维护一个visited数组" class="headerlink" title="1.2 排列：维护一个visited数组"></a>1.2 排列：维护一个visited数组</h2><p>回溯时也得同步这个<code>visited</code>数组</p>
+<h2 id="1-3-代码"><a href="#1-3-代码" class="headerlink" title="1.3 代码"></a>1.3 代码</h2><pre><code class="lang-java">class Solution &#123;
+
+    public void backTrack(List&lt;List&lt;Integer&gt;&gt;ans,List&lt;Integer&gt;temp,int[]visited,int[]nums)&#123;
+        if(temp.size()==nums.length)&#123;
+            ans.add(new ArrayList&lt;&gt;(temp));
+            return ;
+        &#125;
+        //回溯法
+        for(int i = 0;i&lt;nums.length;i++)&#123;
+            //没有遍历过
+            if(visited[i]==0)&#123;
+                temp.add(nums[i]);
+                visited[i] = 1;
+                //遍历树的下一层就好
+                backTrack(ans,temp,visited,nums);
+                //回溯
+                temp.remove(temp.size()-1);
+                visited[i] = 0;
+            &#125;
+        &#125;
+        return ;
+    &#125;
+    public List&lt;List&lt;Integer&gt;&gt; permute(int[] nums) &#123;
+        List&lt;List&lt;Integer&gt;&gt;res = new ArrayList&lt;&gt;();
+        List&lt;Integer&gt;temp = new ArrayList&lt;&gt;();
+        backTrack(res,temp,new int[nums.length],nums);
+        return res;
+    &#125;
+&#125;
+</code></pre>
+<h1 id="2-组合问题-组合"><a href="#2-组合问题-组合" class="headerlink" title="2 组合问题-组合"></a>2 组合问题-组合</h1><blockquote>
+<p>LeetCode 77</p>
+<p>给定两个整数 <code>n</code> 和 <code>k</code>，返回范围 <code>[1, n]</code> 中所有可能的 <code>k</code> 个数的组合。</p>
+<p>你可以按 <strong>任何顺序</strong> 返回答案。</p>
+<p><strong>示例 1：</strong></p>
+<pre><code>输入：n = 4, k = 2
+输出：
+[
+  [2,4],
+  [3,4],
+  [2,3],
+  [1,2],
+  [1,3],
+  [1,4],
+]
+</code></pre><p><strong>示例 2：</strong></p>
+<pre><code>输入：n = 1, k = 1
+输出：[[1]]
+</code></pre></blockquote>
+<h2 id="2-1-树的确定"><a href="#2-1-树的确定" class="headerlink" title="2.1 树的确定"></a>2.1 树的确定</h2><ul>
+<li><p>索引维护：维护一个<code>index</code>索引，保证当前遍历的起点</p>
+</li>
+<li><p>宽度：当前每次遍历<code>index-n</code>的<code>n-index+1</code>个数</p>
+</li>
+<li>高度：当前临时list长度为k，退出</li>
+</ul>
+<h2 id="2-2-代码"><a href="#2-2-代码" class="headerlink" title="2.2 代码"></a>2.2 代码</h2><pre><code class="lang-java">class Solution &#123;
+    public void backTrack(List&lt;List&lt;Integer&gt;&gt;res,List&lt;Integer&gt;temp,int n,int k,int index)&#123;
+        if(temp.size()==k)&#123;
+            res.add(new ArrayList&lt;&gt;(temp));
+            return ;
+        &#125;
+        //维护一个index，一直往后走
+        for(int i = index;i&lt;=n;i++)&#123;
+            temp.add(i);
+            backTrack(res,temp,n,k,i+1);
+            temp.remove(temp.size()-1);
+        &#125;
+    &#125;
+
+    public List&lt;List&lt;Integer&gt;&gt; combine(int n, int k) &#123;
+        List&lt;List&lt;Integer&gt;&gt;res = new ArrayList&lt;&gt;();
+        List&lt;Integer&gt;temp = new ArrayList&lt;&gt;();
+        backTrack(res,temp,n,k,1);
+        return res;
+    &#125;
+&#125;
+</code></pre>
+<h1 id="3-组合总数I"><a href="#3-组合总数I" class="headerlink" title="3 组合总数I"></a>3 组合总数I</h1><blockquote>
+<p>LeetCode39</p>
+</blockquote>
+<h2 id="3-1-树的确定"><a href="#3-1-树的确定" class="headerlink" title="3.1 树的确定"></a>3.1 树的确定</h2><ul>
+<li>高度：不定，如果当前<code>target&lt;0</code>直接返回，<code>target==0</code>，正确返回</li>
+<li>宽度：<code>candidates</code>数组长度</li>
+</ul>
+<h2 id="3-2-代码"><a href="#3-2-代码" class="headerlink" title="3.2 代码"></a>3.2 代码</h2><pre><code class="lang-java">class Solution &#123;
+    public void backTrack(List&lt;List&lt;Integer&gt;&gt;res,List&lt;Integer&gt;temp,int[]candidates,int target,int index)&#123;
+        //这一步必须，防止为空
+        if(target&lt;0)&#123;
+            return ;
+        &#125;
+        if(target==0)&#123;
+            res.add(new ArrayList&lt;&gt;(temp));
+            return ;
+        &#125;
+        for(int i = index;i&lt;candidates.length;i++)&#123;
+
+            target -= candidates[i];
+            temp.add(candidates[i]);
+            //可重复的精髓，下一个的起始还是当前
+            backTrack(res,temp,candidates,target,i);
+            target += candidates[i];
+            temp.remove(temp.size()-1);
+
+        &#125;
+    &#125;
+    public List&lt;List&lt;Integer&gt;&gt; combinationSum(int[] candidates, int target) &#123;
+        List&lt;List&lt;Integer&gt;&gt;res = new ArrayList&lt;&gt;();
+        List&lt;Integer&gt;temp = new ArrayList&lt;&gt;();
+        backTrack(res,temp,candidates,target,0);
+        return res;
+    &#125;
+&#125;
+</code></pre>
+<h1 id="4-组合总数"><a href="#4-组合总数" class="headerlink" title="4 组合总数"></a>4 组合总数</h1><blockquote>
+<p>LeetCode 40</p>
+<p>去重，需要排序后剪枝</p>
+</blockquote>
+<h2 id="4-1-代码"><a href="#4-1-代码" class="headerlink" title="4.1 代码"></a>4.1 代码</h2><pre><code class="lang-java">class Solution &#123;
+    public void backTrack(List&lt;List&lt;Integer&gt;&gt;res,List&lt;Integer&gt;temp,int[]candidates,int target,int index)&#123;
+        //这一步必须，防止为空
+        if(target&lt;0)&#123;
+            return ;
+        &#125;
+        if(target==0)&#123;
+            res.add(new ArrayList&lt;&gt;(temp));
+            return ;
+        &#125;
+        for(int i = index;i&lt;candidates.length;i++)&#123;
+            //大剪枝
+            if(target-candidates[i]&lt;0)&#123;
+                break;
+            &#125;
+            if(i&gt;index&amp;&amp;candidates[i]==candidates[i-1])&#123;
+                //小剪枝，与前一个元素相等
+                continue;
+            &#125;
+            target -= candidates[i];
+            temp.add(candidates[i]);
+            backTrack(res,temp,candidates,target,i+1);
+            target += candidates[i];
+            temp.remove(temp.size()-1);
+
+        &#125;
+    &#125;
+    public List&lt;List&lt;Integer&gt;&gt; combinationSum2(int[] candidates, int target) &#123;
+        List&lt;List&lt;Integer&gt;&gt;res = new ArrayList&lt;&gt;();
+        List&lt;Integer&gt;temp = new ArrayList&lt;&gt;();
+        Arrays.sort(candidates);
+        backTrack(res,temp,candidates,target,0);
+        return res;
+    &#125;
+&#125;
+</code></pre>
+
+    </div>
+    
+    <div class="post-footer">
+        <div>
+            
+            转载声明：
+            商业转载请联系作者获得授权,非商业转载请注明出处 © <a href="" target="_blank">Snippet</a>
+            
+            
+        </div>
+        <div>
+            
+        </div>
+    </div>
+</article>
+<div class="article-nav prev-next-wrap clearfix">
+    
+    
+    <a href="/2024/03/06/%E5%8A%9B%E6%89%A3%E5%88%B7%E9%A2%98-%E6%8E%92%E5%BA%8F/" class="next-post btn btn-default" title='Java算法学习：排序'>
+        <span class="hidden-lg">下一篇</span>
+        <span class="hidden-xs">
+            Java算法学习：排序</span><i class="fa fa-angle-right fa-fw"></i>
+    </a>
+    
+</div>
+
+<div id="comments">
+    
+    
+<div class="utteranc">
+  
+  <script
+    src='https://utteranc.es/client.js'
+    repo='lulu-cloud/lulu-blog-issue'
+    issue-term='pathname'
+    issue-number=''
+    theme='github-light'
+    label=''
+    crossorigin='anonymous'
+    async
+  ></script>
+</div>
+
+
+
+</div>
+
+                </main>
+                
+                    <aside id="article-toc" role="navigation" class="col-md-4">
+    <div class="widget">
+        <h3 class="title">
+            文章目录
+        </h3>
+        
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#0-%E5%86%99%E5%9C%A8%E5%89%8D%E9%9D%A2"><span class="toc-text">0 写在前面</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#1-%E6%8E%92%E5%88%97%E9%97%AE%E9%A2%98-%E5%85%A8%E6%8E%92%E5%88%97"><span class="toc-text">1 排列问题 - 全排列</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-1-%E6%A0%91%E7%9A%84%E7%A1%AE%E5%AE%9A"><span class="toc-text">1.1 树的确定</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-2-%E6%8E%92%E5%88%97%EF%BC%9A%E7%BB%B4%E6%8A%A4%E4%B8%80%E4%B8%AAvisited%E6%95%B0%E7%BB%84"><span class="toc-text">1.2 排列：维护一个visited数组</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-3-%E4%BB%A3%E7%A0%81"><span class="toc-text">1.3 代码</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-%E7%BB%84%E5%90%88%E9%97%AE%E9%A2%98-%E7%BB%84%E5%90%88"><span class="toc-text">2 组合问题-组合</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2-1-%E6%A0%91%E7%9A%84%E7%A1%AE%E5%AE%9A"><span class="toc-text">2.1 树的确定</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2-%E4%BB%A3%E7%A0%81"><span class="toc-text">2.2 代码</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-%E7%BB%84%E5%90%88%E6%80%BB%E6%95%B0I"><span class="toc-text">3 组合总数I</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#3-1-%E6%A0%91%E7%9A%84%E7%A1%AE%E5%AE%9A"><span class="toc-text">3.1 树的确定</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-2-%E4%BB%A3%E7%A0%81"><span class="toc-text">3.2 代码</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4-%E7%BB%84%E5%90%88%E6%80%BB%E6%95%B0"><span class="toc-text">4 组合总数</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#4-1-%E4%BB%A3%E7%A0%81"><span class="toc-text">4.1 代码</span></a></li></ol></li></ol>
+        
+    </div>
+</aside>
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+<a id="back-to-top" class="icon-btn hide">
+    <i class="fa fa-chevron-up"></i>
+</a>
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="busuanzi">
+    
+    访问量:
+    <strong id="busuanzi_value_site_pv">
+        <i class="fa fa-spinner fa-spin"></i>
+    </strong>
+    &nbsp; | &nbsp;
+    访客数:
+    <strong id="busuanzi_value_site_uv">
+        <i class="fa fa-spinner fa-spin"></i>
+    </strong>
+    
+</div>
+            </div>
+            <div class="col-sm-12">
+                <span>Copyright &copy;
+                    2017
+                    
+                </span> |
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Hexo</a>
+                </span> |
+                <span>
+                    Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+<script src="/js/app.js?rev=@@hash.js"></script>
+
+</body>
+</html>
