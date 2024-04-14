@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://lulu-cloud.github.io/"/>
-  <updated>2024-04-13T09:21:19.827Z</updated>
+  <updated>2024-04-14T03:15:28.842Z</updated>
   <id>https://lulu-cloud.github.io/</id>
   
   <author>
@@ -15,6 +15,34 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Java八股文查漏补缺-Spring-1-AOP 动态代理</title>
+    <link href="https://lulu-cloud.github.io/2024/04/13/Java%E5%85%AB%E8%82%A1%E6%96%87-Spring%20AOP/"/>
+    <id>https://lulu-cloud.github.io/2024/04/13/Java八股文-Spring AOP/</id>
+    <published>2024-04-13T09:27:20.000Z</published>
+    <updated>2024-04-14T03:15:28.842Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="0-写在前面"><a href="#0-写在前面" class="headerlink" title="0 写在前面"></a>0 写在前面</h1><blockquote><p>&emsp;&emsp;<strong>Java八股文查漏补缺</strong>系列是针对Java八股复习时，针对在面试时候，问的问题可能比较深入，在<code>JavaGuide</code>网站中的一些八股文可能不够用，根据自己的面试经验进行一些学习补充.</p><p>&emsp;&emsp;八股文背不如理解，理解深刻，知道底层原理，才能更加牢固。呜呜！直接上题</p></blockquote><p>本文目标：完善<code>AOP</code>、<code>动态代理</code>相关内容，<code>AOP</code>有两种，<code>SpringAOP</code>与<code>AspectJAOP</code>，前者基于代理，后者基于字节码</p><h1 id="1-什么情况下AOP会失效？如何解决"><a href="#1-什么情况下AOP会失效？如何解决" class="headerlink" title="1 什么情况下AOP会失效？如何解决"></a>1 什么情况下AOP会失效？如何解决</h1><p>&emsp;&emsp;失效原因有很多，比如没有配置为Bean，切面配置不正确等，但是<strong>最符合的条件就是内部增强方法的相互调用，这样就不会触发AOP，没有走代理</strong></p><p><img src="https://raw.githubusercontent.com/lulu-cloud/lili_images/main/image/202404141114338.png" alt="image-20240412130119799"></p><p>解决方案：</p><ol><li>注入当前代理对象</li></ol><p><img src="https://raw.githubusercontent.com/lulu-cloud/lili_images/main/image/202404141114307.png" alt="image-20240412130302471"></p><ol start="2"><li>暴露当前代理对象到本地线程，然后通过<code>AOPContext.currentProxy()</code>拿到当前正在调用的动态代理对象</li></ol><h1 id="2-两种动态代理详解"><a href="#2-两种动态代理详解" class="headerlink" title="2 两种动态代理详解"></a>2 两种动态代理详解</h1><p><img src="https://raw.githubusercontent.com/lulu-cloud/lili_images/main/image/202404141114444.png" alt="image-20240412131816267"></p><h4 id="JDK代理："><a href="#JDK代理：" class="headerlink" title="JDK代理："></a>JDK代理：</h4><p>只能代理接口，目标类与代理类都是实现了接口的方法，代理类进行增强，先执行增强方法，然后<strong>通过反射调用目标类方法</strong></p><h4 id="CGLib代理："><a href="#CGLib代理：" class="headerlink" title="CGLib代理："></a>CGLib代理：</h4><p>运行时生成目标类的子类，重写目标类的所有方法，然后进行增强；调用时先通过增强，然后<strong>调用父类的对应方法</strong>，如果类被<code>final</code>修饰，无法代理</p><p><img src="https://raw.githubusercontent.com/lulu-cloud/lili_images/main/image/202404141114811.png" alt="image-20240412131531275"></p>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;0-写在前面&quot;&gt;&lt;a href=&quot;#0-写在前面&quot; class=&quot;headerlink&quot; title=&quot;0 写在前面&quot;&gt;&lt;/a&gt;0 写在前面&lt;/h1&gt;&lt;blockquote&gt;
+&lt;p&gt;&amp;emsp;&amp;emsp;&lt;strong&gt;Java八股文查漏补缺&lt;/strong&gt;系
+      
+    
+    </summary>
+    
+      <category term="Java学习" scheme="https://lulu-cloud.github.io/categories/Java%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+      <category term="Java八股文" scheme="https://lulu-cloud.github.io/tags/Java%E5%85%AB%E8%82%A1%E6%96%87/"/>
+    
+      <category term="Spring" scheme="https://lulu-cloud.github.io/tags/Spring/"/>
+    
+  </entry>
   
   <entry>
     <title>算法学习：回溯法1-排列组合问题</title>
@@ -533,33 +561,6 @@
       
       
         &lt;h1 id=&quot;0、摘要&quot;&gt;&lt;a href=&quot;#0、摘要&quot; class=&quot;headerlink&quot; title=&quot;0、摘要&quot;&gt;&lt;/a&gt;0、摘要&lt;/h1&gt;&lt;p&gt;&amp;emsp;&amp;emsp;提出了一种新的基于自注意力机制深度学习方法DarknetSec，用于暗网流量分类和应用识别；利用一维
-      
-    
-    </summary>
-    
-      <category term="科研" scheme="https://lulu-cloud.github.io/categories/%E7%A7%91%E7%A0%94/"/>
-    
-      <category term="加密流量分类" scheme="https://lulu-cloud.github.io/categories/%E7%A7%91%E7%A0%94/%E5%8A%A0%E5%AF%86%E6%B5%81%E9%87%8F%E5%88%86%E7%B1%BB/"/>
-    
-    
-      <category term="论文" scheme="https://lulu-cloud.github.io/tags/%E8%AE%BA%E6%96%87/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>加密流量分类-论文8: An Encrypted Traffic Classification Method Combining Graph Convolutional Network and</title>
-    <link href="https://lulu-cloud.github.io/2022/10/13/%E5%8A%A0%E5%AF%86%E6%B5%81%E9%87%8F%E5%88%86%E7%B1%BB-%E8%AE%BA%E6%96%878%EF%BC%9AAn%20Encrypted%20Traffic%20Classification%20Method%20Combining%20Graph%20Convolutional%20Network%20and%20.../"/>
-    <id>https://lulu-cloud.github.io/2022/10/13/加密流量分类-论文8：An Encrypted Traffic Classification Method Combining Graph Convolutional Network and .../</id>
-    <published>2022-10-13T13:27:14.000Z</published>
-    <updated>2023-11-24T13:43:44.932Z</updated>
-    
-    <content type="html"><![CDATA[<h1 id="0、摘要"><a href="#0、摘要" class="headerlink" title="0、摘要"></a>0、摘要</h1><p>&emsp;&emsp;构造了一个k -最近邻(KNN)交通图来表示交通数据的结构，从流量结构和流量数据中学习特征表示，利用两层图卷积网络(GCN)架构进行流特征提取和加密流分类。进一步使用自动编码器学习流数据本身的表示，并将其集成到gcn学习的表示中，利用了GCN和自编码器的优点，在只需要少量标记数据的情况下就能获得较高的分类性能。</p><h1 id="1、文章核心观点引入"><a href="#1、文章核心观点引入" class="headerlink" title="1、文章核心观点引入"></a>1、文章核心观点引入</h1><ul><li><p>样本的结构可以揭示标记样本与未标记样本之间的潜在相似性，为标记样本较少的分类任务提供有价值的指导</p></li><li><p>在网络流量分析领域中，构建流量图来描述流量结构的方法有很多种，但是这些图主要包含了网络的通信模式和拓扑信息，很少包含流量相似度的信息</p></li><li><p>构造k -最近邻图来表示交通数据的结构。我们将交通流作为KNN图中的节点。对每个节点，通过相似度计算找到其前K个相似点作为其近邻，并建立边缘连接。进一步利用图卷积网络(GCN)获取交通结构信息，进行流特征提取和分类</p></li></ul><p>​    如图，相当于两个信息分支：</p><p><img src="https://raw.githubusercontent.com/lulu-cloud/lili_images/main/image/202311242121899.png" alt="image-20221013174147808"></p><blockquote><p>关键去找论文如何定义所谓的<strong>相似度</strong></p></blockquote><h1 id="2、模型方法"><a href="#2、模型方法" class="headerlink" title="2、模型方法"></a>2、模型方法</h1><h2 id="2-1-预处理-Data-Preprocessing"><a href="#2-1-预处理-Data-Preprocessing" class="headerlink" title="2.1 预处理(Data Preprocessing)"></a>2.1 预处理(Data Preprocessing)</h2><ul><li><p>流量分割（Traffic Split）:</p><p>&emsp;&emsp;去掉pacp文件头的前24个字节，此24字节只包含pacp文件的统计信息，然后基于5元组分成流（flow）的形式，原始流量就转换成流集合F：</p><script type="math/tex; mode=display">F=[f_1,f_2,...,f_{n}]</script><p>对于每一个f<sub>i</sub>,都包含q个包（packet）</p><script type="math/tex; mode=display">f_i=[p_1^i,p_2^i,...,p_{q}^i]</script></li><li><p>流量过滤（Traffic Purification）:</p><p>&emsp;&emsp;删除每个数据包p中的MAC头，因为它被两个MAC地址填充，也可使它们为零来匿名化这五个元组，并且去掉了所有重复的和空的流文件，避免了对我们分类模型学习能力的不利影响</p></li><li><p>统一长度（Length Unification）:</p><p>&emsp;&emsp;对于大于900字节的流，将其裁剪为900字节，对于小于900字节的流，在流的末尾添加0x00，使其补充为900字节</p></li><li><p>数据归一化（Data Normalization）:</p><p>&emsp;&emsp;将900字节的流序列转换为900维的向量。然后，我们将流向量归一化到范围[0,1]</p></li></ul><p>&emsp;&emsp;经过上述转化，每一个流f<sub>i</sub>都转为流字节向量FBV，原始数据转为矩阵X∈R<sup>N*d</sup>，N代表N个流，d代表一个FBV的维度</p><h2 id="2-2-流量图形构建-Traffic-Graph-Construction"><a href="#2-2-流量图形构建-Traffic-Graph-Construction" class="headerlink" title="2.2 流量图形构建(Traffic Graph Construction)"></a>2.2 流量图形构建(Traffic Graph Construction)</h2><p>&emsp;&emsp;对于流数据X，找到对于每个流最相似的k个流，每个流f作为图的一个节点，找到最相似的流作为相邻的节点，在它们之间设置边。对于两个向量x<sub>i</sub>,x<sub>j</sub>,相似度计算公式如下：</p><p><img src="https://raw.githubusercontent.com/lulu-cloud/lili_images/main/image/202311242134374.png" alt="image-20231124213451388"></p><p>其中指数的分子是表示计算两个向量的欧式距离，在计算相似矩阵S后，选取每个流的top-k相似点作为其近邻，构造无向k最近邻图。这里原文给出了一个依据KNN构造图与原始图（trace graph）的差距，通过相似度计算构建KNN流量图，使得相同应用类型的流量之间建立了更多的连接。KNN图比迹图更容易区分不同类型的流量。</p><p><img src="https://raw.githubusercontent.com/lulu-cloud/lili_images/main/image/202311242121406.png" alt="image-20221013200300337"></p><h2 id="2-3-分类模型"><a href="#2-3-分类模型" class="headerlink" title="2.3 分类模型"></a>2.3 分类模型</h2><p>&emsp;&emsp;分类模型由GCN与SAE两个部分组成</p><ul><li><p>GCN：将加密的流量分类转换为节点分类任务，考虑两层GCN架构来获取流量结构信息：</p><ul><li><p>第一层GCN的输入：邻接矩阵A和流量数据X。A是图的邻接矩阵，X是原始流量数据的矩阵</p></li><li><p>第一层输出Z<sup>(1)</sup></p><p><img src="https://img-blog.csdnimg.cn/img_convert/40b57138b85db831d173302fc1fbfff2.png" alt="image-20221013200951807"></p><p>其中：</p><script type="math/tex; mode=display">\widehat{A}=A+I</script></li></ul></li></ul><pre><code>D是度数矩阵，D^是对角阵，每个值是A^矩阵的行和，W是权重参数矩阵，外面是激活函数</code></pre><ul><li><p>第二层GCN：</p><p><img src="https://img-blog.csdnimg.cn/img_convert/e0aa71c57af64ea49c1ce2487e64d23b.png" alt="image-20221013201301290"></p><p>损失函数为交叉熵损失。</p></li></ul><ul><li><p>SAE：输入为原始流量X，输出为重构的X，最后一层编码器输出为H<sub>e</sub>，损失函数为均方差MSE损失，故模型总损失为两损失之和。</p><blockquote><p>以上两个部分并没有联结，此处作者的创新将SAE编码器的压缩输出作为辅助信息，与GCN第一层融合，送入GCN第二层，进行分类。由此有如下的Representation Delivery</p></blockquote><p><img src="https://raw.githubusercontent.com/lulu-cloud/lili_images/main/image/202311242121047.png" alt="image-20221013203608233"></p></li><li><p><strong>Representation Delivery:</strong>由于KNN流量图是通过相似度计算构造的，因此在KNN图的同一连通分量中，节点的特征更加相似。图卷积运算可能会使它们趋向于收敛于同一值，可能会混合来自不同簇的节点的特征，使它们难以区分，导致过平滑，为了缓解，进行Representation Delivery：</p><script type="math/tex; mode=display">\widetilde{Z}=(1-\phi)Z^{(1)}+\phi H^M_e</script><script type="math/tex; mode=display">\phi是一个平衡参数</script><p>，故GCN输出改为：</p><script type="math/tex; mode=display">Z^{'}=softmax({\widehat{D}}^{-1/2}\widehat{A}\widehat{D}^{-1/2}{\widehat{Z}}^{(1)}W^{(1)})</script><p>这样可以增强节点的特征表示能力，防止GCN过度强调相邻节点的关联而忽略节点本身的特征，从而提高模型分类性能。</p><hr></li></ul><h1 id="4、实验"><a href="#4、实验" class="headerlink" title="4、实验"></a>4、实验</h1><ul><li><p>由于是半监督模型，关于标记率的分析</p><p><img src="https://raw.githubusercontent.com/lulu-cloud/lili_images/main/image/202311242121660.png" alt="image-20221013203925957"></p><p>分析：在所有方法中，随着准确率上升，acc都有增加的趋势，但所提方法的曲线始终高于其他方法，而我们方法的准确率始终优于基线方法。对比结果表明，在低标记率的情况下，将流量结构信息与流量数据相结合进行加密流量分类是有效的。从图中还可以看出，当标记率从10%下降到1%时，我们的方法的准确率下降速度明显慢于其他方法，说明我们的方法具有更好的鲁棒性。</p></li><li><p>超参数分析：</p><p>K与平衡参数\phi</p><p>K取3,5,7比较好</p><p>\phi取0.5比较好</p></li><li><p>似乎没有做消融实验，似乎没有较强说服力说明这个<strong>Representation Delivery</strong>是有效的……</p></li></ul><h1 id="5、总结与思考"><a href="#5、总结与思考" class="headerlink" title="5、总结与思考"></a>5、总结与思考</h1><p>&emsp;&emsp;Representation Delivery的创新，感觉这方面没有做相应的消融实验说不过去，毕竟创新点就是这个，不做消融实验怎么说明它一定是有效的捏。</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h1 id=&quot;0、摘要&quot;&gt;&lt;a href=&quot;#0、摘要&quot; class=&quot;headerlink&quot; title=&quot;0、摘要&quot;&gt;&lt;/a&gt;0、摘要&lt;/h1&gt;&lt;p&gt;&amp;emsp;&amp;emsp;构造了一个k -最近邻(KNN)交通图来表示交通数据的结构，从流量结构和流量数据中学习特征表示，利用
       
     
     </summary>

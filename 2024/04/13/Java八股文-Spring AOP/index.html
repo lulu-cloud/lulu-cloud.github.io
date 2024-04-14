@@ -19,14 +19,11 @@
     <link rel="dns-prefetch" href="https://lulu-cloud.github.io">
     <!--SEO-->
 
-<meta name="keywords" content="实验" />
+<meta name="keywords" content="Java八股文,Spring" />
 
 
-<meta name="description" content="加密流量分类-实践4：流量过滤
-炼丹的时候，经常需要过滤无关流量
-论文的通常做法是将dns、icmp、arp、tcp握手报文删除
-以下是给出我的代码，用wirshark前后对比pcap有效
-  ..." />
+<meta name="description" content="0 写在前面
+&emsp;&emsp;Java八股文查漏补缺系列是针对Java八股复习时，针对在面试时候，问的问题可能比较深入，在JavaGuide网站中的一些八股文可能不够用，根据自己的面试经..." />
 
 
 <meta name="robots" content="all" />
@@ -37,7 +34,7 @@
 
 <title>
     
-    加密流量分类-实践4: 流量过滤 |
+    Java八股文查漏补缺-Spring-1-AOP 动态代理 |
     
     lulu-cloud
 </title>
@@ -144,16 +141,16 @@
                     <p id="process"></p>
 <article class="post">
     <div class="post-head">
-        <h1 id="加密流量分类-实践4: 流量过滤">
+        <h1 id="Java八股文查漏补缺-Spring-1-AOP 动态代理">
             
-            加密流量分类-实践4: 流量过滤
+            Java八股文查漏补缺-Spring-1-AOP 动态代理
             
         </h1>
         <div class="post-meta">
     
     <span class="categories-meta fa-wrap">
         <i class="fa fa-folder-open-o"></i>
-        <a class="category-link" href="/categories/%E7%A7%91%E7%A0%94/">科研</a> <a class="category-link" href="/categories/%E7%A7%91%E7%A0%94/%E5%8A%A0%E5%AF%86%E6%B5%81%E9%87%8F%E5%88%86%E7%B1%BB/">加密流量分类</a>
+        <a class="category-link" href="/categories/Java%E5%AD%A6%E4%B9%A0/">Java学习</a>
     </span>
     
     
@@ -161,7 +158,7 @@
         <i class="fa fa-tags"></i>
         <span class="tags-meta">
             
-            <a class="tag-none-link" href="/tags/%E5%AE%9E%E9%AA%8C/" rel="tag">实验</a>
+            <a class="tag-none-link" href="/tags/Java%E5%85%AB%E8%82%A1%E6%96%87/" rel="tag">Java八股文</a> <a class="tag-none-link" href="/tags/Spring/" rel="tag">Spring</a>
             
         </span>
     </span>
@@ -171,7 +168,7 @@
     <span class="fa-wrap">
         <i class="fa fa-clock-o"></i>
         <span class="date-meta">
-            2023/04/01</span>
+            2024/04/13</span>
     </span>
     
     <span class="fa-wrap">
@@ -183,53 +180,28 @@
 </div>
         
         
-        <p class="fa fa-exclamation-triangle warning">
-            本文于<strong>
-                378</strong>
-            天之前发表，文中内容可能已经过时。
-        </p>
-        
     </div>
     
     <div class="post-body post-content">
-        <h1 id="加密流量分类-实践4：流量过滤"><a href="#加密流量分类-实践4：流量过滤" class="headerlink" title="加密流量分类-实践4：流量过滤"></a>加密流量分类-实践4：流量过滤</h1><ul>
-<li>炼丹的时候，经常需要过滤无关流量</li>
-<li>论文的通常做法是将dns、icmp、arp、tcp握手报文删除</li>
-<li><p>以下是给出我的代码，用wirshark前后对比pcap有效</p>
-<pre><code class="lang-python">  from scapy.all import *
-  from scapy.layers.dns import DNS
-  from scapy.layers.inet import ICMP, TCP
-  from scapy.layers.l2 import ARP
-
-  def remove_pcap_errors(file_path,new_path):
-      &quot;&quot;&quot;过滤的pcap与新的pcap不冲突&quot;&quot;&quot;
-      packets = rdpcap(file_path)
-      dns_cnt = 0
-      icmp_cnt = 0
-      arp_cnt = 0
-      tcp_flags = 0
-      new_packets = []
-      for packet in packets:
-          if packet.haslayer(DNS):
-              dns_cnt+=1
-          elif packet.haslayer(ICMP):
-              icmp_cnt += 1
-          elif packet.haslayer(TCP) and (packet[TCP].flags.value==0x12 or packet[TCP].flags.value==0x02 or packet[TCP].flags.value==0x11):
-              tcp_flags+=1
-          elif packet.haslayer(ARP):
-              arp_cnt += 1
-          else:
-              new_packets.append(packet)
-      wrpcap(new_path, new_packets)
-      print(&quot;dns:&#123;&#125;个&quot;.format(dns_cnt))
-      print(&quot;icmp:&#123;&#125;个&quot;.format(icmp_cnt))
-      print(&quot;tcp握手:&#123;&#125;个&quot;.format(tcp_flags))
-      print(&quot;arp包:&#123;&#125;个&quot;.format(arp_cnt))
-</code></pre>
-</li>
-<li>处理前：<br>-<img src="https://raw.githubusercontent.com/lulu-cloud/lili_images/main/image/202311242148352.png" alt="在这里插入图片描述"></li>
-<li>处理后：<br>-<img src="https://raw.githubusercontent.com/lulu-cloud/lili_images/main/image/202311242148932.png" alt="在这里插入图片描述"></li>
-</ul>
+        <h1 id="0-写在前面"><a href="#0-写在前面" class="headerlink" title="0 写在前面"></a>0 写在前面</h1><blockquote>
+<p>&emsp;&emsp;<strong>Java八股文查漏补缺</strong>系列是针对Java八股复习时，针对在面试时候，问的问题可能比较深入，在<code>JavaGuide</code>网站中的一些八股文可能不够用，根据自己的面试经验进行一些学习补充.</p>
+<p>&emsp;&emsp;八股文背不如理解，理解深刻，知道底层原理，才能更加牢固。呜呜！直接上题</p>
+</blockquote>
+<p>本文目标：完善<code>AOP</code>、<code>动态代理</code>相关内容，<code>AOP</code>有两种，<code>SpringAOP</code>与<code>AspectJAOP</code>，前者基于代理，后者基于字节码</p>
+<h1 id="1-什么情况下AOP会失效？如何解决"><a href="#1-什么情况下AOP会失效？如何解决" class="headerlink" title="1 什么情况下AOP会失效？如何解决"></a>1 什么情况下AOP会失效？如何解决</h1><p>&emsp;&emsp;失效原因有很多，比如没有配置为Bean，切面配置不正确等，但是<strong>最符合的条件就是内部增强方法的相互调用，这样就不会触发AOP，没有走代理</strong></p>
+<p><img src="https://raw.githubusercontent.com/lulu-cloud/lili_images/main/image/202404141114338.png" alt="image-20240412130119799"></p>
+<p>解决方案：</p>
+<ol>
+<li>注入当前代理对象</li>
+</ol>
+<p><img src="https://raw.githubusercontent.com/lulu-cloud/lili_images/main/image/202404141114307.png" alt="image-20240412130302471"></p>
+<ol start="2">
+<li>暴露当前代理对象到本地线程，然后通过<code>AOPContext.currentProxy()</code>拿到当前正在调用的动态代理对象</li>
+</ol>
+<h1 id="2-两种动态代理详解"><a href="#2-两种动态代理详解" class="headerlink" title="2 两种动态代理详解"></a>2 两种动态代理详解</h1><p><img src="https://raw.githubusercontent.com/lulu-cloud/lili_images/main/image/202404141114444.png" alt="image-20240412131816267"></p>
+<h4 id="JDK代理："><a href="#JDK代理：" class="headerlink" title="JDK代理："></a>JDK代理：</h4><p>只能代理接口，目标类与代理类都是实现了接口的方法，代理类进行增强，先执行增强方法，然后<strong>通过反射调用目标类方法</strong></p>
+<h4 id="CGLib代理："><a href="#CGLib代理：" class="headerlink" title="CGLib代理："></a>CGLib代理：</h4><p>运行时生成目标类的子类，重写目标类的所有方法，然后进行增强；调用时先通过增强，然后<strong>调用父类的对应方法</strong>，如果类被<code>final</code>修饰，无法代理</p>
+<p><img src="https://raw.githubusercontent.com/lulu-cloud/lili_images/main/image/202404141114811.png" alt="image-20240412131531275"></p>
 
     </div>
     
@@ -248,17 +220,11 @@
 </article>
 <div class="article-nav prev-next-wrap clearfix">
     
-    <a href="/2023/04/04/%E5%8A%9B%E6%89%A3%E5%88%B7%E9%A2%98-%E5%8C%BA%E9%97%B4%E9%97%AE%E9%A2%98/" class="pre-post btn btn-default" title='算法学习：区间问题'>
-        <i class="fa fa-angle-left fa-fw"></i><span class="hidden-lg">上一篇</span>
-        <span class="hidden-xs">
-            算法学习：区间问题</span>
-    </a>
     
-    
-    <a href="/2023/03/11/%E6%B5%81%E9%87%8F%E9%A2%84%E5%A4%84%E7%90%86-1%EF%BC%9A%E7%89%B9%E5%BE%81%E6%8F%90%E5%8F%96/" class="next-post btn btn-default" title='加密流量分类-实践3: 特征提取'>
+    <a href="/2024/03/13/%E5%8A%9B%E6%89%A3%E5%88%B7%E9%A2%98-%E5%9B%9E%E6%BA%AF%E6%B3%95%EF%BC%88%E4%B8%80%20%E6%8E%92%E5%88%97%E7%BB%84%E5%90%88%EF%BC%89/" class="next-post btn btn-default" title='算法学习：回溯法1-排列组合问题'>
         <span class="hidden-lg">下一篇</span>
         <span class="hidden-xs">
-            加密流量分类-实践3: 特征提取</span><i class="fa fa-angle-right fa-fw"></i>
+            算法学习：回溯法1-排列组合问题</span><i class="fa fa-angle-right fa-fw"></i>
     </a>
     
 </div>
@@ -292,7 +258,7 @@
             文章目录
         </h3>
         
-        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8A%A0%E5%AF%86%E6%B5%81%E9%87%8F%E5%88%86%E7%B1%BB-%E5%AE%9E%E8%B7%B54%EF%BC%9A%E6%B5%81%E9%87%8F%E8%BF%87%E6%BB%A4"><span class="toc-text">加密流量分类-实践4：流量过滤</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#0-%E5%86%99%E5%9C%A8%E5%89%8D%E9%9D%A2"><span class="toc-text">0 写在前面</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#1-%E4%BB%80%E4%B9%88%E6%83%85%E5%86%B5%E4%B8%8BAOP%E4%BC%9A%E5%A4%B1%E6%95%88%EF%BC%9F%E5%A6%82%E4%BD%95%E8%A7%A3%E5%86%B3"><span class="toc-text">1 什么情况下AOP会失效？如何解决</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-%E4%B8%A4%E7%A7%8D%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86%E8%AF%A6%E8%A7%A3"><span class="toc-text">2 两种动态代理详解</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#JDK%E4%BB%A3%E7%90%86%EF%BC%9A"><span class="toc-text">JDK代理：</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#CGLib%E4%BB%A3%E7%90%86%EF%BC%9A"><span class="toc-text">CGLib代理：</span></a></li></ol></li></ol></li></ol></li></ol>
         
     </div>
 </aside>
