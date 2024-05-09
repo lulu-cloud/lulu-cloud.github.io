@@ -1,0 +1,532 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 6.3.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"lulu-cloud.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="0 写在前面 &amp;emsp;&amp;emsp;Java八股文查漏补缺系列是针对Java八股复习时，针对在面试时候，问的问题可能比较深入，在JavaGuide网站中的一些八股文可能不够用，根据自己的面试经验进行一些学习补充. &amp;emsp;&amp;emsp;八股文背不如理解，理解深刻，知道底层原理，才能更加牢固。呜呜！直接上题  本文目标：完善JVM垃圾回收！ 1. GC只会针对堆吗？不是的，还有方法区，后面的虚拟">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java八股文查漏补缺-JVM-3-垃圾回收">
+<meta property="og:url" content="https://lulu-cloud.github.io/2024/05/09/Java%E5%85%AB%E8%82%A1%E6%96%87-JVM3-%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/index.html">
+<meta property="og:site_name" content="lulu-cloud">
+<meta property="og:description" content="0 写在前面 &amp;emsp;&amp;emsp;Java八股文查漏补缺系列是针对Java八股复习时，针对在面试时候，问的问题可能比较深入，在JavaGuide网站中的一些八股文可能不够用，根据自己的面试经验进行一些学习补充. &amp;emsp;&amp;emsp;八股文背不如理解，理解深刻，知道底层原理，才能更加牢固。呜呜！直接上题  本文目标：完善JVM垃圾回收！ 1. GC只会针对堆吗？不是的，还有方法区，后面的虚拟">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="d:\Blog\github\hexo\source\_posts\assets\image-20240422165037815.png">
+<meta property="article:published_time" content="2024-05-09T15:46:29.000Z">
+<meta property="article:modified_time" content="2024-05-09T14:25:33.575Z">
+<meta property="article:author" content="luluX">
+<meta property="article:tag" content="Java八股文">
+<meta property="article:tag" content="JVM">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="d:\Blog\github\hexo\source\_posts\assets\image-20240422165037815.png">
+
+<link rel="canonical" href="https://lulu-cloud.github.io/2024/05/09/Java%E5%85%AB%E8%82%A1%E6%96%87-JVM3-%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Java八股文查漏补缺-JVM-3-垃圾回收 | lulu-cloud</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">lulu-cloud</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://lulu-cloud.github.io/2024/05/09/Java%E5%85%AB%E8%82%A1%E6%96%87-JVM3-%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/ava.jpg">
+      <meta itemprop="name" content="luluX">
+      <meta itemprop="description" content="lulu-cloud的个人GitHub博客">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="lulu-cloud">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Java八股文查漏补缺-JVM-3-垃圾回收
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2024-05-09 23:46:29 / 修改时间：22:25:33" itemprop="dateCreated datePublished" datetime="2024-05-09T23:46:29+08:00">2024-05-09</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Java%E5%AD%A6%E4%B9%A0/" itemprop="url" rel="index"><span itemprop="name">Java学习</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="0-写在前面"><a href="#0-写在前面" class="headerlink" title="0 写在前面"></a>0 写在前面</h1><blockquote>
+<p>&emsp;&emsp;<strong>Java八股文查漏补缺</strong>系列是针对Java八股复习时，针对在面试时候，问的问题可能比较深入，在<code>JavaGuide</code>网站中的一些八股文可能不够用，根据自己的面试经验进行一些学习补充.</p>
+<p>&emsp;&emsp;八股文背不如理解，理解深刻，知道底层原理，才能更加牢固。呜呜！直接上题</p>
+</blockquote>
+<p>本文目标：完善JVM垃圾回收！</p>
+<h1 id="1-GC只会针对堆吗？"><a href="#1-GC只会针对堆吗？" class="headerlink" title="1. GC只会针对堆吗？"></a>1. GC只会针对堆吗？</h1><p>不是的，还有<strong>方法区</strong>，后面的虚拟机栈GPT可能说的不对，反正GC的区域重点是堆，然后方法区！</p>
+<p><img src="D:\Blog\github\hexo\source\_posts\assets\image-20240422165037815.png" alt="image-20240422165037815"></p>
+<h1 id="2-如何判定一个对象是否可以回收？"><a href="#2-如何判定一个对象是否可以回收？" class="headerlink" title="2. 如何判定一个对象是否可以回收？"></a>2. 如何判定一个对象是否可以回收？</h1><h2 id="2-1-引用计数法"><a href="#2-1-引用计数法" class="headerlink" title="2.1 引用计数法"></a>2.1 引用计数法</h2><p>遇到循环引用，寄</p>
+<h2 id="2-2-可达性分析法（-）"><a href="#2-2-可达性分析法（-）" class="headerlink" title="2.2 可达性分析法（*）"></a>2.2 可达性分析法（*）</h2><p>通过GC Roots的对象作为起始点回收，不可达的都回收掉</p>
+<p>哪些对象可以作为GC Roots对象？</p>
+<ul>
+<li>虚拟机栈中、本地方法栈引用的对象</li>
+<li>方法区中常量引用、类的静态引用的对象</li>
+</ul>
+<h1 id="3-四大引用类型"><a href="#3-四大引用类型" class="headerlink" title="3. 四大引用类型"></a>3. 四大引用类型</h1><ul>
+<li>强引用：new出来的，不会回收</li>
+<li>软引用：内存不够的时候回收</li>
+<li>弱引用：被弱引用关联的对象在下次GC时一定回收</li>
+<li>虚引用：一个对象是否有虚引用的存在，完全不会对其生存时间构成影响，也无法通过虚引用取得一个对象。为一个对象设置虚引用关联的唯一目的就是能在这个对象被回收时收到一个系统通知。</li>
+</ul>
+<h1 id="4-垃圾回收算法"><a href="#4-垃圾回收算法" class="headerlink" title="4. 垃圾回收算法"></a>4. 垃圾回收算法</h1><ul>
+<li><p>标记-清除：会产生大量内存碎片</p>
+</li>
+<li><p>标记-整理：慢！</p>
+</li>
+<li><p>复制：每次只使用了一半内存，存活的对象复制到另一边上，然后清理当前区域</p>
+<blockquote>
+<p>新生代中，Eden与from是这样的，每次清理Eden与from，剩下存活的复制到to中</p>
+</blockquote>
+</li>
+<li><p>分代：新生代复制，老生代标记-清除或者标记整理</p>
+</li>
+</ul>
+<h1 id="5-垃圾回收器"><a href="#5-垃圾回收器" class="headerlink" title="5. 垃圾回收器"></a>5. 垃圾回收器</h1><h2 id="5-1-CMS收集器"><a href="#5-1-CMS收集器" class="headerlink" title="5.1 CMS收集器"></a>5.1 CMS收集器</h2><p>英文名：Concurrent Mark Sweep 标记-清除，只能对老生代</p>
+<ul>
+<li>目标：最短回收停顿时间</li>
+<li><p>流程：</p>
+<ol>
+<li>初始标记：暂停所有线程，记录与GC roots直接关联的对象，需要停顿</li>
+<li>并发标记：启用所有线程，进行GC roots Trace！耗时最长，无需停顿</li>
+<li>重新标记：修正因为上述线程继续运作的一些标记偏差，需要停顿</li>
+<li>并发清除：无需停顿</li>
+</ol>
+</li>
+<li><p>缺点：</p>
+<ul>
+<li>吞吐量烂</li>
+<li>无法处理浮动垃圾</li>
+<li>有内存碎片</li>
+</ul>
+</li>
+</ul>
+<h2 id="5-2-G1收集器"><a href="#5-2-G1收集器" class="headerlink" title="5.2 G1收集器"></a>5.2 G1收集器</h2><p>英文名Garbage-First，对新生代与老生代通吃！</p>
+<p>G1 把堆划分成多个大小相等的<strong>独立区域(Region)</strong>，新生代和老年代不再物理隔离。</p>
+<ul>
+<li>目标：引入了区域概念，达到了可预测的停顿时间</li>
+<li>流程：<ol>
+<li>初始标记</li>
+<li>并发标记</li>
+<li>最终标记：修正在并发标记期间因用户程序继续运作而导致标记产生变动的那一部分标记记录</li>
+<li>筛选回收：对各个 Region 中的回收价值和成本进行<strong>排序</strong>，根据用户所期望的 GC 停顿时间来制定回收计划。此阶段其实也可以做到与用户程序一起并发执行，但是因为只回收一部分 Region，时间是用户可控制的，而且停顿用户线程将大幅度提高收集效率<ul>
+<li>整体上：标记整理</li>
+<li>局部上：两个Region是复制算法</li>
+</ul>
+</li>
+</ol>
+</li>
+</ul>
+<h1 id="6-内存分配策略"><a href="#6-内存分配策略" class="headerlink" title="6. 内存分配策略"></a>6. 内存分配策略</h1><ol>
+<li><p>对象优先在Eden</p>
+</li>
+<li><p>大对象直接老生代</p>
+</li>
+<li><p>长期存活的放入老生代，有阈值</p>
+</li>
+<li><p>动态判定进入老生代，不一定达到阈值：如果在 Survivor 中相同年龄所有对象大小的总和大于 Survivor 空间的一半，则年龄大于或等于该年龄的对象可以直接进入老年代</p>
+</li>
+<li><p>空间担保机制：在Minor GC时，JVM检查老生代的最大连续可用空间是否大于新生代所有对象空间，</p>
+<ul>
+<li><p>如果成立，发生MinorGC</p>
+</li>
+<li><p>否则，查看查看一个设定的值<code>HandlePromotionFailure</code>是否允许担保失败，如果是</p>
+<ul>
+<li><p>查看老年代最大连续可用空间是否大于历次晋升到老年代对象的评价大，如果是</p>
+<ul>
+<li>尝试MinorGC</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>进行Full GC</p>
+</li>
+</ul>
+</li>
+</ol>
+<h1 id="7-GC触发条件"><a href="#7-GC触发条件" class="headerlink" title="7. GC触发条件"></a>7. GC触发条件</h1><ul>
+<li>Minor GC：当Eden满，触发</li>
+<li>Full GC：<ul>
+<li>System.gc()</li>
+<li>老年代空间不足</li>
+<li>空间担保失败</li>
+</ul>
+</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Java%E5%85%AB%E8%82%A1%E6%96%87/" rel="tag"># Java八股文</a>
+              <a href="/tags/JVM/" rel="tag"># JVM</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2024/05/09/Java%E5%85%AB%E8%82%A1%E6%96%87-JVM2-%E7%B1%BB%E5%8A%A0%E8%BD%BD/" rel="prev" title="Java八股文查漏补缺-JVM-2-类加载解析">
+      <i class="fa fa-chevron-left"></i> Java八股文查漏补缺-JVM-2-类加载解析
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#0-%E5%86%99%E5%9C%A8%E5%89%8D%E9%9D%A2"><span class="nav-number">1.</span> <span class="nav-text">0 写在前面</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#1-GC%E5%8F%AA%E4%BC%9A%E9%92%88%E5%AF%B9%E5%A0%86%E5%90%97%EF%BC%9F"><span class="nav-number">2.</span> <span class="nav-text">1. GC只会针对堆吗？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-%E5%A6%82%E4%BD%95%E5%88%A4%E5%AE%9A%E4%B8%80%E4%B8%AA%E5%AF%B9%E8%B1%A1%E6%98%AF%E5%90%A6%E5%8F%AF%E4%BB%A5%E5%9B%9E%E6%94%B6%EF%BC%9F"><span class="nav-number">3.</span> <span class="nav-text">2. 如何判定一个对象是否可以回收？</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-%E5%BC%95%E7%94%A8%E8%AE%A1%E6%95%B0%E6%B3%95"><span class="nav-number">3.1.</span> <span class="nav-text">2.1 引用计数法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-%E5%8F%AF%E8%BE%BE%E6%80%A7%E5%88%86%E6%9E%90%E6%B3%95%EF%BC%88-%EF%BC%89"><span class="nav-number">3.2.</span> <span class="nav-text">2.2 可达性分析法（*）</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-%E5%9B%9B%E5%A4%A7%E5%BC%95%E7%94%A8%E7%B1%BB%E5%9E%8B"><span class="nav-number">4.</span> <span class="nav-text">3. 四大引用类型</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E7%AE%97%E6%B3%95"><span class="nav-number">5.</span> <span class="nav-text">4. 垃圾回收算法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#5-%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6%E5%99%A8"><span class="nav-number">6.</span> <span class="nav-text">5. 垃圾回收器</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#5-1-CMS%E6%94%B6%E9%9B%86%E5%99%A8"><span class="nav-number">6.1.</span> <span class="nav-text">5.1 CMS收集器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-2-G1%E6%94%B6%E9%9B%86%E5%99%A8"><span class="nav-number">6.2.</span> <span class="nav-text">5.2 G1收集器</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#6-%E5%86%85%E5%AD%98%E5%88%86%E9%85%8D%E7%AD%96%E7%95%A5"><span class="nav-number">7.</span> <span class="nav-text">6. 内存分配策略</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#7-GC%E8%A7%A6%E5%8F%91%E6%9D%A1%E4%BB%B6"><span class="nav-number">8.</span> <span class="nav-text">7. GC触发条件</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="luluX"
+      src="/images/ava.jpg">
+  <p class="site-author-name" itemprop="name">luluX</p>
+  <div class="site-description" itemprop="description">lulu-cloud的个人GitHub博客</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">32</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">7</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/lulu-cloud" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;lulu-cloud" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+  </div>
+
+
+  <div class="links-of-blogroll motion-element">
+    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
+      Links
+    </div>
+    <ul class="links-of-blogroll-list">
+        <li class="links-of-blogroll-item">
+          <a href="https://blog.csdn.net/qq_45125356?spm=1001.2101.3001.5343" title="https:&#x2F;&#x2F;blog.csdn.net&#x2F;qq_45125356?spm&#x3D;1001.2101.3001.5343" rel="noopener" target="_blank">CSDN博客</a>
+        </li>
+    </ul>
+  </div>
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">luluX</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
