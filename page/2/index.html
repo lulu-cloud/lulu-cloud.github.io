@@ -1,2136 +1,911 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML>
 <html lang="zh-CN">
+
 <head>
-  <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-<meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 6.3.0">
-  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
-  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+    <!--Setting-->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+    <meta http-equiv="Cache-Control" content="no-siteapp">
+    <meta http-equiv="Cache-Control" content="no-transform">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <meta name="apple-mobile-web-app-capable" content="lulu-cloud">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="format-detection" content="telephone=no,email=no,adress=no">
+    <meta name="browsermode" content="application">
+    <meta name="screen-orientation" content="portrait">
+    <meta name="theme-version" content="1.3.0">
+    <meta name="root" content="/">
+    <link rel="dns-prefetch" href="https://lulu-cloud.github.io">
+    <!--SEO-->
 
-<link rel="stylesheet" href="/css/main.css">
-
-
-<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
-
-<script id="hexo-configurations">
-    var NexT = window.NexT || {};
-    var CONFIG = {"hostname":"lulu-cloud.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":false,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
-  </script>
-
-  <meta name="description" content="lulu-cloud的个人GitHub博客">
-<meta property="og:type" content="website">
-<meta property="og:title" content="lulu-cloud">
-<meta property="og:url" content="https://lulu-cloud.github.io/page/2/index.html">
-<meta property="og:site_name" content="lulu-cloud">
-<meta property="og:description" content="lulu-cloud的个人GitHub博客">
-<meta property="og:locale" content="zh_CN">
-<meta property="article:author" content="luluX">
-<meta name="twitter:card" content="summary">
-
-<link rel="canonical" href="https://lulu-cloud.github.io/page/2/">
+<meta name="keywords" content="" />
 
 
-<script id="page-configurations">
-  // https://hexo.io/docs/variables.html
-  CONFIG.page = {
-    sidebar: "",
-    isHome : true,
-    isPost : false,
-    lang   : 'zh-CN'
-  };
-</script>
-
-  <title>lulu-cloud</title>
-  
+<meta name="description" content="lulu-cloud的个人GitHub博客" />
 
 
+<meta name="robots" content="all" />
+<meta name="google" content="all" />
+<meta name="googlebot" content="all" />
+<meta name="verify" content="all" />
+    <!--Title-->
+
+<title>
+    
+    lulu-cloud
+</title>
+
+<link rel="alternate" href="/atom.xml" title="lulu-cloud" type="application/atom+xml">
 
 
-
-
-  <noscript>
-  <style>
-  .use-motion .brand,
-  .use-motion .menu-item,
-  .sidebar-inner,
-  .use-motion .post-block,
-  .use-motion .pagination,
-  .use-motion .comments,
-  .use-motion .post-header,
-  .use-motion .post-body,
-  .use-motion .collection-header { opacity: initial; }
-
-  .use-motion .site-title,
-  .use-motion .site-subtitle {
-    opacity: initial;
-    top: initial;
-  }
-
-  .use-motion .logo-line-before i { left: initial; }
-  .use-motion .logo-line-after i { right: initial; }
-  </style>
-</noscript>
-
-</head>
-
-<body itemscope itemtype="http://schema.org/WebPage">
-  <div class="container use-motion">
-    <div class="headband"></div>
-
-    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
-      <div class="header-inner"><div class="site-brand-container">
-  <div class="site-nav-toggle">
-    <div class="toggle" aria-label="切换导航栏">
-      <span class="toggle-line toggle-line-first"></span>
-      <span class="toggle-line toggle-line-middle"></span>
-      <span class="toggle-line toggle-line-last"></span>
-    </div>
-  </div>
-
-  <div class="site-meta">
-
-    <a href="/" class="brand" rel="start">
-      <span class="logo-line-before"><i></i></span>
-      <h1 class="site-title">lulu-cloud</h1>
-      <span class="logo-line-after"><i></i></span>
-    </a>
-  </div>
-
-  <div class="site-nav-right">
-    <div class="toggle popup-trigger">
-    </div>
-  </div>
-</div>
-
-
-
-
-<nav class="site-nav">
-  <ul id="menu" class="main-menu menu">
-        <li class="menu-item menu-item-home">
-
-    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
-
-  </li>
-        <li class="menu-item menu-item-about">
-
-    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
-
-  </li>
-        <li class="menu-item menu-item-tags">
-
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签</a>
-
-  </li>
-        <li class="menu-item menu-item-categories">
-
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
-
-  </li>
-        <li class="menu-item menu-item-archives">
-
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
-
-  </li>
-  </ul>
-</nav>
-
-
-
-
-</div>
-    </header>
+<link rel="icon" href="/favicon.ico">
 
     
-  <div class="back-to-top">
-    <i class="fa fa-arrow-up"></i>
-    <span>0%</span>
-  </div>
 
 
-    <main class="main">
-      <div class="main-inner">
-        <div class="content-wrap">
-          
+<link rel="stylesheet" href="/css/bootstrap.min.css?rev=3.3.7.css">
+<link rel="stylesheet" href="/css/font-awesome.min.css?rev=4.7.0.css">
+<link rel="stylesheet" href="/css/style.css?rev=@@hash.css">
 
-          <div class="content index posts-expand">
+    
+<div class="hide">
+    <script type="text/javascript">
+    var cnzz_protocol = (("https:" == document.location.protocol) ? " https://" : " http://");
+    document.write(unescape("%3Cspan class='cnzz_stat_icon_1263868967 hide' %3E%3Cscript%20src%3D%22https%3A%2F%2Fs95.cnzz.com%2Fz_stat.php%3Fweb_id%3D1272564536%22%3E%3C%2Fscript%3E%3C/span%3E%3Cscript src='" + cnzz_protocol + "s19.cnzz.com/z_stat.php%3Fid%3D1263868967%26show%3Dpic1' type='text/javascript'%3E%3C/script%3E"));
+    </script>
+</div>
+
+
+
+
+    
+
+<meta name="generator" content="Hexo 6.3.0"></head>
+<!--[if lte IE 8]>
+<style>
+    html{ font-size: 1em }
+</style>
+<![endif]-->
+<!--[if lte IE 9]>
+<div style="ie">你使用的浏览器版本过低，为了你更好的阅读体验，请更新浏览器的版本或者使用其他现代浏览器，比如Chrome、Firefox、Safari等。</div>
+<![endif]-->
+<body>
+    <header class="main-header"  style="background-image:url(
+    /./img/duolaAAA.git)"
+     >
+    <div class="main-header-box">
+        <a class="header-avatar" href="/" title='luluX'>
+            <img src="/img/avatar.jpg" alt="logo头像" class="img-responsive center-block">
+        </a>
+        <div class="branding">
+            <!--<h2 class="text-hide">Snippet主题,从未如此简单有趣</h2>-->
             
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://lulu-cloud.github.io/2024/02/22/%E5%8A%9B%E6%89%A3%E5%88%B7%E9%A2%98-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%EF%BC%88%E4%B8%80%20%E6%89%93%E5%AE%B6%E5%8A%AB%E8%88%8D%EF%BC%89/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/ava.jpg">
-      <meta itemprop="name" content="luluX">
-      <meta itemprop="description" content="lulu-cloud的个人GitHub博客">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="lulu-cloud">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2024/02/22/%E5%8A%9B%E6%89%A3%E5%88%B7%E9%A2%98-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%EF%BC%88%E4%B8%80%20%E6%89%93%E5%AE%B6%E5%8A%AB%E8%88%8D%EF%BC%89/" class="post-title-link" itemprop="url">算法学习：动态规划1-打家劫舍</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2024-02-22 17:02:18" itemprop="dateCreated datePublished" datetime="2024-02-22T17:02:18+08:00">2024-02-22</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-04-13 17:20:59" itemprop="dateModified" datetime="2024-04-13T17:20:59+08:00">2024-04-13</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">数据结构与算法</span></a>
-                </span>
-            </span>
-
-          
-
+            <img src="/img/branding.png" alt="Snippet 博客主题" class="img-responsive center-block">
+            
         </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="递推关系"><a href="#递推关系" class="headerlink" title="递推关系"></a>递推关系</h1><p>&emsp;&emsp;设置dp[i]为当前打劫到第i个户的最大收益，那么，当前收益等于<strong>前一个户的最大收益</strong>与<strong>前两个户的最大收益加上当前户的收益</strong>的最大值：</p>
-<script type="math/tex; mode=display">
-dp[i] = max(dp[i-1],dp[i-2]+nums[i])</script><h1 id="边界条件"><a href="#边界条件" class="headerlink" title="边界条件"></a>边界条件</h1><ol>
-<li>数组长度为0的情况</li>
-<li>数组长度为1的情况</li>
-<li>dp[0]为第一户的收益，dp[1]为前两个户收益的最大值</li>
-</ol>
-<h1 id="代码"><a href="#代码" class="headerlink" title="代码"></a>代码</h1><pre><code class="lang-java">class Solution &#123;
-    public int rob(int[] nums) &#123;
-        if(nums==null||nums.length==0)&#123;
-            return 0;
-        &#125;
-        int len = nums.length;
-        if(len==1)&#123;
-            return nums[0];
-        &#125;
-        int[]dp = new int[len];
-        dp[0] = nums[0];
-        dp[1] = Math.max(dp[0],nums[1]);
-        for(int i = 2;i&lt;len;i++)&#123;
-            //当前的dp = max(前一个dp值,前两个dp值+当前值)
-            dp[i] = Math.max(dp[i-1],dp[i-2]+nums[i]);
-        &#125;
-        return dp[len-1];
-    &#125;
-&#125;
-</code></pre>
-
-      
     </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://lulu-cloud.github.io/2023/12/11/%E6%B5%81%E9%87%8F%E9%A2%84%E5%A4%84%E7%90%86-3%EF%BC%9A%E5%88%A9%E7%94%A8cic-flowmeter%E5%B7%A5%E5%85%B7%E6%8F%90%E5%8F%96%E6%B5%81%E9%87%8F%E7%89%B9%E5%BE%81/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/ava.jpg">
-      <meta itemprop="name" content="luluX">
-      <meta itemprop="description" content="lulu-cloud的个人GitHub博客">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="lulu-cloud">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/12/11/%E6%B5%81%E9%87%8F%E9%A2%84%E5%A4%84%E7%90%86-3%EF%BC%9A%E5%88%A9%E7%94%A8cic-flowmeter%E5%B7%A5%E5%85%B7%E6%8F%90%E5%8F%96%E6%B5%81%E9%87%8F%E7%89%B9%E5%BE%81/" class="post-title-link" itemprop="url">加密流量分类-实践5: 利用CIC-FlowMeter工具提取流量特征</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2023-12-11 10:48:14 / 修改时间：10:58:42" itemprop="dateCreated datePublished" datetime="2023-12-11T10:48:14+08:00">2023-12-11</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%A7%91%E7%A0%94/" itemprop="url" rel="index"><span itemprop="name">科研</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%A7%91%E7%A0%94/%E5%8A%A0%E5%AF%86%E6%B5%81%E9%87%8F%E5%88%86%E7%B1%BB/" itemprop="url" rel="index"><span itemprop="name">加密流量分类</span></a>
-                </span>
-            </span>
-
-          
-
+</header>
+    <nav class="main-navigation">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="navbar-header"><span class="nav-toggle-button collapsed pull-right" data-toggle="collapse" data-target="#main-menu" id="mnav">
+                        <span class="sr-only"></span>
+                        <i class="fa fa-bars"></i>
+                    </span>
+                    <a class="navbar-brand" href="https://lulu-cloud.github.io">
+                        lulu-cloud</a>
+                </div>
+                <div class="collapse navbar-collapse" id="main-menu">
+                    <ul class="menu">
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/"><i class="fa "></i>
+                                首页</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/科研/"><i class="fa "></i>
+                                科研</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/数据结构与算法/"><i class="fa "></i>
+                                数据结构与算法</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/categories/Java学习/"><i class="fa "></i>
+                                Java学习</a>
+                        </li>
+                        
+                        <li role="presentation" class="text-center">
+                            <a href="/archives/"><i class="fa "></i>
+                                时间轴</a>
+                        </li>
+                        
+                    </ul>
+                </div>
+            </div>
         </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="加密流量分类-实践5-利用CIC-FlowMeter工具提取流量特征"><a href="#加密流量分类-实践5-利用CIC-FlowMeter工具提取流量特征" class="headerlink" title="加密流量分类-实践5: 利用CIC-FlowMeter工具提取流量特征"></a>加密流量分类-实践5: 利用CIC-FlowMeter工具提取流量特征</h1><h2 id="1-前言"><a href="#1-前言" class="headerlink" title="1 前言"></a>1 前言</h2><p>&emsp;&emsp;许多研究工作基于<code>CIC-FlowMeter</code>工具提取的csv文件的基础上进行的,目前开源的<code>CIC-FlowMeter</code>工具要么使用jdk编译，要么是给出一个exe可执行文件然后使用图形化界面一个一个处理pcap，在处理大量pacp文件很麻烦，如下图。</p>
-<p><img src="https://raw.githubusercontent.com/lulu-cloud/lili_images/main/image/202312111048240.png" alt="离线处理pcap"></p>
-<h2 id="2-代码"><a href="#2-代码" class="headerlink" title="2 代码"></a>2 代码</h2><p>这里基于给出的exe可执行文件，利用python脚本批量处理pcap转化为csv文件。</p>
-<pre><code class="lang-python">import os
-
-def generate_batch_csv(pcap_dir,csv_dir,cic_path):
-    &quot;&quot;&quot;批量将pcap转csv&quot;&quot;&quot;
-    for label in os.listdir(pcap_dir):
-        label_path = os.path.join(pcap_dir, label)
-        csv_label_dir = os.path.join(csv_dir,label)
-        if not os.path.exists(csv_label_dir):
-            os.makedirs(csv_label_dir)
-        for pcap in os.listdir(label_path):
-            pcap_file = os.path.join(label_path,pcap)
-            print(f&quot;Analyzing &#123;pcap_file&#125;...&quot;)
-            # 调用cfm.bat脚本对pcap文件进行分析
-            os.chdir(cic_path)
-            os.system(f&#39;call cfm.bat &quot;&#123;pcap_file&#125;&quot; &quot;&#123;csv_label_dir&#125;&quot;&#39;)
-            print(&quot;Done.&quot;)
-        print(&quot;完成了&#123;&#125;的处理&quot;.format(label))
-    print(&quot;所有的都处理完成&quot;)
-
-def main():
-    # 设置pcap和csv文件夹路径
-    pcap_dir = r&quot;xxx&quot;
-    csv_dir = r&quot;xx&quot;
-    cic_dir = r&quot;xx&quot;
-    generate_batch_csv(pcap_dir,csv_dir,cic_dir)
-
-
-if __name__ == &quot;__main__&quot;:
-    main()
-</code></pre>
-<h2 id="3-参数解释与执行效果"><a href="#3-参数解释与执行效果" class="headerlink" title="3 参数解释与执行效果"></a>3 参数解释与执行效果</h2><h3 id="3-1-参数解释"><a href="#3-1-参数解释" class="headerlink" title="3.1 参数解释"></a>3.1 参数解释</h3><ul>
-<li><p><code>pcap_dir</code>:是原始pcap所在的目录，底下是各个标签的目录与对应的pcap，具体如下</p>
-<pre><code>---pcap_dir
-   -- label_0_dir:
-      --- label_0_pcap_0
-      --- label_0_pcap_1
-      --- label_0_pcap_2
-      ...
-   -- label_1_dir:
-      --- label_1_pcap_0
-      --- label_1_pcap_1
-      --- label_1_pcap_2
-      ...
-  ...
-  --- lable_n-1_dir:
-      --- label_n-1_pcap_0
-      --- label_n-1_pcap_1
-      --- label_n-1_pcap_2
-</code></pre></li>
-<li><p><code>csv_dir</code>:是将csv文件存储的文件夹</p>
-</li>
-<li><p><code>cic_dir</code>:是cic工具的<code>bin</code>目录的所在路径</p>
-<blockquote>
-<p>我这里的示例</p>
-<ul>
-<li><p><code>pcap_dir</code>:</p>
-<p><img src="https://raw.githubusercontent.com/lulu-cloud/lili_images/main/image/202312111049512.png" alt="image-20231211104050740"></p>
-</li>
-<li><p><code>csv_dir</code>:</p>
-<p>随意新建一个文件夹</p>
-</li>
-<li><p><code>cic_dir</code>:</p>
-<p><img src="https://raw.githubusercontent.com/lulu-cloud/lili_images/main/image/202312111048581.png" alt="image-20231211104333732"></p>
-</li>
-</ul>
-</blockquote>
-</li>
-</ul>
-<h3 id="3-2-执行效果"><a href="#3-2-执行效果" class="headerlink" title="3.2 执行效果"></a>3.2 执行效果</h3><ol>
-<li><p>截图</p>
-<p><img src="https://raw.githubusercontent.com/lulu-cloud/lili_images/main/image/202312111048727.png" alt="image-20231211104723276"></p>
-</li>
-<li><p>成果</p>
-</li>
-</ol>
-<p><img src="https://raw.githubusercontent.com/lulu-cloud/lili_images/main/image/202312111048293.png" alt="image-20231211104541121"></p>
-<p> 以<code>iscx-vpn-novpn2016</code>数据集为例，6分钟搞定</p>
-
-      
     </div>
+</nav>
+    <section class="content-wrap">
+        <div class="container">
+            <div class="row">
+                <main class="col-md-8 main-content ">
+                    
+<div class="carousel">
+    <a href="https://lulu-cloud.github.io" target="_blank">
+        <img src="/./img/duolaA.jpg" alt="">
+    </a>
+</div>
 
+
+
+
+<article class="post">
     
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://lulu-cloud.github.io/2023/12/05/tor-%E7%BD%91%E6%A1%A5%E9%85%8D%E7%BD%AE/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/ava.jpg">
-      <meta itemprop="name" content="luluX">
-      <meta itemprop="description" content="lulu-cloud的个人GitHub博客">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="lulu-cloud">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/12/05/tor-%E7%BD%91%E6%A1%A5%E9%85%8D%E7%BD%AE/" class="post-title-link" itemprop="url">Tor网络构建(1)-obfs4网桥配置</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2023-12-05 15:45:14" itemprop="dateCreated datePublished" datetime="2023-12-05T15:45:14+08:00">2023-12-05</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-04-13 17:10:29" itemprop="dateModified" datetime="2024-04-13T17:10:29+08:00">2024-04-13</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%A7%91%E7%A0%94/" itemprop="url" rel="index"><span itemprop="name">科研</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%A7%91%E7%A0%94/Tor/" itemprop="url" rel="index"><span itemprop="name">Tor</span></a>
-                </span>
-            </span>
-
-          
-
+    <div class="post-content">
+        <div class="post-head home-post-head">
+            <h1 class="post-title">
+                <a href="/2024/02/22/%E5%8A%9B%E6%89%A3%E5%88%B7%E9%A2%98-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%EF%BC%88%E4%B8%80%20%E6%89%93%E5%AE%B6%E5%8A%AB%E8%88%8D%EF%BC%89/">
+                    算法学习：动态规划1-打家劫舍</a>
+            </h1>
+            <div class="post-meta"> &bull;
+                <time class="post-date" datetime="" title="">
+                    2024年02月22日
+                </time>
+            </div>
         </div>
-      </header>
+        <p class="brief">
+            
+            递推关系&amp;emsp;&amp;emsp;设置dp[i]为当前打劫到第i个户的最大收益，那么，当前收益等于前一个户的最大收益与前两个户的最大收益加上当前户的收益的最大值：
 
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="实验目标"><a href="#实验目标" class="headerlink" title="实验目标"></a>实验目标</h1><blockquote>
-<p> 搭配tor的obfs4网桥，本地tor浏览器使用该网桥访问tor网络</p>
-</blockquote>
-<h1 id="实验需求"><a href="#实验需求" class="headerlink" title="实验需求"></a>实验需求</h1><ol>
-<li>本地windows客户端需要下载tor浏览器</li>
-<li>准备一台海外vps，能有公网ip进行访问</li>
-</ol>
-<h1 id="实验步骤"><a href="#实验步骤" class="headerlink" title="实验步骤"></a>实验步骤</h1><h2 id="1-网桥vps配置"><a href="#1-网桥vps配置" class="headerlink" title="1 网桥vps配置"></a>1 网桥vps配置</h2><h3 id="安装tor与obfs4"><a href="#安装tor与obfs4" class="headerlink" title="安装tor与obfs4"></a>安装tor与obfs4</h3><pre><code>apt-get install tor -y
-apt-get install obfs4proxy -y
-</code></pre><h3 id="安装nyx监控工具"><a href="#安装nyx监控工具" class="headerlink" title="安装nyx监控工具"></a>安装nyx监控工具</h3><pre><code>apt-get install nyx -y
-</code></pre><h3 id="修改tor配置文件"><a href="#修改tor配置文件" class="headerlink" title="修改tor配置文件"></a>修改tor配置文件</h3><ol>
-<li>使用该命令修改配置文件</li>
-</ol>
-<pre><code>vi /etc/tor/torrc
-</code></pre><ol>
-<li>按照官网给出的示例demo，修改</li>
-</ol>
-<pre><code>BridgeRelay 1
-ORPort port1
-
-ServerTransportPlugin obfs4 exec /usr/bin/obfs4proxy
-
-
-ServerTransportListenAddr obfs4 0.0.0.0:port2
-
-
-ExtORPort auto
-
-PublishServerDescriptor 0
-
-Nickname yourName
-</code></pre><blockquote>
-<p>port1与port2都是自定义的，同时修改vps的防火墙将该两个端口打开</p>
-</blockquote>
-<h3 id="重启tor，记录机器指纹与证书"><a href="#重启tor，记录机器指纹与证书" class="headerlink" title="重启tor，记录机器指纹与证书"></a>重启tor，记录机器指纹与证书</h3><p>使用命令重启tor，然后使用nyx工具进行监控</p>
-<pre><code>systemctl restart tor
-</code></pre><pre><code>nyx
-</code></pre><p><img src="https://raw.githubusercontent.com/lulu-cloud/lili_images/main/image/202312051527105.png" alt="image-20231205151255192"></p>
-<blockquote>
-<ol>
-<li><p>获取指纹</p>
-<pre><code>cat /var/lib/tor/fingerprint
-</code></pre><p>该字符串其实就是nyx界面的右上角的fingerprint</p>
-<p><img src="D:\Blog\github\hexo\source\_posts\assets\image-20231206092956574.png" alt="image-20231206092956574"></p>
-</li>
-<li><p>获取证书</p>
-<pre><code>cat /var/lib/tor/pt_state/obfs4_bridgeline.txt
-</code></pre><p><img src="https://raw.githubusercontent.com/lulu-cloud/lili_images/main/image/202312051528606.png" alt="image-20231205152826903"></p>
-<p><code>Bridge obfs4 &lt;IP ADDRESS&gt;:&lt;PORT&gt; &lt;FINGERPRINT&gt; cert=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx iat-mode=0</code></p>
-</li>
-</ol>
-</blockquote>
-<h2 id="2-本地客户端配置"><a href="#2-本地客户端配置" class="headerlink" title="2 本地客户端配置"></a>2 本地客户端配置</h2><ol>
-<li><p>手动选择网桥</p>
-<p><img src="https://raw.githubusercontent.com/lulu-cloud/lili_images/main/image/202312051528646.png" alt="image-20231205152036696"></p>
-</li>
-<li><p>填入网桥</p>
-<p>根据第一大部分得到的信息，按照如下格式填充网桥字符串</p>
-<p><code>obfs4 你的vps ip地址:port2 指纹 cert=证书 iat-mode=0</code></p>
-</li>
-<li><p>开始上网</p>
-<blockquote>
-<p>在没有科学上网的环境下尝试访问youtube，点左上角的线路可以看到中继转发情况，通过配置的网桥，然后经历一个普通中继与出口中继转发到目的网络。</p>
-<p><img src="https://raw.githubusercontent.com/lulu-cloud/lili_images/main/image/202312051528923.png" alt="image-20231205152419619"></p>
-</blockquote>
-</li>
-</ol>
-<blockquote>
-<p>在浏览器同步点击的时候，nyx查看到vps的流量是有突发的上下行流量的</p>
-<p><img src="https://raw.githubusercontent.com/lulu-cloud/lili_images/main/image/202312051528493.png" alt="image-20231205152637974"></p>
-</blockquote>
-
-      
+dp[i] = max(dp[i-1],dp[i-2]+nums[i]...
+            
+        </p>
     </div>
-
     
+    <footer class="post-footer clearfix">
+        <div class="pull-left tag-list">
+            <div class="post-meta">
     
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://lulu-cloud.github.io/2023/04/12/%E5%8A%9B%E6%89%A3%E5%88%B7%E9%A2%98-%E5%9B%BE-%E6%8B%93%E6%89%91%E6%8E%92%E5%BA%8F/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/ava.jpg">
-      <meta itemprop="name" content="luluX">
-      <meta itemprop="description" content="lulu-cloud的个人GitHub博客">
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        <a class="category-link" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/">数据结构与算法</a>
     </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="lulu-cloud">
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+            <a class="tag-none-link" href="/tags/%E5%8A%9B%E6%89%A3%E5%88%B7%E9%A2%98/" rel="tag">力扣刷题</a> <a class="tag-none-link" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" rel="tag">数据结构与算法</a>
+            
+        </span>
     </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/04/12/%E5%8A%9B%E6%89%A3%E5%88%B7%E9%A2%98-%E5%9B%BE-%E6%8B%93%E6%89%91%E6%8E%92%E5%BA%8F/" class="post-title-link" itemprop="url">学习算法：图算法-拓扑排序</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2023-04-12 11:27:18" itemprop="dateCreated datePublished" datetime="2023-04-12T11:27:18+08:00">2023-04-12</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-04-13 17:21:56" itemprop="dateModified" datetime="2024-04-13T17:21:56+08:00">2024-04-13</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">数据结构与算法</span></a>
-                </span>
-            </span>
-
-          
-
+    
+    
+</div>
         </div>
-      </header>
-
+        <div class="post-permalink">
+            <a href="/2024/02/22/%E5%8A%9B%E6%89%A3%E5%88%B7%E9%A2%98-%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%EF%BC%88%E4%B8%80%20%E6%89%93%E5%AE%B6%E5%8A%AB%E8%88%8D%EF%BC%89/" class="btn btn-default">
+                阅读全文</a>
+        </div>
+    </footer>
     
+</article>
+
+
+<article class="post">
     
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="一-算法流程"><a href="#一-算法流程" class="headerlink" title="一  算法流程"></a>一  算法流程</h1><ol>
-<li><p>计算每一个节点入度</p>
-<blockquote>
-<p>一般是用数组计算即可</p>
-</blockquote>
-</li>
-<li><p>使用邻接表数据结构，构建图</p>
-<blockquote>
-<p>java里面可以申明一个数组,数组元素类型为一个list,每一个数组是一个list的引用,存储该节点所有的邻接节点</p>
-<pre><code class="lang-java">//邻接表,外层是一个数组，每一个数组引用一个list对象，存储该节点所有的邻接节点
-List&lt;Integer&gt;[]graph = new ArrayList[numCourses];
-</code></pre>
-</blockquote>
-</li>
-<li><p>进行拓扑排序，采用<code>BFS</code>算法</p>
-<ul>
-<li><p>构建队列，将所有入度为0的节点进队</p>
-</li>
-<li><p>循环（队列非空）</p>
-<ul>
-<li>将上一轮入队的节点出队，并且将他们的邻接节点都入队</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>统计出入队的节点总数,如果小于图节点总数,拓扑排序失败,图中有环.否则成功</p>
-</li>
-</ol>
-<h1 id="二-课程表-1-2"><a href="#二-课程表-1-2" class="headerlink" title="二 课程表(1,2)"></a>二 课程表(1,2)</h1><pre><code class="lang-java">class Solution &#123;
-    public boolean canFinish(int numCourses, int[][] prerequisites) &#123;
-        // 1 使用数组存储每一个节点的入度
-        // 2 构建图，使用邻接表的方法
-        // 3 拓扑排序（广搜）
-        //  3.1 将入度为0的节点进队
-          //循环  3.2 如果队列不空
-          //   3.3 第一个节点出队，将它的邻居入队
-        // 4 统计出入队的节点数目，如果等于图节点数目，则拓扑排序成功，否则失败
-
-        //1 存储度数表
-        int[]degrees = new int[numCourses];
-        //2 邻接表,外层是一个数组，每一个数组引用一个list对象，存储该节点所有的邻接节点
-        List&lt;Integer&gt;[]graph = new ArrayList[numCourses];
-        for(int i = 0;i&lt;numCourses;i++)&#123;
-            graph[i] = new ArrayList&lt;&gt;();
-        &#125;
-        // 构建表与图
-        for(int []item:prerequisites)&#123;
-            int inNode = item[1];
-            int outNode = item[0];
-            degrees[outNode]++;
-            graph[inNode].add(outNode);
-        &#125;
-        Queue&lt;Integer&gt;queue = new LinkedList&lt;&gt;();
-        //3 入度为0的进队
-        for(int i =0;i&lt;numCourses;i++)&#123;
-            if(degrees[i]==0)&#123;
-                queue.add(i);
-            &#125;
-        &#125;
-        //计数
-        int cnt = 0;
-        while(!queue.isEmpty())&#123;
-            int size = queue.size();
-            for(int j =0 ;j&lt;size;j++)&#123;
-                cnt++;
-                int node = queue.poll();
-                for(int next:graph[node])&#123;
-                    //找到所有邻居节点
-                    //入度更新
-                    degrees[next]--;
-                    if(degrees[next]==0)&#123;
-                        //不会存在重复问题：
-                        //有向图，只会将入度为0的进入队列，只会进入一次
-                        queue.offer(next);
-                    &#125;
-                &#125;
-
-            &#125;
-        &#125;
-        return cnt==numCourses;
-
-    &#125;
-&#125;
-</code></pre>
-
-      
+    <div class="post-media">
+        <a href="/2023/12/11/%E6%B5%81%E9%87%8F%E9%A2%84%E5%A4%84%E7%90%86-3%EF%BC%9A%E5%88%A9%E7%94%A8cic-flowmeter%E5%B7%A5%E5%85%B7%E6%8F%90%E5%8F%96%E6%B5%81%E9%87%8F%E7%89%B9%E5%BE%81/">
+            <img class="img-ajax" src="/img/loading.gif" data-src="https://raw.githubusercontent.com/lulu-cloud/lili_images/main/image/202312111048240.png" alt="加密流量分类-实践5: 利用CIC-FlowMeter工具提取流量特征">
+        </a>
     </div>
-
     
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://lulu-cloud.github.io/2023/04/04/%E5%8A%9B%E6%89%A3%E5%88%B7%E9%A2%98-%E5%8C%BA%E9%97%B4%E9%97%AE%E9%A2%98/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/ava.jpg">
-      <meta itemprop="name" content="luluX">
-      <meta itemprop="description" content="lulu-cloud的个人GitHub博客">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="lulu-cloud">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/04/04/%E5%8A%9B%E6%89%A3%E5%88%B7%E9%A2%98-%E5%8C%BA%E9%97%B4%E9%97%AE%E9%A2%98/" class="post-title-link" itemprop="url">算法学习：区间问题</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2023-04-04 11:37:54" itemprop="dateCreated datePublished" datetime="2023-04-04T11:37:54+08:00">2023-04-04</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-04-13 17:21:41" itemprop="dateModified" datetime="2024-04-13T17:21:41+08:00">2024-04-13</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">数据结构与算法</span></a>
-                </span>
-            </span>
-
-          
-
+    <div class="post-content">
+        <div class="post-head home-post-head">
+            <h1 class="post-title">
+                <a href="/2023/12/11/%E6%B5%81%E9%87%8F%E9%A2%84%E5%A4%84%E7%90%86-3%EF%BC%9A%E5%88%A9%E7%94%A8cic-flowmeter%E5%B7%A5%E5%85%B7%E6%8F%90%E5%8F%96%E6%B5%81%E9%87%8F%E7%89%B9%E5%BE%81/">
+                    加密流量分类-实践5: 利用CIC-FlowMeter工具提取流量特征</a>
+            </h1>
+            <div class="post-meta"> &bull;
+                <time class="post-date" datetime="" title="">
+                    2023年12月11日
+                </time>
+            </div>
         </div>
-      </header>
+        <p class="brief">
+            
+            加密流量分类-实践5: 利用CIC-FlowMeter工具提取流量特征1 前言&amp;emsp;&amp;emsp;许多研究工作基于CIC-FlowMeter工具提取的csv文件的基础上进行的,目前开源的CIC-FlowMeter工具要么使用jdk...
+            
+        </p>
+    </div>
+    
+    <footer class="post-footer clearfix">
+        <div class="pull-left tag-list">
+            <div class="post-meta">
+    
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        <a class="category-link" href="/categories/%E7%A7%91%E7%A0%94/">科研</a> <a class="category-link" href="/categories/%E7%A7%91%E7%A0%94/%E5%8A%A0%E5%AF%86%E6%B5%81%E9%87%8F%E5%88%86%E7%B1%BB/">加密流量分类</a>
+    </span>
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+            <a class="tag-none-link" href="/tags/%E5%AE%9E%E9%AA%8C/" rel="tag">实验</a>
+            
+        </span>
+    </span>
+    
+    
+</div>
+        </div>
+        <div class="post-permalink">
+            <a href="/2023/12/11/%E6%B5%81%E9%87%8F%E9%A2%84%E5%A4%84%E7%90%86-3%EF%BC%9A%E5%88%A9%E7%94%A8cic-flowmeter%E5%B7%A5%E5%85%B7%E6%8F%90%E5%8F%96%E6%B5%81%E9%87%8F%E7%89%B9%E5%BE%81/" class="btn btn-default">
+                阅读全文</a>
+        </div>
+    </footer>
+    
+</article>
 
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
 
-      
-          <p>对力扣的区间类题目做一个总结！</p>
-<h1 id="合并区间"><a href="#合并区间" class="headerlink" title="合并区间"></a>合并区间</h1><h2 id="1-算法思想"><a href="#1-算法思想" class="headerlink" title="1 算法思想"></a>1 算法思想</h2><ol>
-<li><p>按照区间起点升序排序</p>
-<pre><code class="lang-java">//按照区间起始位置排序
+<article class="post">
+    
+    <div class="post-media">
+        <a href="/2023/12/05/tor-%E7%BD%91%E6%A1%A5%E9%85%8D%E7%BD%AE/">
+            <img class="img-ajax" src="/img/loading.gif" data-src="https://raw.githubusercontent.com/lulu-cloud/lili_images/main/image/202312051528923.png" alt="Tor网络构建(1)-obfs4网桥配置">
+        </a>
+    </div>
+    
+    <div class="post-content">
+        <div class="post-head home-post-head">
+            <h1 class="post-title">
+                <a href="/2023/12/05/tor-%E7%BD%91%E6%A1%A5%E9%85%8D%E7%BD%AE/">
+                    Tor网络构建(1)-obfs4网桥配置</a>
+            </h1>
+            <div class="post-meta"> &bull;
+                <time class="post-date" datetime="" title="">
+                    2023年12月05日
+                </time>
+            </div>
+        </div>
+        <p class="brief">
+            
+            实验目标
+ 搭配tor的obfs4网桥，本地tor浏览器使用该网桥访问tor网络
+
+实验需求
+本地windows客户端需要下载tor浏览器
+准备一台海外vps，能有公网ip进行访问
+
+实验步骤1 网桥vps配置安装tor与obfs4a...
+            
+        </p>
+    </div>
+    
+    <footer class="post-footer clearfix">
+        <div class="pull-left tag-list">
+            <div class="post-meta">
+    
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        <a class="category-link" href="/categories/%E7%A7%91%E7%A0%94/">科研</a> <a class="category-link" href="/categories/%E7%A7%91%E7%A0%94/Tor/">Tor</a>
+    </span>
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+            <a class="tag-none-link" href="/tags/%E5%AE%9E%E9%AA%8C/" rel="tag">实验</a>
+            
+        </span>
+    </span>
+    
+    
+</div>
+        </div>
+        <div class="post-permalink">
+            <a href="/2023/12/05/tor-%E7%BD%91%E6%A1%A5%E9%85%8D%E7%BD%AE/" class="btn btn-default">
+                阅读全文</a>
+        </div>
+    </footer>
+    
+</article>
+
+
+<article class="post">
+    
+    <div class="post-content">
+        <div class="post-head home-post-head">
+            <h1 class="post-title">
+                <a href="/2023/04/12/%E5%8A%9B%E6%89%A3%E5%88%B7%E9%A2%98-%E5%9B%BE-%E6%8B%93%E6%89%91%E6%8E%92%E5%BA%8F/">
+                    学习算法：图算法-拓扑排序</a>
+            </h1>
+            <div class="post-meta"> &bull;
+                <time class="post-date" datetime="" title="">
+                    2023年04月12日
+                </time>
+            </div>
+        </div>
+        <p class="brief">
+            
+            一  算法流程
+计算每一个节点入度
+
+一般是用数组计算即可
+
+
+使用邻接表数据结构，构建图
+
+java里面可以申明一个数组,数组元素类型为一个list,每一个数组是一个list的引用,存储该节点所有的邻接节点
+//邻接表,外层是一个数...
+            
+        </p>
+    </div>
+    
+    <footer class="post-footer clearfix">
+        <div class="pull-left tag-list">
+            <div class="post-meta">
+    
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        <a class="category-link" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/">数据结构与算法</a>
+    </span>
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+            <a class="tag-none-link" href="/tags/%E5%8A%9B%E6%89%A3%E5%88%B7%E9%A2%98/" rel="tag">力扣刷题</a> <a class="tag-none-link" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" rel="tag">数据结构与算法</a>
+            
+        </span>
+    </span>
+    
+    
+</div>
+        </div>
+        <div class="post-permalink">
+            <a href="/2023/04/12/%E5%8A%9B%E6%89%A3%E5%88%B7%E9%A2%98-%E5%9B%BE-%E6%8B%93%E6%89%91%E6%8E%92%E5%BA%8F/" class="btn btn-default">
+                阅读全文</a>
+        </div>
+    </footer>
+    
+</article>
+
+
+<article class="post">
+    
+    <div class="post-content">
+        <div class="post-head home-post-head">
+            <h1 class="post-title">
+                <a href="/2023/04/04/%E5%8A%9B%E6%89%A3%E5%88%B7%E9%A2%98-%E5%8C%BA%E9%97%B4%E9%97%AE%E9%A2%98/">
+                    算法学习：区间问题</a>
+            </h1>
+            <div class="post-meta"> &bull;
+                <time class="post-date" datetime="" title="">
+                    2023年04月04日
+                </time>
+            </div>
+        </div>
+        <p class="brief">
+            
+            对力扣的区间类题目做一个总结！
+合并区间1 算法思想
+按照区间起点升序排序
+//按照区间起始位置排序
 /**
         如果v1[0]-v2[0]为正，代表v1与v2交换位置，故这是升序排序
         */
-Arrays.sort(intervals,(v1,v2)-&gt;v1[0]-v2[0]);
-</code></pre>
-</li>
-</ol>
-<ol>
-<li><p>设定<code>start</code>与<code>end</code>指针，首先初始化为第一个区间的两端值</p>
-<pre><code class="lang-java">int start = intervals[0][0];
-int end = intervals[0][1];
-</code></pre>
-</li>
-</ol>
-<ol>
-<li><p>循环遍历，如果当前的<code>end</code>大于下一个区间的起点，那么说明两个区间有交集了，<code>end</code>更新，更新策略为当前<code>end</code>与下一个区间终点的最大值</p>
-<pre><code class="lang-java">List&lt;int[]&gt;ans = new LinkedList&lt;&gt;();
-for(int i = 1;i&lt;intervals.length;i++)&#123;
-    if(end&gt;=intervals[i][0])&#123;
-        end = Math.max(end,intervals[i][1]);
-    &#125;
-    else&#123;
-        ans.add(new int[]&#123;start,end&#125;);
-        start = intervals[i][0];
-        end = intervals[i][1];
-    &#125;
-&#125;
-</code></pre>
-</li>
-<li><p>最后一步由于<code>start</code>与<code>end</code>圈区间的未加入最后结果，再次更新一次</p>
-<pre><code class="lang-java">//最后一个区间加一下
-ans.add(new int[]&#123;start,end&#125;);
-int[][]res = new int[ans.size()][2];
-return ans.toArray(res);
-</code></pre>
-</li>
-</ol>
-<h2 id="2-完整代码"><a href="#2-完整代码" class="headerlink" title="2 完整代码"></a>2 完整代码</h2><pre><code class="lang-java">class Solution &#123;
-    public int[][] merge(int[][] intervals) &#123;
-        //0 特殊情况处理
-        if(intervals.length&lt;=1)&#123;
-            return intervals;
-        &#125;
-        //1 按照区间起始位置排序
-        /**
-        如果v1[0]-v2[0]为正，代表v1与v2交换位置，故这是升序排序
-        */
-        Arrays.sort(intervals,(v1,v2)-&gt;v1[0]-v2[0]);
-        //2 设定start end指针
-        int start = intervals[0][0];
-        int end = intervals[0][1];
-        //3 循环算法策略
-        List&lt;int[]&gt;ans = new LinkedList&lt;&gt;();
-        for(int i = 1;i&lt;intervals.length;i++)&#123;
-            if(end&gt;=intervals[i][0])&#123;
-                end = Math.max(end,intervals[i][1]);
-            &#125;
-            else&#123;
-                ans.add(new int[]&#123;start,end&#125;);
-                start = intervals[i][0];
-                end = intervals[i][1];
-            &#125;
-        &#125;
-        //4 最后一个区间加一下
-        ans.add(new int[]&#123;start,end&#125;);
-        int[][]res = new int[ans.size()][2];
-        return ans.toArray(res);
-    &#125;
-&#125;
-</code></pre>
-<h1 id="无重叠区间"><a href="#无重叠区间" class="headerlink" title="无重叠区间"></a>无重叠区间</h1><h2 id="1-算法思想-1"><a href="#1-算法思想-1" class="headerlink" title="1 算法思想"></a>1 算法思想</h2><p>&emsp;&emsp;本质与合并区间没有什么不同，这里是求没有重叠区间的数目，那么在<code>end</code>指针的更新策略不是取最大，而是取最小。</p>
-<p>区别在第<code>3</code>步</p>
-<ol>
-<li>循环遍历，如果当前的<code>end</code>大于下一个区间的起点，那么说明两个区间有交集了，<code>end</code>更新，更新策略为当前<code>end</code>与下一个区间终点的最大值</li>
-</ol>
-<pre><code class="lang-java">List&lt;int[]&gt;ans = new LinkedList&lt;&gt;();
-for(int i = 1;i&lt;intervals.length;i++)&#123;
-    //&gt;=号也要变成&gt;,因为区间刚好相“切”是表明不重叠
-    if(end&gt;intervals[i][0])&#123;
-        //这里换成min
-        //当前end大于下一个区间的起点，那么就是说明交叉了
-        //end更新
-        end = Math.min(end,intervals[i][1]);
-        cnt++;
-    &#125;
-    else&#123;
-        end = intervals[i][1];
-    &#125;
-&#125;
-</code></pre>
-<h2 id="2-完整代码-1"><a href="#2-完整代码-1" class="headerlink" title="2 完整代码"></a>2 完整代码</h2><ul>
-<li>start指针没有用，但是写出</li>
-</ul>
-<pre><code class="lang-java">class Solution &#123;
-    public int eraseOverlapIntervals(int[][] intervals) &#123;
-        if(intervals.length==1)&#123;
-            return 0;
-        &#125;
-        //按照区间起始位置排序
-        Arrays.sort(intervals,(v1,v2)-&gt;v1[0]-v2[0]);
-        //2 
-        int start = intervals[0][0];
-        int end = intervals[0][1];
-        int cnt = 0;
-        for(int i = 1;i&lt;intervals.length;i++)&#123;
-            if(end&gt;intervals[i][0])&#123;
-                //当前end大于下一个区间的起点，那么就是说明交叉了
-                //end更新
-                end = Math.min(end,intervals[i][1]);
-                cnt++;
-            &#125;else&#123;
-                start = intervals[i][0];
-                end = intervals[i][1];
-            &#125;
-        &#125;
-        //cnt表示重叠的数目
-        return cnt;
-    &#125;
-&#125;
-</code></pre>
-<h1 id="戳气球问题"><a href="#戳气球问题" class="headerlink" title="戳气球问题"></a>戳气球问题</h1><blockquote>
-<p>本质是计算无重叠区间问题，不过需要注意的是这里的区间相切，视作区间重叠，故代码的<code>&gt;</code>又得换回<code>&gt;=</code>拿最终的长度减去重叠的数目返回即可</p>
-</blockquote>
-<h2 id="1-完整代码"><a href="#1-完整代码" class="headerlink" title="1 完整代码"></a>1 完整代码</h2><pre><code class="lang-java">class Solution &#123;
-    public int findMinArrowShots(int[][] points) &#123;
-        //一样的套路，排序右边界
-        if(points.length&lt;=1)&#123;
-            return 1;
-        &#125;
-        Arrays.sort(points,(a,b)-&gt;Integer.compare(a[0],b[0]));
-        //2 
-        int start = points[0][0];
-        int end = points[0][1];
-        int cnt = 0;
-        for(int i = 1;i&lt;points.length;i++)&#123;
-            if(end&gt;=points[i][0])&#123;
-                //当前end大于等于下一个区间的起点，那么就是说明交叉了
-                //end更新
-                end = Math.min(end,points[i][1]);
-                cnt++;
-            &#125;else&#123;
-                start = points[i][0];
-                end = points[i][1];
-            &#125;
-        &#125;
-        //cnt表示重叠的数目
-        return points.length-cnt;
-    &#125;
-&#125;
-</code></pre>
-
-      
+Arrays....
+            
+        </p>
     </div>
-
     
+    <footer class="post-footer clearfix">
+        <div class="pull-left tag-list">
+            <div class="post-meta">
     
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://lulu-cloud.github.io/2023/04/01/%E6%B5%81%E9%87%8F%E9%A2%84%E5%A4%84%E7%90%86-2%EF%BC%9A%E8%BF%87%E6%BB%A4/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/ava.jpg">
-      <meta itemprop="name" content="luluX">
-      <meta itemprop="description" content="lulu-cloud的个人GitHub博客">
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        <a class="category-link" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/">数据结构与算法</a>
     </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="lulu-cloud">
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+            <a class="tag-none-link" href="/tags/%E5%8A%9B%E6%89%A3%E5%88%B7%E9%A2%98/" rel="tag">力扣刷题</a> <a class="tag-none-link" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" rel="tag">数据结构与算法</a>
+            
+        </span>
     </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/04/01/%E6%B5%81%E9%87%8F%E9%A2%84%E5%A4%84%E7%90%86-2%EF%BC%9A%E8%BF%87%E6%BB%A4/" class="post-title-link" itemprop="url">加密流量分类-实践4: 流量过滤</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2023-04-01 21:27:14" itemprop="dateCreated datePublished" datetime="2023-04-01T21:27:14+08:00">2023-04-01</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-11-24 21:56:04" itemprop="dateModified" datetime="2023-11-24T21:56:04+08:00">2023-11-24</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%A7%91%E7%A0%94/" itemprop="url" rel="index"><span itemprop="name">科研</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%A7%91%E7%A0%94/%E5%8A%A0%E5%AF%86%E6%B5%81%E9%87%8F%E5%88%86%E7%B1%BB/" itemprop="url" rel="index"><span itemprop="name">加密流量分类</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
     
     
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="加密流量分类-实践4：流量过滤"><a href="#加密流量分类-实践4：流量过滤" class="headerlink" title="加密流量分类-实践4：流量过滤"></a>加密流量分类-实践4：流量过滤</h1><ul>
-<li>炼丹的时候，经常需要过滤无关流量</li>
-<li>论文的通常做法是将dns、icmp、arp、tcp握手报文删除</li>
-<li><p>以下是给出我的代码，用wirshark前后对比pcap有效</p>
-<pre><code class="lang-python">  from scapy.all import *
-  from scapy.layers.dns import DNS
-  from scapy.layers.inet import ICMP, TCP
-  from scapy.layers.l2 import ARP
-
-  def remove_pcap_errors(file_path,new_path):
-      &quot;&quot;&quot;过滤的pcap与新的pcap不冲突&quot;&quot;&quot;
-      packets = rdpcap(file_path)
-      dns_cnt = 0
-      icmp_cnt = 0
-      arp_cnt = 0
-      tcp_flags = 0
-      new_packets = []
-      for packet in packets:
-          if packet.haslayer(DNS):
-              dns_cnt+=1
-          elif packet.haslayer(ICMP):
-              icmp_cnt += 1
-          elif packet.haslayer(TCP) and (packet[TCP].flags.value==0x12 or packet[TCP].flags.value==0x02 or packet[TCP].flags.value==0x11):
-              tcp_flags+=1
-          elif packet.haslayer(ARP):
-              arp_cnt += 1
-          else:
-              new_packets.append(packet)
-      wrpcap(new_path, new_packets)
-      print(&quot;dns:&#123;&#125;个&quot;.format(dns_cnt))
-      print(&quot;icmp:&#123;&#125;个&quot;.format(icmp_cnt))
-      print(&quot;tcp握手:&#123;&#125;个&quot;.format(tcp_flags))
-      print(&quot;arp包:&#123;&#125;个&quot;.format(arp_cnt))
-</code></pre>
-</li>
-<li>处理前：<br>-<img src="https://raw.githubusercontent.com/lulu-cloud/lili_images/main/image/202311242148352.png" alt="在这里插入图片描述"></li>
-<li>处理后：<br>-<img src="https://raw.githubusercontent.com/lulu-cloud/lili_images/main/image/202311242148932.png" alt="在这里插入图片描述"></li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://lulu-cloud.github.io/2023/03/11/%E6%B5%81%E9%87%8F%E9%A2%84%E5%A4%84%E7%90%86-1%EF%BC%9A%E7%89%B9%E5%BE%81%E6%8F%90%E5%8F%96/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/ava.jpg">
-      <meta itemprop="name" content="luluX">
-      <meta itemprop="description" content="lulu-cloud的个人GitHub博客">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="lulu-cloud">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/03/11/%E6%B5%81%E9%87%8F%E9%A2%84%E5%A4%84%E7%90%86-1%EF%BC%9A%E7%89%B9%E5%BE%81%E6%8F%90%E5%8F%96/" class="post-title-link" itemprop="url">加密流量分类-实践3: 特征提取</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2023-03-11 21:27:14" itemprop="dateCreated datePublished" datetime="2023-03-11T21:27:14+08:00">2023-03-11</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-11-24 21:48:25" itemprop="dateModified" datetime="2023-11-24T21:48:25+08:00">2023-11-24</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%A7%91%E7%A0%94/" itemprop="url" rel="index"><span itemprop="name">科研</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%A7%91%E7%A0%94/%E5%8A%A0%E5%AF%86%E6%B5%81%E9%87%8F%E5%88%86%E7%B1%BB/" itemprop="url" rel="index"><span itemprop="name">加密流量分类</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="加密流量分类-实践3：特征提取"><a href="#加密流量分类-实践3：特征提取" class="headerlink" title="加密流量分类-实践3：特征提取"></a>加密流量分类-实践3：特征提取</h1><h2 id="1、原因"><a href="#1、原因" class="headerlink" title="1、原因"></a>1、原因</h2><p> 看着博客<a href="[flowcontainer: 基于python3的pcap网络流量特征信息提取库_Icoding_F2014的博客-CSDN博客](https://blog.csdn.net/jmh1996/article/details/107148871">flowcontainer</a>)的感觉很好，但是有如下缺陷：</p>
-<ol>
-<li><p>处理大文件费内存，关于数据集ISCX2016中的FT类型一个pcap动则就是5个多G，吃不消</p>
-</li>
-<li><p>设置extension字段提取tcp与udp有效负载时，对于上述的大文件处理特别慢！！！原因是加载所有数据进入内存，但是实际预处理只需要前几个包的有效载荷数据，造成内存大开销！</p>
-</li>
-<li><p>如果有pcap开始的数据报文不是包含有效载荷的报文，如开始为icmp报文的pcap文件，该库会报错，具体溯源已找到：</p>
-<p><img src="https://raw.githubusercontent.com/lulu-cloud/lili_images/main/image/202311242147711.png" alt="image-20230309201640624"></p>
-<p><img src="https://raw.githubusercontent.com/lulu-cloud/lili_images/main/image/202311242147859.png" alt="image-20230309201731035"></p>
-<pre><code>            if protocol in [&#39;tcp&#39;,&#39;udp&#39;] and ip_layer == False:
-                flowid = packet[1] if protocol==&#39;tcp&#39; else packet[2]
-                srcport = packet[7] if protocol==&#39;tcp&#39; else packet[8]
-                dstport = packet[11] if protocol==&#39;tcp&#39; else packet[12]
-                payload_length = packet[15] if protocol ==&#39;tcp&#39; else packet[16]
-            else:
-                flowid = 0
-                srcport = 1
-                dstport = 0
-                # 这一行是加上的，如果不加上，payload_length就会为初始化，导致result的appeend失败，从而在流生成的函数里造成对空对象的迭代遍历
-                payload_length = &#39;0&#39;
-</code></pre><blockquote>
-<p>红色圈圈是加上的代码，加上后就不会出现致命异常</p>
-</blockquote>
-</li>
-<li><p>但是依旧是慢！在处理大文件的pcap特别费劲！等个几个小时才读取完！</p>
-</li>
-<li><p>分流与SplitCap.exe的分流有出入，目前论文主流方法分流是使用SplitCap.exe工具</p>
-</li>
-</ol>
-<h2 id="2、预处理功能"><a href="#2、预处理功能" class="headerlink" title="2、预处理功能"></a>2、预处理功能</h2><p>直接上代码：</p>
-<pre><code>import binascii
-import scapy.all as scapy
-import numpy as np
-
-def hex_to_dec(hex_str, target_length):
-    dec_list = []
-    for i in range(0, len(hex_str), 2):
-        dec_list.append(int(hex_str[i:i + 2], 16))
-    dec_list = pad_or_truncate(dec_list, target_length)
-    return dec_list
-
-def pad_or_truncate(some_list, target_len):
-    return some_list[:target_len] + [0] * (target_len - len(some_list))
-
-
-
-def pad_or_truncate_seq(some_list, target_len):
-    return some_list[:target_len] + [0] * (target_len - len(some_list))
-
-
-
-# 获取流的长度、方向、到达时间序列
-# 一个字节8位，占两个十六进制数字
-def get_seq_feature(pcap_path, pack_nums=4, byte_nums=128, seq_length=128, throw=3):
-    &quot;&quot;&quot;
-    读取分流好的pcap文件，返回它的ip报文长度、到达时间序列与前pack_num个报文的前byte_num字节的负载
-    &quot;&quot;&quot;
-    packets = scapy.rdpcap(pcap_path)
-    ip_lengths = []
-    ip_arrive_time = []
-    pay_load = []
-    pay_index = []
-
-    if len(packets) &lt;= throw:
-        return ip_lengths, ip_arrive_time, pay_load,pay_index
-
-    dic = &#123;&#125;
-    pay_num = 0
-
-    for i, packet in enumerate(packets):
-        # 提取包长序列
-        if i == 0:
-            dst = packet.src
-            src = packet.dst
-            dic = &#123;dst: -1, src: 1&#125;
-        dst = packet.dst
-        ip_length = dic[dst] * len(packet)
-        ip_lengths.append(ip_length)
-        # 包到达时间提取
-        ip_arrive_time.append(float(packet.time))
-
-        # 提取负载与负载在流中包的序号
-        if len(packet.payload.payload) != 0:
-            if pay_num &lt; pack_nums:
-                pay = packet.payload.payload
-                # print(type(pay))
-                # print(pay)
-                data = (binascii.hexlify(bytes(pay)))
-                data = hex_to_dec(data, target_length=byte_nums)
-                pay_load.extend(data)
-                pay_index.append(i+1)
-                pay_num += 1
-    if len(pay_index)&lt;pack_nums:
-        # 不足
-        for i in range(pack_nums-len(pay_index)):
-            data = hex_to_dec([],byte_nums)
-            pay_load.extend(data)
-            pay_index.append(-1)
-    ip_lengths = pad_or_truncate_seq(ip_lengths, seq_length)
-    ip_arrive_time = pad_or_truncate_seq(ip_arrive_time, seq_length)
-    return ip_lengths, ip_arrive_time, pay_load, pay_index
-</code></pre><ul>
-<li><p>首先输入是预处理分流好的pcap文件，使用SplitCap.exe分流即可</p>
-<ul>
-<li>函数参数解释</li>
-</ul>
-<pre><code>pack_nums：提取前几个包的负载
-byte_nums：提取包的前几个字节的负载
-seq_length：提取流的前几个包的长度（正负表示方向）
-throw：表示流中的包少于多少个不处理
-</code></pre><ul>
-<li><p>输出：</p>
-<ul>
-<li><p>包长度</p>
-</li>
-<li><p>包到达时间</p>
-</li>
-<li><p>包负载</p>
-</li>
-<li><p>前几个负载包的流中的序号</p>
-</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<p>上述都是短则补0，长则截断</p>
-</blockquote>
-<p>不会有内存不足的问题辣，处理负载也很快，因为不看报头，所以不需要什么匿名ip，mac地址啥的</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://lulu-cloud.github.io/2023/03/09/%E5%8A%A0%E5%AF%86%E6%B5%81%E9%87%8F%E5%88%86%E7%B1%BBtorch%E5%AE%9E%E8%B7%B52%EF%BC%9ACNN+LSTM%E6%A8%A1%E5%9E%8B%E8%AE%AD%E7%BB%83%E4%B8%8E%E6%B5%8B%E8%AF%95/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/ava.jpg">
-      <meta itemprop="name" content="luluX">
-      <meta itemprop="description" content="lulu-cloud的个人GitHub博客">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="lulu-cloud">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/03/09/%E5%8A%A0%E5%AF%86%E6%B5%81%E9%87%8F%E5%88%86%E7%B1%BBtorch%E5%AE%9E%E8%B7%B52%EF%BC%9ACNN+LSTM%E6%A8%A1%E5%9E%8B%E8%AE%AD%E7%BB%83%E4%B8%8E%E6%B5%8B%E8%AF%95/" class="post-title-link" itemprop="url">加密流量分类-实践2: CNN+LSTM模型训练与测试</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2023-03-09 21:27:14" itemprop="dateCreated datePublished" datetime="2023-03-09T21:27:14+08:00">2023-03-09</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-11-25 12:08:46" itemprop="dateModified" datetime="2023-11-25T12:08:46+08:00">2023-11-25</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%A7%91%E7%A0%94/" itemprop="url" rel="index"><span itemprop="name">科研</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%A7%91%E7%A0%94/%E5%8A%A0%E5%AF%86%E6%B5%81%E9%87%8F%E5%88%86%E7%B1%BB/" itemprop="url" rel="index"><span itemprop="name">加密流量分类</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="加密流量分类torch实践2：CNN-LSTM模型训练与测试"><a href="#加密流量分类torch实践2：CNN-LSTM模型训练与测试" class="headerlink" title="加密流量分类torch实践2：CNN+LSTM模型训练与测试"></a>加密流量分类torch实践2：CNN+LSTM模型训练与测试</h1><ul>
-<li>代码模板参考：<a target="_blank" rel="noopener" href="https://github.com/lulu-cloud/Traffic-Classification">CENTIME:A Direct Comprehensive Traffic Features Extraction for Encrypted Traffic Classification</a></li>
-</ul>
-<h2 id="1、原理"><a href="#1、原理" class="headerlink" title="1、原理"></a>1、原理</h2><ul>
-<li>一维卷积处理负载数据，处理流前n个包的前m个字节</li>
-<li>Bi-LSTM处理包长序列，取流前seq_length的长度序列</li>
-<li>模型结构类似于APP-Net<br><img src="https://raw.githubusercontent.com/lulu-cloud/lili_images/main/image/202311242142143.png" alt=""></li>
-<li><p>模型代码：<br>~~~<br>  “””<br>  cnn处理负载<br>  lstm处理包长序列<br>  “””</p>
-<p>  import torch<br>  import torch.nn as nn</p>
-</li>
-</ul>
-<pre><code>class Cnn_Lstm(nn.Module):
-    def __init__(self,input_size, hidden_size, num_layers,bidirectional,num_classes=12):
-        super(Cnn_Lstm, self).__init__()
-
-        self.bidirectional = bidirectional
-        self.hidden_size = hidden_size
-        self.num_layers = num_layers
-        self.lstm = nn.LSTM(input_size, hidden_size, num_layers,bidirectional=bidirectional,batch_first=True)
-        self.fc0 = nn.Linear(hidden_size, num_classes)
-        self.fc1= nn.Linear(hidden_size*2,num_classes)
-
-        self.cnn_feature = nn.Sequential(
-
-            nn.Conv1d(kernel_size=25, in_channels=1, out_channels=32, stride=1, padding=12),  # (1,1024)-&gt;(32,1024)
-            nn.BatchNorm1d(32),  # 加上BN的结果
-            nn.ReLU(),
-            nn.MaxPool1d(kernel_size=3, stride=3, padding=1),  # (32,1024)-&gt;(32,342)
-
-            nn.Conv1d(kernel_size=25, in_channels=32, out_channels=64, stride=1, padding=12),  # (32,342)-&gt;(64,342)
-            nn.BatchNorm1d(64),
-            nn.ReLU(),
-            nn.MaxPool1d(kernel_size=3, stride=3, padding=1),  # (64,342)-&gt;(64,114)
-        )
-
-        self.cnn_classifier = nn.Sequential(
-            # 64*114
-            nn.Flatten(),
-            nn.Linear(in_features=64*114, out_features=1024), # 784:88*64, 1024:114*64, 4096:456*64
-        )
-
-        self.cnn=nn.Sequential(
-            self.cnn_feature,
-            self.cnn_classifier,
-        )
-
-
-        self.rnn = nn.Sequential(
-            nn.LSTM(input_size, hidden_size, num_layers, bidirectional=bidirectional, batch_first=True),
-        )
-        self.classifier=nn.Sequential(
-            nn.Linear(in_features=2048,out_features=num_classes),
-            # nn.Dropout(p=0.7),
-            # nn.Linear(in_features=1024,out_features=num_classes)
-        )
-
-
-    def forward(self, x_payload,x_sequence):
-        x_payload=self.cnn(x_payload)
-        x_sequence=self.rnn(x_sequence)
-        x_sequence=x_sequence[0][:, -1, :]
-        x=torch.cat((x_payload,x_sequence),1)
-        x=self.classifier(x)
-        return x
-
-
-def cnn_rnn(model_path, pretrained=False, **kwargs):
-    model = Cnn_Lstm(**kwargs)
-    if pretrained:
-        checkpoint = torch.load(model_path)
-        model.load_state_dict(checkpoint[&#39;state_dict&#39;])
-    return model
-
-
-
-class Cnn(nn.Module):
-    def __init__(self,input_size, hidden_size, num_layers,bidirectional,num_classes=12):
-        super(Cnn, self).__init__()
-
-        self.bidirectional = bidirectional
-        self.hidden_size = hidden_size
-        self.num_layers = num_layers
-        self.lstm = nn.LSTM(input_size, hidden_size, num_layers,bidirectional=bidirectional,batch_first=True)
-        self.fc0 = nn.Linear(hidden_size, num_classes)
-        self.fc1= nn.Linear(hidden_size*2,num_classes)
-
-        self.cnn_feature = nn.Sequential(
-
-            nn.Conv1d(kernel_size=25, in_channels=1, out_channels=32, stride=1, padding=12),  # (1,1024)-&gt;(32,1024)
-            nn.BatchNorm1d(32),  # 加上BN的结果
-            nn.ReLU(),
-            nn.MaxPool1d(kernel_size=3, stride=3, padding=1),  # (32,1024)-&gt;(32,342)
-
-
-            nn.Conv1d(kernel_size=25, in_channels=32, out_channels=64, stride=1, padding=12),  # (32,342)-&gt;(64,342)
-            nn.BatchNorm1d(64),
-            nn.ReLU(),
-            nn.MaxPool1d(kernel_size=3, stride=3, padding=1),  # (64,342)-&gt;(64,114)
-        )
-
-        self.cnn_classifier = nn.Sequential(
-            # 64*114
-            nn.Flatten(),
-            nn.Linear(in_features=64*114, out_features=1024), # 784:88*64, 1024:114*64, 4096:456*64
-        )
-
-        self.cnn=nn.Sequential(
-            self.cnn_feature,
-            self.cnn_classifier,
-        )
-        self.classifier=nn.Sequential(
-            nn.Linear(in_features=1024,out_features=num_classes),
-            # nn.Dropout(p=0.7),
-            # nn.Linear(in_features=1024,out_features=num_classes)
-        )
-
-
-    def forward(self, x_payload,x_sequence):
-        x_payload=self.cnn(x_payload)
-        x=self.classifier(x_payload)
-        return x_payload
-
-
-def cnn(model_path, pretrained=False, **kwargs):
-    model = Cnn(**kwargs)
-    if pretrained:
-        checkpoint = torch.load(model_path)
-        model.load_state_dict(checkpoint[&#39;state_dict&#39;])
-    return model
-
-
-class Lstm(nn.Module):
-    def __init__(self,input_size, hidden_size, num_layers,bidirectional,num_classes=12):
-        super(Lstm, self).__init__()
-        self.bidirectional = bidirectional
-        self.hidden_size = hidden_size
-        self.num_layers = num_layers
-        self.lstm = nn.LSTM(input_size, hidden_size, num_layers,bidirectional=bidirectional,batch_first=True)
-        self.fc0 = nn.Linear(hidden_size, num_classes)
-        self.fc1= nn.Linear(hidden_size*2,num_classes)
-
-        self.rnn = nn.Sequential(
-            nn.LSTM(input_size, hidden_size, num_layers, bidirectional=bidirectional, batch_first=True),
-        )
-        self.classifier=nn.Sequential(
-            nn.Linear(in_features=1024,out_features=num_classes),
-            # nn.Dropout(p=0.7),
-            # nn.Linear(in_features=1024,out_features=num_classes)
-        )
-
-
-    def forward(self, x_payload,x_sequence):
-        x_sequence=self.rnn(x_sequence)
-        x_sequence=x_sequence[0][:, -1, :]
-        x=self.classifier(x_sequence)
-        return x
-
-
-def rnn(model_path, pretrained=False, **kwargs):
-    model = Lstm(**kwargs)
-    if pretrained:
-        checkpoint = torch.load(model_path)
-        model.load_state_dict(checkpoint[&#39;state_dict&#39;])
-    return model
-</code></pre><pre><code>
-
-
-
-
-## 2、运行
-
-- 在自己的环境下修改路径，包括删除``from sequence_payload.xx import xx``下面的``sequence_payload.``
-
-- 修改配置文件``entry``下面的``traffic_classification.yaml``的路径，与模型参数，名字
-  - 训练流程代码
-</code></pre><p>from utils.helper import AverageMeter, accuracy<br>from TrafficLog.setLog import logger</p>
-<p>def train_process(train_loader, model, criterion, optimizer, epoch, device, print_freq):<br>    “””训练一个 epoch 的流程</p>
-<pre><code>Args:
-train_loader (dataloader): [description]
-model ([type]): [description]
-criterion ([type]): [description]
-optimizer ([type]): [description]
-epoch (int): 当前所在的 epoch
-device (torch.device): 是否使用 gpu
-print_freq ([type]): [description]
-&quot;&quot;&quot;
-losses = AverageMeter()  # 在一个 train loader 中的 loss 变化
-top1 = AverageMeter()  # 记录在一个 train loader 中的 accuracy 变化
-
-model.train()  # 切换为训练模型
-
-for i, (pcap, seq,target) in enumerate(train_loader):
-    pcap = pcap.reshape(-1,1,1024)
-    seq = seq.reshape(-1,64,1)
-    pcap = pcap.to(device)
-    seq = seq.to(device)
-    target = target.to(device)
-
-    output = model(pcap,seq)  # 得到模型预测结果
-    loss = criterion(output, target)  # 计算 loss
-
-
-    prec1 = accuracy(output.data, target)
-    losses.update(loss.item(), pcap.size(0))
-    top1.update(prec1[0].item(), pcap.size(0))
-
-
-    optimizer.zero_grad()
-    loss.backward()
-    optimizer.step()
-
-    if (i+1) % print_freq == 0:
-        logger.info(&#39;Epoch: [&#123;0&#125;][&#123;1&#125;/&#123;2&#125;], Loss &#123;loss.val:.4f&#125; (&#123;loss.avg:.4f&#125;), Prec@1 &#123;top1.val:.3f&#125; (&#123;top1.avg:.3f&#125;)&#39;.format(
-        epoch, i, len(train_loader), loss=losses, top1=top1))
-return losses.val,top1.val
-</code></pre><pre><code>
-  - 验证流程代码：
- - 
-## 2.1 数据预处理
-原理：
-- 使用flowcontainer包提取含有tcp或者udp负载的包，提取负载与ip数据包序列长度&lt;br/&gt;
-使用：
-- 将原始pcap文件放在``traffic_data``下
-  - 格式:
-</code></pre><pre><code>|---traffic_data
-  |---bilibili
-    |--- xx.pcap
-    |--- xxx.pcap
-  |---qq
-    |--- xx.pcap
-    |--- xxx.pcap
-  |--- 今日头条
-    |--- xx.pcap
-    |--- xxx.pcap
-</code></pre><p>  ~~~</p>
-<ul>
-<li>运行<code>entry/preprocess.py</code>,完成后复制控制台输出的<strong>label2index</strong>,粘贴到<code>traffic_classification.yaml/test/traffic_classification.yaml</code></li>
-<li>得到处理好的  <code>npy_data</code><h2 id="2-2-训练"><a href="#2-2-训练" class="headerlink" title="2.2 训练"></a>2.2 训练</h2></li>
-<li><p>打开<code>entry/train.py</code>，注释或者取消注释40、41、42行，选择cnn、lstm、cnn+lstm进行训练，记得改配置文件的<code>model_name</code></p>
-</li>
-<li><p>可以打开tensorboard查看loss与acc曲线</p>
-<ul>
-<li>loss:<br><img src="https://raw.githubusercontent.com/lulu-cloud/lili_images/main/image/202311242142078.png" alt="在这里插入图片描述"></li>
-</ul>
-</li>
-</ul>
-<ul>
-<li>acc:<br><img src="https://raw.githubusercontent.com/lulu-cloud/lili_images/main/image/202311242142864.png" alt="在这里插入图片描述"></li>
-</ul>
-<pre><code>&gt; 两图为lstm处理序列数据的tensorboard示例
-</code></pre><h2 id="2-3-测试"><a href="#2-3-测试" class="headerlink" title="2.3 测试"></a>2.3 测试</h2><ul>
-<li>修改<code>traffic_classification.yaml/test/evaluate</code>为True，打开<code>entry/train.py</code>运行，得到评估结果<br>/evaluate<code>为True，打开</code>entry/train.py``运行，得到评估结果<br><img src="https://raw.githubusercontent.com/lulu-cloud/lili_images/main/image/202311242142556.png" alt="在这里插入图片描述"><br>项目地址：<a target="_blank" rel="noopener" href="https://github.com/lulu-cloud/TrafficClassificationTemplate">lulu-cloud</a></li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://lulu-cloud.github.io/2023/03/02/%E5%8A%9B%E6%89%A3%E5%88%B7%E9%A2%98-%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/ava.jpg">
-      <meta itemprop="name" content="luluX">
-      <meta itemprop="description" content="lulu-cloud的个人GitHub博客">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="lulu-cloud">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/03/02/%E5%8A%9B%E6%89%A3%E5%88%B7%E9%A2%98-%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/" class="post-title-link" itemprop="url">算法学习：二分查找</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2023-03-02 09:27:18" itemprop="dateCreated datePublished" datetime="2023-03-02T09:27:18+08:00">2023-03-02</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2024-04-13 17:21:12" itemprop="dateModified" datetime="2024-04-13T17:21:12+08:00">2024-04-13</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">数据结构与算法</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="一、-原则"><a href="#一、-原则" class="headerlink" title="一、 原则"></a>一、 原则</h1><h2 id="1-区间：左右闭区间"><a href="#1-区间：左右闭区间" class="headerlink" title="1. 区间：左右闭区间"></a>1. 区间：左右闭区间</h2><h2 id="2-while结束设定为-lt"><a href="#2-while结束设定为-lt" class="headerlink" title="2. while结束设定为&lt;="></a>2. while结束设定为&lt;=</h2><h2 id="3-左右界更新都为mid上下1"><a href="#3-左右界更新都为mid上下1" class="headerlink" title="3. 左右界更新都为mid上下1"></a>3. 左右界更新都为mid上下1</h2><blockquote>
-<ol>
-<li><p>二分查找可以设定左闭右开的写法，也可以左右都是闭区间，这里设定后者</p>
-</li>
-<li><p>在1的设定下，如果left=right，即当前搜索区间长度为1，如果while里面不是&lt;=二是严格&lt;,那么该长度为1的区间就不会搜索，出现遗漏</p>
-</li>
-<li><p>在1，2的设定之下，必须让left、right的更新机制在循环结束后，right在left的左边，即每次更新right与left必须都不能为mid，因为mid可能 在区间长度为1或者2的时候mid等于其中的left，必须使得right与left有机制在更新时不能一直等于mid，故有原则3</p>
-</li>
-</ol>
-</blockquote>
-<h1 id="二、三种情况"><a href="#二、三种情况" class="headerlink" title="二、三种情况"></a>二、三种情况</h1><h2 id="2-1-直接找元素"><a href="#2-1-直接找元素" class="headerlink" title="2.1 直接找元素"></a>2.1 直接找元素</h2><pre><code class="lang-java">int searchBinary(int[] nums, int target) &#123;
-    //原则1 左右闭区间
-    int left = 0, right = nums.length - 1;
-    //原则2 while结束条件为&lt;=
-    while (left &lt;= right) &#123;
-        int mid = left + ((right - left) &gt;&gt; 1);
-        if (nums[mid] == target) &#123;
-            return mid;
-        &#125; else if (nums[mid] &lt; target) &#123;
-            //原则3 左右界更新为mid加减1
-            left = mid + 1;
-        &#125; else &#123;
-            //原则3 左右界更新为mid加减1
-            right = mid - 1;
-        &#125;
-    &#125;
-    return -1;
-&#125;
-</code></pre>
-<h2 id="2-2-寻找左右边界"><a href="#2-2-寻找左右边界" class="headerlink" title="2.2 寻找左右边界"></a>2.2 寻找左右边界</h2><p>给定有序数组</p>
-<script type="math/tex; mode=display">
-[0,1,2,2,2,3,4]</script><p>如何找第一个2出现的下标或者最后一个2出现的下标</p>
-<ul>
-<li>找第一个：找左边界</li>
-</ul>
-<pre><code class="lang-java">int searchLeftBound(int[] nums, int target) &#123;
-    int left = 0, right = nums.length - 1;
-    while (left &lt;= right) &#123;
-        int mid = left + ((right - left) &gt;&gt; 1);
-        if (nums[mid] == target) &#123;
-            right = mid - 1; // 收缩右边界
-        &#125; else if (nums[mid] &lt; target) &#123;
-            left = mid + 1;
-        &#125; else &#123;
-            right = mid - 1;
-        &#125;
-    &#125;
-    // 越界检查，不存在检查
-    if (left &gt;= nums.length || nums[left] != target) &#123;
-        return -1;
-    &#125;
-    return left;
-&#125;
-</code></pre>
-<ul>
-<li>找最后一个：找右边界</li>
-</ul>
-<pre><code class="lang-java">
-int searchRightBound(int[] nums, int target) &#123;
-    int left = 0, right = nums.length - 1;
-    while (left &lt;= right) &#123;
-        int mid = left + ((right - left) &gt;&gt; 1);
-        if (nums[mid] == target) &#123;
-            left = mid + 1; // 收缩左边界
-        &#125; else if (nums[mid] &lt; target) &#123;
-            left = mid + 1;
-        &#125; else &#123;
-            right = mid - 1;
-        &#125;
-    &#125;
-    if (right &lt; 0 || nums[right] != target) &#123;
-        return -1;
-    &#125;
-    return right;
-&#125;
-</code></pre>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://lulu-cloud.github.io/2023/01/19/%E5%8A%A0%E5%AF%86%E6%B5%81%E9%87%8F%E5%88%86%E7%B1%BB-%E8%AE%BA%E6%96%8712%EF%BC%9ASeeing%20Traffic%20Paths_%20Encrypted%20Traffic%20Classification%20With%20Path%20Signature%20Features/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/ava.jpg">
-      <meta itemprop="name" content="luluX">
-      <meta itemprop="description" content="lulu-cloud的个人GitHub博客">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="lulu-cloud">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2023/01/19/%E5%8A%A0%E5%AF%86%E6%B5%81%E9%87%8F%E5%88%86%E7%B1%BB-%E8%AE%BA%E6%96%8712%EF%BC%9ASeeing%20Traffic%20Paths_%20Encrypted%20Traffic%20Classification%20With%20Path%20Signature%20Features/" class="post-title-link" itemprop="url">加密流量分类-论文12: Seeing Traffic Paths_ Encrypted Traffic Classification With Path Signature Features</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2023-01-19 21:27:14" itemprop="dateCreated datePublished" datetime="2023-01-19T21:27:14+08:00">2023-01-19</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2023-11-24 21:43:57" itemprop="dateModified" datetime="2023-11-24T21:43:57+08:00">2023-11-24</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%A7%91%E7%A0%94/" itemprop="url" rel="index"><span itemprop="name">科研</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%A7%91%E7%A0%94/%E5%8A%A0%E5%AF%86%E6%B5%81%E9%87%8F%E5%88%86%E7%B1%BB/" itemprop="url" rel="index"><span itemprop="name">加密流量分类</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="0、摘要"><a href="#0、摘要" class="headerlink" title="0、摘要"></a>0、摘要</h1><p>&emsp;&emsp;本文提出了一种新的带路径签名的加密流分类方法——ETC-PS。首先用<strong>会话数据包长度序列</strong>构造<strong>流量路径</strong>来表示客户端和服务器之间的交互。然后进行<strong>路径变换</strong>，展示其结构，获得不同的信息。最后计算出多尺度路径特征作为一种显著特征来训练传统的<strong>机器学习</strong>分类器，实现了高鲁棒精度和低训练开销。</p>
-<h1 id="1、模型方法"><a href="#1、模型方法" class="headerlink" title="1、模型方法"></a>1、模型方法</h1><ul>
-<li><p>将<strong>路径签名</strong>应用与加密流量分类，只使用了流量的序列特征。</p>
-<ol>
-<li>机器学习分类：要走数据预处理、特征工程、分类等过程，相交于深度学习方法多了特征工程</li>
-<li>特征工程：从会话中客户端-服务器双向交互的流量特征构建了流量路径，再进行路径变换，作为分类器输入</li>
-</ol>
-<h2 id="1-1-路径签名定义与科普"><a href="#1-1-路径签名定义与科普" class="headerlink" title="1.1 路径签名定义与科普"></a>1.1 路径签名定义与科普</h2></li>
-</ul>
-<h3 id="1-1-1科普"><a href="#1-1-1科普" class="headerlink" title="1.1.1科普"></a>1.1.1科普</h3><p>参考<a href="[Path Signature笔记 - 知乎 (zhihu.com"><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/335494125">Path Signature笔记 - 知乎 (zhihu.com)</a></a>](<a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/335494125">https://zhuanlan.zhihu.com/p/335494125</a>))</p>
-<h3 id="1-1-2-路径签名的一些性质"><a href="#1-1-2-路径签名的一些性质" class="headerlink" title="1.1.2 路径签名的一些性质"></a>1.1.2 路径签名的一些性质</h3><ul>
-<li><strong>唯一性</strong>：<strong>由路径签名可以完全确定一个路径，</strong>具有单调维度的路径(如时间)没有支路部分。因此，对于一个加密的流量报文长度序列(一维路径)，通常需要添加一个单调递增的维度(例如时间)，以保证路径签名可以等价地确定它</li>
-<li><strong>重新参数化不变性：</strong> <strong>对于一个路径，采用不同的采样频率得到的路径表示会不同，但是路径签名不会变。</strong>对于特定类型应用程序生成的流量，分类结果应该不受不同重参数化的影响。有了这个特性，签名可以过滤掉同种流量的不同重参数化引起的变化，不会分为不同应用。</li>
-<li><strong>维数固定:</strong> <strong>从整个路径中提取的路径特征的维数取决于截断级别，与路径长度无关。</strong>再短的路径其签名维数也是无限长，使用的时候取决于我们截断的维度是多少。</li>
-</ul>
-<h2 id="1-2-ETC-PS整体预览"><a href="#1-2-ETC-PS整体预览" class="headerlink" title="1.2 ETC-PS整体预览"></a>1.2 ETC-PS整体预览</h2><p><img src="https://raw.githubusercontent.com/lulu-cloud/lili_images/main/image/202311242128763.png" alt="image-20230119105316076"></p>
-<ol>
-<li>收集报文序列，计算报文长度，生成报文长度序列，使用正负号表示报文序列的不同方向</li>
-<li>进行路径构造</li>
-<li>进行路径变换</li>
-<li>进行路径签名特征提取得到特征</li>
-<li>使用机器学习分类器进行分类</li>
-</ol>
-<h2 id="1-3-流量路径构造"><a href="#1-3-流量路径构造" class="headerlink" title="1.3 流量路径构造"></a>1.3 流量路径构造</h2><h3 id="1-3-1-客户端与服务器的双向交互"><a href="#1-3-1-客户端与服务器的双向交互" class="headerlink" title="1.3.1 客户端与服务器的双向交互"></a>1.3.1 客户端与服务器的双向交互</h3><p>&emsp;&emsp;当客户端和服务器之间建立连接时，客户端通常会向服务器发送请求，请求服务器发送所需的资源。主要分为3个阶段</p>
-<ul>
-<li><p>握手阶段：上行和下行报文在此阶段交替传输。对于同一种传输协议，在此阶段生成的报文序列非常相似，包括报文长度、数量、方向等。（<strong>有明显特征</strong>）</p>
-</li>
-<li><p>上行报文主导阶段：上行报文（C-&gt;S）主要在此阶段传输。通常将控制指令编码的上行报文发送给服务器，邀请服务器配合提高数据传输效率。</p>
-</li>
-<li><p>下行报文主导阶段：下行报文（S-&gt;C）主要在此阶段传输。下行报文用于传输客户端所需要的内容</p>
-<p><img src="https://raw.githubusercontent.com/lulu-cloud/lili_images/main/image/202311242128673.png" alt="image-20230119105857080"></p>
-</li>
-</ul>
-<h3 id="1-3-2-网络流量路径构建"><a href="#1-3-2-网络流量路径构建" class="headerlink" title="1.3.2 网络流量路径构建"></a>1.3.2 网络流量路径构建</h3><p>&emsp;&emsp;其实就是将流量报文长度序列收集起来，生成原始序列S,即一条一维路径，也就是流量路径X<sub>t</sub><sup>0</sup>其中上标0表示这是原始流量路径。</p>
-<blockquote>
-<p>给出代码提取报文长度序列，（无关原文）使用代码提取ip数据报文长度序列如下</p>
-</blockquote>
-<pre><code>from flowcontainer.extractor import extract
-pcap_path = r&quot;XX.pcap&quot;
-result = extract(pcap_path)
-for i , key in enumerate(result):
-    print(&quot;flow&#123;&#125;&quot;.format(i))
-    value = result[key]
-    print(&#39;ip lengths :&#39;,value.ip_lengths)
-    print(&#39;\n&#39;)
-</code></pre><h2 id="1-4-路径转换"><a href="#1-4-路径转换" class="headerlink" title="1.4 路径转换"></a>1.4 路径转换</h2><p>&emsp;&emsp;在大多数情况下，一维流量路径的路径特征往往不够有效，无法达到较高的分类精度。</p>
-<h3 id="1-4-1-路径分解变换"><a href="#1-4-1-路径分解变换" class="headerlink" title="1.4.1 路径分解变换"></a>1.4.1 路径分解变换</h3><ul>
-<li><p>路径分解变换将一条路径转化为相同维数的子路径集合</p>
-<ul>
-<li><p>一维路径X<sub>t</sub><sup>0</sup>首先分解为上行序列路径U<sub>0</sub>与下行序列路径D<sub>0</sub></p>
-</li>
-<li><p>此时变为<strong>二维路径</strong>X<sub>t</sub><sup>0,d</sup>={U,D},上标d表示进行的解体变换，将另一个方向的数据包长度替换为0，即X<sub>t</sub><sup>0，d</sup>中上行序列U的报文长度全替换为0</p>
-</li>
-</ul>
-</li>
-</ul>
-<blockquote>
-<p>变换理由：为了提高路径签名特征的效率，将流量路径转换为两条一维流量路径，这也符合客户端-服务器交互的特点。</p>
-</blockquote>
-<h3 id="1-4-2-累积和变换"><a href="#1-4-2-累积和变换" class="headerlink" title="1.4.2 累积和变换"></a>1.4.2 累积和变换</h3><p>&emsp;&emsp;一般来讲，报文要传输的有效载荷通常是固定的，用于相同的网站或服务，这导致非常相似的累积和特征。</p>
-<p>对于U0序列，累积和可如下表示：</p>
-<script type="math/tex; mode=display">
-U'=(u_1',u_2',...,u_n'),u_n'=\sum_{i=1}^ku_i</script><p>D0序列类似</p>
-<ul>
-<li>于是变换为<strong>四维</strong>，X<sub>t</sub><sup>0,d,c</sup>={U,D,U’,D’}</li>
-</ul>
-<blockquote>
-<p>变换理由：要传输的有效载荷对于同一网站或服务往往是固定的,使用累积和变换来暴露流量路径的一些内部特征。</p>
-</blockquote>
-<h3 id="1-4-3-基准点变换"><a href="#1-4-3-基准点变换" class="headerlink" title="1.4.3 基准点变换"></a>1.4.3 基准点变换</h3><p>使用函数f</p>
-<script type="math/tex; mode=display">
-f(X_t)=(0,x_1,...,x_n)</script><p>只是在路径的开头添加了一个0,这种转换使签名对路径的转换敏感，即消除了转换不变性，这对加密流量分类有利，因为不同的数据包大小代表不同的网站布局或服务内容</p>
-<p>得到X<sub>t</sub><sup>0,d,c,b</sup>={f(U),f(D),f(U’),f(D’)}</p>
-<blockquote>
-<p>变换理由：原路径签名特征具有平移不变性，但加密流分类问题不需要这一属性，因此使用基点变换对流量路径进行变换。</p>
-</blockquote>
-<h3 id="1-4-4-结合时间变换"><a href="#1-4-4-结合时间变换" class="headerlink" title="1.4.4 结合时间变换"></a>1.4.4 结合时间变换</h3><ul>
-<li>通过添加单调坐标(如时间)来丰富原有的线性路径，从而保证签名的唯一性。它通常对应于添加时间参数化作为路径坐标。</li>
-<li>将交通路径5维路径X<sub>t</sub><sup>0,d,c,b,t</sup>={f(U),f(D),f(U’),f(D’),t<blockquote>
-<p>变换理由：保证构建的流量路径具有唯一性</p>
-</blockquote>
-</li>
-</ul>
-<h2 id="1-5-路径特征抽取"><a href="#1-5-路径特征抽取" class="headerlink" title="1.5 路径特征抽取"></a>1.5 路径特征抽取</h2><ul>
-<li><p>使用滑动窗口机制进行<strong>多尺度</strong>特征抽取</p>
-<ul>
-<li>提取分层特征，设置q层，有q个滑动窗口，对于第i层的滑动窗口W<sub>i</sub>,窗口长度与步长都是n2<sup>i-1</sup>，这将产生2<sup>q</sup>-1个子路径，自路径长度分别为n,n/2,n/4,…,n/2<sup>q-1</sup><ul>
-<li>即对于第一层，窗口长度为n，步长为n，产生2^0=1个子路径</li>
-<li>对于第二层，窗口与步长都是n/2, 产生2^1=1个子路径</li>
-<li>对于第三层，窗口与步长都是n/4，产生2^2=4个子路径</li>
-<li>……</li>
-<li>对于第q层，产生2^q-1个子路径<br>故总的路径数目为<script type="math/tex; mode=display">
-2^0 +2^1 + ···+2^{q-1}=2^q-1</script>&emsp;&emsp;然后对于这2^q-1个子路径进行计算路径签名，作为分类器输入特征</li>
-</ul>
-</li>
-<li><p>整体流程如下所示：</p>
-<p><img src="https://raw.githubusercontent.com/lulu-cloud/lili_images/main/image/202311242129402.png" alt="image-20230119114153356"></p>
-</li>
-</ul>
-</li>
-<li><p>图中CS Sequence表示累积和系列</p>
-</li>
-</ul>
-<hr>
-<h1 id="2、实验"><a href="#2、实验" class="headerlink" title="2、实验"></a>2、实验</h1><h2 id="2-1-数据集"><a href="#2-1-数据集" class="headerlink" title="2.1 数据集"></a>2.1 数据集</h2><p> <img src="https://raw.githubusercontent.com/lulu-cloud/lili_images/main/image/202311242129771.png" alt=""></p>
-<h2 id="2-2-预处理"><a href="#2-2-预处理" class="headerlink" title="2.2 预处理"></a>2.2 预处理</h2><ul>
-<li>分为session双向流，提取数据包长度</li>
-<li>标记</li>
-<li>过滤：对于流太短的，只有几个包，剔除；类别样本数目太少的，剔除</li>
-</ul>
-<h2 id="2-3-调参"><a href="#2-3-调参" class="headerlink" title="2.3 调参"></a>2.3 调参</h2><ul>
-<li><p>序列长度：40</p>
-</li>
-<li><p>236个类别，每个类别45个样本</p>
-</li>
-</ul>
-<h3 id="2-3-1-序列选择的调整"><a href="#2-3-1-序列选择的调整" class="headerlink" title="2.3.1 序列选择的调整"></a>2.3.1 序列选择的调整</h3><p>&emsp;&emsp;上文变换后的X<sub>t</sub><sup>0,d,c,b</sup>={f(U),f(D),f(U’),f(D’)}由四个一维序列组成，但是文中有六个序列，进行排列组合变换，找出最佳变换；</p>
-<p><img src="https://raw.githubusercontent.com/lulu-cloud/lili_images/main/image/202311242129092.png" alt="image-20230119115903416"></p>
-<p>最后选择选择U0序列、D0序列、U0 CS序列和D0 CS序列的组合路径，也就是段落1提到的路径组合。</p>
-<h3 id="2-3-2-分类器选择"><a href="#2-3-2-分类器选择" class="headerlink" title="2.3.2 分类器选择"></a>2.3.2 分类器选择</h3><p>选RF随机森林</p>
-<h3 id="2-3-3-参数选择"><a href="#2-3-3-参数选择" class="headerlink" title="2.3.3 参数选择"></a>2.3.3 参数选择</h3><p><img src="https://raw.githubusercontent.com/lulu-cloud/lili_images/main/image/202311242129145.png" alt="在这里插入图片描述"></p>
-<p>签名深度为3<br>窗口深度q为4</p>
-<blockquote>
-<ul>
-<li>关于序列长度增长，acc降低的分析：序列长度越长，路径包含的信息就越丰富，这就对模型提取特征的能力提出了更高的要求，而固定深度的路径签名和窗口窗口深度代表了固定的模型能力，随着序列长度增加，acc降低正常</li>
-<li>路径签名的深度：在窗口深度为2的情况下，随着序列长度从40增加到200，精度之间的差距将逐渐明显，其中深度大的情况总是优于深度小的情况。因为路径签名深度大代表高阶psf，其中包含更多的路径细节。</li>
-<li>窗口深度：当分层窗口深度从2增加到4时，准确率会逐渐提高。然而，大深度的分层窗口会导致PSF维度爆炸，并导致较高的计算成本。<br>……<h2 id="2-4-在开放世界数据的效果"><a href="#2-4-在开放世界数据的效果" class="headerlink" title="2.4 在开放世界数据的效果"></a>2.4 在开放世界数据的效果</h2><img src="https://raw.githubusercontent.com/lulu-cloud/lili_images/main/image/202311242129899.png" alt="在这里插入图片描述"></li>
-</ul>
-</blockquote>
-<h1 id="3、总结与思考"><a href="#3、总结与思考" class="headerlink" title="3、总结与思考"></a>3、总结与思考</h1><p>缺陷：数据包填充技术会使得基于序列特征的方法失效。</p>
-<p>&emsp;将深度学习应用于带路径签名的加密流分类是一个很有前景的研究方向，尤其是RNN。路径签名特征在移动加密流分类问题中的应用也很值得探索。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-
-  
-  <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
-  </nav>
-
-
-
-          </div>
-          
-
-<script>
-  window.addEventListener('tabs:register', () => {
-    let { activeClass } = CONFIG.comments;
-    if (CONFIG.comments.storage) {
-      activeClass = localStorage.getItem('comments_active') || activeClass;
-    }
-    if (activeClass) {
-      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
-      if (activeTab) {
-        activeTab.click();
-      }
-    }
-  });
-  if (CONFIG.comments.storage) {
-    window.addEventListener('tabs:click', event => {
-      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
-      let commentClass = event.target.classList[1];
-      localStorage.setItem('comments_active', commentClass);
-    });
-  }
-</script>
-
-        </div>
-          
-  
-  <div class="toggle sidebar-toggle">
-    <span class="toggle-line toggle-line-first"></span>
-    <span class="toggle-line toggle-line-middle"></span>
-    <span class="toggle-line toggle-line-last"></span>
-  </div>
-
-  <aside class="sidebar">
-    <div class="sidebar-inner">
-
-      <ul class="sidebar-nav motion-element">
-        <li class="sidebar-nav-toc">
-          文章目录
-        </li>
-        <li class="sidebar-nav-overview">
-          站点概览
-        </li>
-      </ul>
-
-      <!--noindex-->
-      <div class="post-toc-wrap sidebar-panel">
-      </div>
-      <!--/noindex-->
-
-      <div class="site-overview-wrap sidebar-panel">
-        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
-    <img class="site-author-image" itemprop="image" alt="luluX"
-      src="/images/ava.jpg">
-  <p class="site-author-name" itemprop="name">luluX</p>
-  <div class="site-description" itemprop="description">lulu-cloud的个人GitHub博客</div>
 </div>
-<div class="site-state-wrap motion-element">
-  <nav class="site-state">
-      <div class="site-state-item site-state-posts">
-          <a href="/archives/">
-        
-          <span class="site-state-item-count">32</span>
-          <span class="site-state-item-name">日志</span>
-        </a>
-      </div>
-      <div class="site-state-item site-state-categories">
-        <span class="site-state-item-count">5</span>
-        <span class="site-state-item-name">分类</span>
-      </div>
-      <div class="site-state-item site-state-tags">
-        <span class="site-state-item-count">7</span>
-        <span class="site-state-item-name">标签</span>
-      </div>
-  </nav>
-</div>
-  <div class="links-of-author motion-element">
-      <span class="links-of-author-item">
-        <a href="https://github.com/lulu-cloud" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;lulu-cloud" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
-      </span>
-  </div>
-
-
-  <div class="links-of-blogroll motion-element">
-    <div class="links-of-blogroll-title"><i class="fa fa-link fa-fw"></i>
-      Links
-    </div>
-    <ul class="links-of-blogroll-list">
-        <li class="links-of-blogroll-item">
-          <a href="https://blog.csdn.net/qq_45125356?spm=1001.2101.3001.5343" title="https:&#x2F;&#x2F;blog.csdn.net&#x2F;qq_45125356?spm&#x3D;1001.2101.3001.5343" rel="noopener" target="_blank">CSDN博客</a>
-        </li>
-    </ul>
-  </div>
-
-      </div>
-
-    </div>
-  </aside>
-  <div id="sidebar-dimmer"></div>
-
-
-      </div>
-    </main>
-
-    <footer class="footer">
-      <div class="footer-inner">
-        
-
-        
-
-<div class="copyright">
-  
-  &copy; 
-  <span itemprop="copyrightYear">2024</span>
-  <span class="with-love">
-    <i class="fa fa-heart"></i>
-  </span>
-  <span class="author" itemprop="copyrightHolder">luluX</span>
-</div>
-  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
-  </div>
-
-        
-
-
-
-
-
-
-
-
-      </div>
+        </div>
+        <div class="post-permalink">
+            <a href="/2023/04/04/%E5%8A%9B%E6%89%A3%E5%88%B7%E9%A2%98-%E5%8C%BA%E9%97%B4%E9%97%AE%E9%A2%98/" class="btn btn-default">
+                阅读全文</a>
+        </div>
     </footer>
-  </div>
-
-  
-  <script src="/lib/anime.min.js"></script>
-  <script src="/lib/velocity/velocity.min.js"></script>
-  <script src="/lib/velocity/velocity.ui.min.js"></script>
-
-<script src="/js/utils.js"></script>
-
-<script src="/js/motion.js"></script>
+    
+</article>
 
 
-<script src="/js/schemes/pisces.js"></script>
+<article class="post">
+    
+    <div class="post-media">
+        <a href="/2023/04/01/%E6%B5%81%E9%87%8F%E9%A2%84%E5%A4%84%E7%90%86-2%EF%BC%9A%E8%BF%87%E6%BB%A4/">
+            <img class="img-ajax" src="/img/loading.gif" data-src="https://raw.githubusercontent.com/lulu-cloud/lili_images/main/image/202311242148932.png" alt="加密流量分类-实践4: 流量过滤">
+        </a>
+    </div>
+    
+    <div class="post-content">
+        <div class="post-head home-post-head">
+            <h1 class="post-title">
+                <a href="/2023/04/01/%E6%B5%81%E9%87%8F%E9%A2%84%E5%A4%84%E7%90%86-2%EF%BC%9A%E8%BF%87%E6%BB%A4/">
+                    加密流量分类-实践4: 流量过滤</a>
+            </h1>
+            <div class="post-meta"> &bull;
+                <time class="post-date" datetime="" title="">
+                    2023年04月01日
+                </time>
+            </div>
+        </div>
+        <p class="brief">
+            
+            加密流量分类-实践4：流量过滤
+炼丹的时候，经常需要过滤无关流量
+论文的通常做法是将dns、icmp、arp、tcp握手报文删除
+以下是给出我的代码，用wirshark前后对比pcap有效
+  from scapy.all impor...
+            
+        </p>
+    </div>
+    
+    <footer class="post-footer clearfix">
+        <div class="pull-left tag-list">
+            <div class="post-meta">
+    
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        <a class="category-link" href="/categories/%E7%A7%91%E7%A0%94/">科研</a> <a class="category-link" href="/categories/%E7%A7%91%E7%A0%94/%E5%8A%A0%E5%AF%86%E6%B5%81%E9%87%8F%E5%88%86%E7%B1%BB/">加密流量分类</a>
+    </span>
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+            <a class="tag-none-link" href="/tags/%E5%AE%9E%E9%AA%8C/" rel="tag">实验</a>
+            
+        </span>
+    </span>
+    
+    
+</div>
+        </div>
+        <div class="post-permalink">
+            <a href="/2023/04/01/%E6%B5%81%E9%87%8F%E9%A2%84%E5%A4%84%E7%90%86-2%EF%BC%9A%E8%BF%87%E6%BB%A4/" class="btn btn-default">
+                阅读全文</a>
+        </div>
+    </footer>
+    
+</article>
 
 
-<script src="/js/next-boot.js"></script>
+<article class="post">
+    
+    <div class="post-media">
+        <a href="/2023/03/11/%E6%B5%81%E9%87%8F%E9%A2%84%E5%A4%84%E7%90%86-1%EF%BC%9A%E7%89%B9%E5%BE%81%E6%8F%90%E5%8F%96/">
+            <img class="img-ajax" src="/img/loading.gif" data-src="https://raw.githubusercontent.com/lulu-cloud/lili_images/main/image/202311242147859.png" alt="加密流量分类-实践3: 特征提取">
+        </a>
+    </div>
+    
+    <div class="post-content">
+        <div class="post-head home-post-head">
+            <h1 class="post-title">
+                <a href="/2023/03/11/%E6%B5%81%E9%87%8F%E9%A2%84%E5%A4%84%E7%90%86-1%EF%BC%9A%E7%89%B9%E5%BE%81%E6%8F%90%E5%8F%96/">
+                    加密流量分类-实践3: 特征提取</a>
+            </h1>
+            <div class="post-meta"> &bull;
+                <time class="post-date" datetime="" title="">
+                    2023年03月11日
+                </time>
+            </div>
+        </div>
+        <p class="brief">
+            
+            加密流量分类-实践3：特征提取1、原因 看着博客flowcontainer)的感觉很好，但是有如下缺陷：
+
+处理大文件费内存，关于数据集ISCX2016中的FT类型一个pcap动则就是5个多G，吃不消
+
+设置extension字段提取...
+            
+        </p>
+    </div>
+    
+    <footer class="post-footer clearfix">
+        <div class="pull-left tag-list">
+            <div class="post-meta">
+    
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        <a class="category-link" href="/categories/%E7%A7%91%E7%A0%94/">科研</a> <a class="category-link" href="/categories/%E7%A7%91%E7%A0%94/%E5%8A%A0%E5%AF%86%E6%B5%81%E9%87%8F%E5%88%86%E7%B1%BB/">加密流量分类</a>
+    </span>
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+            <a class="tag-none-link" href="/tags/%E5%AE%9E%E9%AA%8C/" rel="tag">实验</a>
+            
+        </span>
+    </span>
+    
+    
+</div>
+        </div>
+        <div class="post-permalink">
+            <a href="/2023/03/11/%E6%B5%81%E9%87%8F%E9%A2%84%E5%A4%84%E7%90%86-1%EF%BC%9A%E7%89%B9%E5%BE%81%E6%8F%90%E5%8F%96/" class="btn btn-default">
+                阅读全文</a>
+        </div>
+    </footer>
+    
+</article>
+
+
+<article class="post">
+    
+    <div class="post-media">
+        <a href="/2023/03/09/%E5%8A%A0%E5%AF%86%E6%B5%81%E9%87%8F%E5%88%86%E7%B1%BBtorch%E5%AE%9E%E8%B7%B52%EF%BC%9ACNN+LSTM%E6%A8%A1%E5%9E%8B%E8%AE%AD%E7%BB%83%E4%B8%8E%E6%B5%8B%E8%AF%95/">
+            <img class="img-ajax" src="/img/loading.gif" data-src="https://raw.githubusercontent.com/lulu-cloud/lili_images/main/image/202311242142864.png" alt="加密流量分类-实践2: CNN+LSTM模型训练与测试">
+        </a>
+    </div>
+    
+    <div class="post-content">
+        <div class="post-head home-post-head">
+            <h1 class="post-title">
+                <a href="/2023/03/09/%E5%8A%A0%E5%AF%86%E6%B5%81%E9%87%8F%E5%88%86%E7%B1%BBtorch%E5%AE%9E%E8%B7%B52%EF%BC%9ACNN+LSTM%E6%A8%A1%E5%9E%8B%E8%AE%AD%E7%BB%83%E4%B8%8E%E6%B5%8B%E8%AF%95/">
+                    加密流量分类-实践2: CNN+LSTM模型训练与测试</a>
+            </h1>
+            <div class="post-meta"> &bull;
+                <time class="post-date" datetime="" title="">
+                    2023年03月09日
+                </time>
+            </div>
+        </div>
+        <p class="brief">
+            
+            加密流量分类torch实践2：CNN+LSTM模型训练与测试
+代码模板参考：CENTIME:A Direct Comprehensive Traffic Features Extraction for Encrypted Traffi...
+            
+        </p>
+    </div>
+    
+    <footer class="post-footer clearfix">
+        <div class="pull-left tag-list">
+            <div class="post-meta">
+    
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        <a class="category-link" href="/categories/%E7%A7%91%E7%A0%94/">科研</a> <a class="category-link" href="/categories/%E7%A7%91%E7%A0%94/%E5%8A%A0%E5%AF%86%E6%B5%81%E9%87%8F%E5%88%86%E7%B1%BB/">加密流量分类</a>
+    </span>
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+            <a class="tag-none-link" href="/tags/%E5%AE%9E%E9%AA%8C/" rel="tag">实验</a>
+            
+        </span>
+    </span>
+    
+    
+</div>
+        </div>
+        <div class="post-permalink">
+            <a href="/2023/03/09/%E5%8A%A0%E5%AF%86%E6%B5%81%E9%87%8F%E5%88%86%E7%B1%BBtorch%E5%AE%9E%E8%B7%B52%EF%BC%9ACNN+LSTM%E6%A8%A1%E5%9E%8B%E8%AE%AD%E7%BB%83%E4%B8%8E%E6%B5%8B%E8%AF%95/" class="btn btn-default">
+                阅读全文</a>
+        </div>
+    </footer>
+    
+</article>
+
+
+<article class="post">
+    
+    <div class="post-content">
+        <div class="post-head home-post-head">
+            <h1 class="post-title">
+                <a href="/2023/03/02/%E5%8A%9B%E6%89%A3%E5%88%B7%E9%A2%98-%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/">
+                    算法学习：二分查找</a>
+            </h1>
+            <div class="post-meta"> &bull;
+                <time class="post-date" datetime="" title="">
+                    2023年03月02日
+                </time>
+            </div>
+        </div>
+        <p class="brief">
+            
+            一、 原则1. 区间：左右闭区间2. while结束设定为&amp;lt;=3. 左右界更新都为mid上下1
+
+二分查找可以设定左闭右开的写法，也可以左右都是闭区间，这里设定后者
+
+在1的设定下，如果left=right，即当前搜索区间长度为...
+            
+        </p>
+    </div>
+    
+    <footer class="post-footer clearfix">
+        <div class="pull-left tag-list">
+            <div class="post-meta">
+    
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        <a class="category-link" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/">数据结构与算法</a>
+    </span>
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+            <a class="tag-none-link" href="/tags/%E5%8A%9B%E6%89%A3%E5%88%B7%E9%A2%98/" rel="tag">力扣刷题</a> <a class="tag-none-link" href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" rel="tag">数据结构与算法</a>
+            
+        </span>
+    </span>
+    
+    
+</div>
+        </div>
+        <div class="post-permalink">
+            <a href="/2023/03/02/%E5%8A%9B%E6%89%A3%E5%88%B7%E9%A2%98-%E4%BA%8C%E5%88%86%E6%9F%A5%E6%89%BE/" class="btn btn-default">
+                阅读全文</a>
+        </div>
+    </footer>
+    
+</article>
+
+
+<article class="post">
+    
+    <div class="post-media">
+        <a href="/2023/01/19/%E5%8A%A0%E5%AF%86%E6%B5%81%E9%87%8F%E5%88%86%E7%B1%BB-%E8%AE%BA%E6%96%8712%EF%BC%9ASeeing%20Traffic%20Paths_%20Encrypted%20Traffic%20Classification%20With%20Path%20Signature%20Features/">
+            <img class="img-ajax" src="/img/loading.gif" data-src="https://raw.githubusercontent.com/lulu-cloud/lili_images/main/image/202311242129402.png" alt="加密流量分类-论文12: Seeing Traffic Paths_ Encrypted Traffic Classification With Path Signature Features">
+        </a>
+    </div>
+    
+    <div class="post-content">
+        <div class="post-head home-post-head">
+            <h1 class="post-title">
+                <a href="/2023/01/19/%E5%8A%A0%E5%AF%86%E6%B5%81%E9%87%8F%E5%88%86%E7%B1%BB-%E8%AE%BA%E6%96%8712%EF%BC%9ASeeing%20Traffic%20Paths_%20Encrypted%20Traffic%20Classification%20With%20Path%20Signature%20Features/">
+                    加密流量分类-论文12: Seeing Traffic Paths_ Encrypted Traffic Classification With Path Signature Features</a>
+            </h1>
+            <div class="post-meta"> &bull;
+                <time class="post-date" datetime="" title="">
+                    2023年01月19日
+                </time>
+            </div>
+        </div>
+        <p class="brief">
+            
+            0、摘要&amp;emsp;&amp;emsp;本文提出了一种新的带路径签名的加密流分类方法——ETC-PS。首先用会话数据包长度序列构造流量路径来表示客户端和服务器之间的交互。然后进行路径变换，展示其结构，获得不同的信息。最后计算出多尺度路径特征作...
+            
+        </p>
+    </div>
+    
+    <footer class="post-footer clearfix">
+        <div class="pull-left tag-list">
+            <div class="post-meta">
+    
+    <span class="categories-meta fa-wrap">
+        <i class="fa fa-folder-open-o"></i>
+        <a class="category-link" href="/categories/%E7%A7%91%E7%A0%94/">科研</a> <a class="category-link" href="/categories/%E7%A7%91%E7%A0%94/%E5%8A%A0%E5%AF%86%E6%B5%81%E9%87%8F%E5%88%86%E7%B1%BB/">加密流量分类</a>
+    </span>
+    
+    
+    <span class="fa-wrap">
+        <i class="fa fa-tags"></i>
+        <span class="tags-meta">
+            
+            <a class="tag-none-link" href="/tags/%E8%AE%BA%E6%96%87/" rel="tag">论文</a>
+            
+        </span>
+    </span>
+    
+    
+</div>
+        </div>
+        <div class="post-permalink">
+            <a href="/2023/01/19/%E5%8A%A0%E5%AF%86%E6%B5%81%E9%87%8F%E5%88%86%E7%B1%BB-%E8%AE%BA%E6%96%8712%EF%BC%9ASeeing%20Traffic%20Paths_%20Encrypted%20Traffic%20Classification%20With%20Path%20Signature%20Features/" class="btn btn-default">
+                阅读全文</a>
+        </div>
+    </footer>
+    
+</article>
+
+
+
+<nav class="pagination" role="navigation">
+    <div id="page-nav">
+        <a class="extend prev" rel="prev" href="/"><i class='fa fa-angle-left'></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/3/"><i class='fa fa-angle-right'></i></a>
+    </div>
+</nav>
+
+                </main>
+                
+                    
+<aside class="col-md-4 sidebar">
+    
+    
+<div class="widget">
+    <h3 class="title">
+        搜索
+    </h3>
+    <div id="search-form">
+        <div id="result-mask" class="hide"></div>
+        <div class="search-area">
+            
+            <input id="search-key" type="search" autocomplete="off" placeholder="搜点什么呢？">
+            <button type="button" class="search-form-submit" id="search-local">
+                站内搜索</button>
+            
+            
+        </div>
+        <div id="result-wrap" class="hide">
+            <div id="search-result"></div>
+        </div>
+        <div class="hide">
+            <template id="search-tpl">
+                <div class="item">
+                    <a href="/{path}" title="{title}">
+                        <div class="title">{title}</div>
+                        <div class="content">{content}</div>
+                    </a>
+                </div>
+            </template>
+        </div>
+    </div>
+</div>
+
+    
+    
+<div class="widget">
+    <h3 class="title">
+        社交
+    </h3>
+    <div class="content social">
+        
+        <a href="https://github.com/lulu-cloud" rel="external nofollow" title="Github" target="_blank">
+            <i class="git fa fa-git"></i>
+        </a>
+        
+        <a href="https://blog.csdn.net/qq_45125356?spm=1001.2101.3001.5343" rel="external nofollow" title="csdn" target="_blank">
+            <i class="blog fa fa-blog"></i>
+        </a>
+        
+    </div>
+</div>
+
+    
+    
+<div class="widget">
+    <h3 class="title">
+        分类
+    </h3>
+    <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/Java%E5%AD%A6%E4%B9%A0/"><i class="fa" aria-hidden="true">Java学习</i></a><span class="category-list-count">4</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/"><i class="fa" aria-hidden="true">数据结构与算法</i></a><span class="category-list-count">9</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%A7%91%E7%A0%94/"><i class="fa" aria-hidden="true">科研</i></a><span class="category-list-count">19</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%A7%91%E7%A0%94/Tor/"><i class="fa" aria-hidden="true">Tor</i></a><span class="category-list-count">1</span></li><li class="category-list-item"><a class="category-list-link" href="/categories/%E7%A7%91%E7%A0%94/%E5%8A%A0%E5%AF%86%E6%B5%81%E9%87%8F%E5%88%86%E7%B1%BB/"><i class="fa" aria-hidden="true">加密流量分类</i></a><span class="category-list-count">18</span></li></ul></li></ul>
+</div>
+
+    
+    
+<div class="widget">
+    <h3 class="title">
+        归档
+    </h3>
+    <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/05/"><i class="fa" aria-hidden="true">2024年05月</i></a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/04/"><i class="fa" aria-hidden="true">2024年04月</i></a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/03/"><i class="fa" aria-hidden="true">2024年03月</i></a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/02/"><i class="fa" aria-hidden="true">2024年02月</i></a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/12/"><i class="fa" aria-hidden="true">2023年12月</i></a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/04/"><i class="fa" aria-hidden="true">2023年04月</i></a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/03/"><i class="fa" aria-hidden="true">2023年03月</i></a><span class="archive-list-count">3</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2023/01/"><i class="fa" aria-hidden="true">2023年01月</i></a><span class="archive-list-count">1</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/11/"><i class="fa" aria-hidden="true">2022年11月</i></a><span class="archive-list-count">2</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/10/"><i class="fa" aria-hidden="true">2022年10月</i></a><span class="archive-list-count">4</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/09/"><i class="fa" aria-hidden="true">2022年09月</i></a><span class="archive-list-count">5</span></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2022/08/"><i class="fa" aria-hidden="true">2022年08月</i></a><span class="archive-list-count">1</span></li></ul>
+</div>
+
+    
+    
+<div class="widget">
+    <h3 class="title">
+        标签云
+    </h3>
+    <div class="content tag-cloud">
+        
+        <a href="/tags/JVM/" style="font-size: 12px;">JVM</a> <a href="/tags/Java%E5%85%AB%E8%82%A1%E6%96%87/" style="font-size: 14px;">Java八股文</a> <a href="/tags/Spring/" style="font-size: 10px;">Spring</a> <a href="/tags/%E5%8A%9B%E6%89%A3%E5%88%B7%E9%A2%98/" style="font-size: 18px;">力扣刷题</a> <a href="/tags/%E5%AE%9E%E9%AA%8C/" style="font-size: 16px;">实验</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" style="font-size: 18px;">数据结构与算法</a> <a href="/tags/%E8%AE%BA%E6%96%87/" style="font-size: 20px;">论文</a>
+        
+    </div>
+</div>
+
+    
+    
+<div class="widget">
+    <h3 class="title">
+        友链
+    </h3>
+    <div class="content friends-link">
+        
+        <a href="https://blog.csdn.net/qq_45125356?spm=1001.2101.3001.534" class="fa" target="_blank">
+            我的csdn博客</a>
+        
+    </div>
+</div>
+
+    
+</aside>
+
+                
+            </div>
+        </div>
+    </section>
+    <footer class="main-footer">
+    <div class="container">
+        <div class="row">
+        </div>
+    </div>
+</footer>
+<a id="back-to-top" class="icon-btn hide">
+    <i class="fa fa-chevron-up"></i>
+</a>
+    <div class="copyright">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="busuanzi">
+    
+    访问量:
+    <strong id="busuanzi_value_site_pv">
+        <i class="fa fa-spinner fa-spin"></i>
+    </strong>
+    &nbsp; | &nbsp;
+    访客数:
+    <strong id="busuanzi_value_site_uv">
+        <i class="fa fa-spinner fa-spin"></i>
+    </strong>
+    
+</div>
+            </div>
+            <div class="col-sm-12">
+                <span>Copyright &copy;
+                    2017
+                    
+                </span> |
+                <span>
+                    Powered by <a href="//hexo.io" class="copyright-links" target="_blank" rel="nofollow">Hexo</a>
+                </span> |
+                <span>
+                    Theme by <a href="//github.com/shenliyang/hexo-theme-snippet.git" class="copyright-links" target="_blank" rel="nofollow">Snippet</a>
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="/js/search.js?rev=@@hash.js"></script>
 
 
 
 
-  
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-  
-
-  
+<script src="/js/app.js?rev=@@hash.js"></script>
 
 </body>
 </html>
